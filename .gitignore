@@ -1,0 +1,5 @@
+**.cache
+**.sln
+.vs/
+**/obj
+**/bin
