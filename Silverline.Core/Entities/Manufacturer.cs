@@ -10,4 +10,6 @@ public class Manufacturer
     public string Name { get; set; }
 
     public string Location { get; set; }    
+
+    public ICollection<Medicine> Medicines { get; set; }
 }

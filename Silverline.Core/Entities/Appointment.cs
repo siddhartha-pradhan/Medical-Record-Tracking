@@ -19,8 +19,8 @@ public class Appointment
     public string DiagnosisDescription { get; set; }
 
     [ForeignKey("PatientId")]
-    public Patient Patient { get; set; }
+    public virtual Patient Patient { get; set; }
 
     [ForeignKey("DoctorId")]
-    public Doctor Doctor { get; set; }
+    public virtual Doctor Doctor { get; set; }
 }

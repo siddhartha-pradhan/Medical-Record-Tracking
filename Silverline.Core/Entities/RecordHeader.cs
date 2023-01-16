@@ -13,5 +13,5 @@ public class RecordHeader
     public string Title { get; set; }
 
     [ForeignKey("PatientId")]
-    public Patient Patient { get; set; }
+    public virtual Patient Patient { get; set; }
 }

@@ -14,8 +14,8 @@ public class TestCart
 
 
     [ForeignKey("PatientId")]
-    public Patient Patient { get; set; }
+    public virtual Patient Patient { get; set; }
 
     [ForeignKey("TestId")]
-    public DiagnosticTest DiagnosticTest { get; set; }
+    public virtual DiagnosticTest DiagnosticTest { get; set; }
 }

@@ -8,7 +8,7 @@ public class Doctor
     [Key]
     public Guid Id { get; set; }
 
-    public string Name { get; set; }
+    public Guid UserId { get; set; }
 
     public string CertificationNumber { get; set; } 
 
@@ -17,5 +17,10 @@ public class Doctor
     public Guid DepartmentId { get; set; }
 
     [ForeignKey("DepartmentId")]
-    public Specialty Specialty { get; set; }
+    public virtual Specialty Specialty { get; set; }
+
+    [ForeignKey("UserId")]
+    public virtual AppUser AppUser { get; set; }
+
+    public ICollection<Appointment> Appointments { get; set; }
 }

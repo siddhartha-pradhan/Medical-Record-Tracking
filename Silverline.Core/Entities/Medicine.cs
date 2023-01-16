@@ -19,8 +19,14 @@ public class Medicine
     public Guid CategoryId { get; set; }
 
     [ForeignKey("ManufacturerId")]
-    public Manufacturer Manufacturer { get; set; }
+    public virtual Manufacturer Manufacturer { get; set; }
 
     [ForeignKey("CategoryId")]
-    public Category Category { get; set; }
+    public virtual Category Category { get; set; }
+
+    public ICollection<MedicineCart> MedicineCarts { get; set; }
+
+    public ICollection<MedicationTreatment> MedicationTreatments { get; set; }
+
+    public ICollection<OrderDetail> OrderDetails { get; set; }
 }

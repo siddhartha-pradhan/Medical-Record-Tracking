@@ -16,11 +16,11 @@ public class OrderDetail
     public Guid ApprovedBy { get; set; }
 
     [ForeignKey("OrderId")]
-    public OrderHeader OrderHeader { get; set; }
+    public virtual OrderHeader OrderHeader { get; set; }
 
     [ForeignKey("MedicineId")]
-    public Medicine Medicine { get; set; }
+    public virtual Medicine Medicine { get; set; }
 
     [ForeignKey("ApprovedBy")]
-    public Doctor Doctor { get; set; }
+    public virtual Doctor Doctor { get; set; }
 }

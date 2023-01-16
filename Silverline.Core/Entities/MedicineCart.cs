@@ -17,11 +17,11 @@ public class MedicineCart
     public Guid ApprovedBy { get; set; }
 
     [ForeignKey("PatientId")]
-    public Patient Patient { get; set; }
+    public virtual Patient Patient { get; set; }
 
     [ForeignKey("MedicineId")]
-    public Medicine Medicine { get; set; }
+    public virtual Medicine Medicine { get; set; }
 
     [ForeignKey("ApprovedBy")]
-    public Doctor Doctor { get; set; }
+    public virtual Doctor Doctor { get; set; }
 }

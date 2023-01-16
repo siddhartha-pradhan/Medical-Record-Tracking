@@ -15,10 +15,8 @@ public class TestDetail
     public float Price { get; set; }
 
     [ForeignKey("TestHeaderId")]
-    public TestHeader TestHeader { get; set; }
+    public virtual TestHeader TestHeader { get; set; }
 
     [ForeignKey("TestId")]
-    public DiagnosticTest DiagnosticTest { get; set; }
-
-   
+    public virtual DiagnosticTest DiagnosticTest { get; set; }
 }

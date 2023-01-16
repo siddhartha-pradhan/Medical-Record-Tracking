@@ -1,18 +1,17 @@
-﻿namespace Silverline.Core.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Silverline.Core.Entities;
 
 public class Pharmacist
 {
     public Guid Id { get; set; }
 
-    public string Name { get; set; }
-
-    public string PhoneNumber { get; set; }
-
-    public string Email { get; set; }
-
-    public string PasswordHash { get; set; }
+    public Guid UserId { get; set; }
 
     public string CertificateNumber { get; set; }
 
     public string HighestMedicalDegree { get; set; }
+
+    [ForeignKey("UserId")]
+    public virtual AppUser AppUser { get; set; }
 }

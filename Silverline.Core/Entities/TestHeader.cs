@@ -17,5 +17,7 @@ public class TestHeader
     public float TotalAmount { get; set; }
 
     [ForeignKey("PatientId")]
-    public Patient Patient { get; set; }
+    public virtual Patient Patient { get; set; }
+
+    public ICollection<TestDetail> TestDetails { get; set; }
 }

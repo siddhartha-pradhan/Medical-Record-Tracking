@@ -17,5 +17,7 @@ public class OrderHeader
     public float TotalAmount { get; set; }
 
     [ForeignKey("PatientId")]
-    public Patient Patient { get; set; }
+    public virtual Patient Patient { get; set; }
+
+    public ICollection<OrderDetail> OrderDetails { get; set; }
 }

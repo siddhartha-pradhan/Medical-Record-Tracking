@@ -13,5 +13,5 @@ public class RecordDetail
     public DateTime DateOfAppointment { get; set; }
 
     [ForeignKey("RecordId")]
-    public RecordHeader RecordHeader { get; set; }
+    public virtual RecordHeader RecordHeader { get; set; }
 }

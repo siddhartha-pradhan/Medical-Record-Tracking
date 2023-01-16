@@ -23,5 +23,11 @@ public class DiagnosticTest
     public Guid ClassId { get; set; }
 
     [ForeignKey("ClassId ")]
-    public TestType TestType { get; set; }
+    public  virtual TestType TestType { get; set; }
+
+    public ICollection<TestDetail> TestDetails { get; set; }
+
+    public ICollection<TestCart> TestCarts { get; set; }
+
+
 }

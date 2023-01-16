@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Silverline.Core.Entities;
 
 namespace Silverline.Infrastructure.Persistence;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
+        : base(options)
     {
 
     }
@@ -53,10 +55,98 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Appointment>().HasNoKey();
-        modelBuilder.Entity<MedicationTreatment>().HasNoKey();
-        modelBuilder.Entity<OrderDetail>().HasNoKey();
-        modelBuilder.Entity<TestDetail>().HasNoKey();
+        base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<Appointment>()
+            .HasKey(a => new { a.PatientId, a.DoctorId });
+
+        modelBuilder.Entity<Appointment>()
+            .HasOne(x => x.Patient)
+            .WithMany(x => x.Appointments)
+            .HasForeignKey(p => p.PatientId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Appointment>()
+            .HasOne(x => x.Doctor)
+            .WithMany(x => x.Appointments)
+            .HasForeignKey(p => p.DoctorId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<MedicationTreatment>()
+            .HasKey(a => new { a.PatientId, a.MedicineId });
+
+        modelBuilder.Entity<MedicationTreatment>()
+            .HasOne(x => x.Patient)
+            .WithMany(x => x.MedicationTreatments)
+            .HasForeignKey(p => p.PatientId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<MedicationTreatment>()
+            .HasOne(x => x.Medicine)
+            .WithMany(x => x.MedicationTreatments)
+            .HasForeignKey(p => p.MedicineId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<OrderDetail>()
+            .HasKey(a => new { a.OrderId, a.MedicineId });
+
+        modelBuilder.Entity<OrderDetail>()
+            .HasOne(x => x.OrderHeader)
+            .WithMany(x => x.OrderDetails)
+            .HasForeignKey(p => p.OrderId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<OrderDetail>()
+            .HasOne(x => x.Medicine)
+            .WithMany(x => x.OrderDetails)
+            .HasForeignKey(p => p.MedicineId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<TestDetail>()
+            .HasKey(a => new { a.TestId, a.TestHeaderId });
+
+        modelBuilder.Entity<TestDetail>()
+            .HasOne(x => x.TestHeader)
+            .WithMany(x => x.TestDetails)
+            .HasForeignKey(p => p.TestHeaderId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<TestDetail>()
+            .HasOne(x => x.DiagnosticTest)
+            .WithMany(x => x.TestDetails)
+            .HasForeignKey(p => p.TestId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<MedicineCart>()
+            .HasOne(x => x.Patient)
+            .WithMany(x => x.MedicineCarts)
+            .HasForeignKey(p => p.PatientId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<MedicineCart>()
+            .HasOne(x => x.Medicine)
+            .WithMany(x => x.MedicineCarts)
+            .HasForeignKey(p => p.MedicineId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<TestCart>()
+           .HasOne(x => x.Patient)
+           .WithMany(x => x.TestCarts)
+           .HasForeignKey(p => p.PatientId)
+           .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<TestCart>()
+            .HasOne(x => x.DiagnosticTest)
+            .WithMany(x => x.TestCarts)
+            .HasForeignKey(p => p.TestId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<IdentityUser>().ToTable("Users");
+        modelBuilder.Entity<IdentityRole>().ToTable("Roles");
+        modelBuilder.Entity<IdentityUserToken<string>>().ToTable("Tokens");
+        modelBuilder.Entity<IdentityUserRole<string>>().ToTable("UserRoles");
+        modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("LoginAttempts");
+        modelBuilder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims");
+        modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims");
     }
 }
