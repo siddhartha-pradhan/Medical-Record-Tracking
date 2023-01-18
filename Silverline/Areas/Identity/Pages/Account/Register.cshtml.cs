@@ -80,10 +80,6 @@ namespace Silverline.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            if (!_roleManager.RoleExistsAsync(Constants.Admin).GetAwaiter().GetResult())
-            {
-                _roleManager.CreateAsync(new IdentityRole(Constants.Admin)).GetAwaiter().GetResult();
-            }
             if (!_roleManager.RoleExistsAsync(Constants.Patient).GetAwaiter().GetResult())
             {
                 _roleManager.CreateAsync(new IdentityRole(Constants.Patient)).GetAwaiter().GetResult();
