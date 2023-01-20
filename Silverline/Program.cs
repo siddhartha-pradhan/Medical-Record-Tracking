@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using Silverline.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Identity;
 using Silverline.Infrastructure.Services;
+using Silverline.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -12,7 +12,7 @@ using Silverline.Infrastructure.Persistence;
 namespace Silverline.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230116073614_init")]
+    [Migration("20230116075948_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,15 @@ namespace Silverline.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("Roles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "2c5e174e-3b0e-446f-86af-483d56fd7210",
+                            ConcurrencyStamp = "81407ffd-2abf-4268-856a-73c0f1cc72f6",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -139,6 +148,25 @@ namespace Silverline.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "dd0a4161-07b1-4d5d-92b4-61fa51aa14bf",
+                            Email = "admin@admin.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@ADMIN.COM",
+                            NormalizedUserName = "Admin",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG9WRc1k3Bcfi21qRd2gFbyY63QEiKXYoomuPPxTYQqpAZzxT8KL/txhjGWIlxCDoA==",
+                            PhoneNumber = "9803364638",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "C7STNXSE5EHSFNMWSFGWEWXLK6NJZRYQ",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@admin.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -201,6 +229,13 @@ namespace Silverline.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            RoleId = "2c5e174e-3b0e-446f-86af-483d56fd7210"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

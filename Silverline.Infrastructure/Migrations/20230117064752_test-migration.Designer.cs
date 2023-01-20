@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Silverline.Infrastructure.Persistence;
 
@@ -11,9 +12,10 @@ using Silverline.Infrastructure.Persistence;
 namespace Silverline.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230117064752_test-migration")]
+    partial class testmigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,7 +54,7 @@ namespace Silverline.Infrastructure.Migrations
                         new
                         {
                             Id = "2c5e174e-3b0e-446f-86af-483d56fd7210",
-                            ConcurrencyStamp = "3a20f051-e65e-4e3a-b511-1ca7e15048ec",
+                            ConcurrencyStamp = "6b3719ae-fc32-43e4-8505-a3ba1ea201c7",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         });
@@ -158,7 +160,7 @@ namespace Silverline.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "Admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEH+GDcbPr72Z7oAhjS84fkPnpOChQjrE3W3AWKy3f5pnAeB8hAHnkFTvguj5AOb5zw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPrWz0fCl113NlzQh0sYfpk4YhC05xoyhsJZ9JKonNsWPnTCbYU6PPFvq7IqoTj9AA==",
                             PhoneNumber = "9803364638",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "C7STNXSE5EHSFNMWSFGWEWXLK6NJZRYQ",
@@ -519,9 +521,6 @@ namespace Silverline.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<Guid>("ManufacturerId")
                         .HasColumnType("uniqueidentifier");

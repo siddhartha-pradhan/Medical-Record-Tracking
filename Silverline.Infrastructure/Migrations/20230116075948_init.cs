@@ -634,6 +634,21 @@ namespace Silverline.Infrastructure.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "2c5e174e-3b0e-446f-86af-483d56fd7210", "81407ffd-2abf-4268-856a-73c0f1cc72f6", "Admin", "ADMIN" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, "dd0a4161-07b1-4d5d-92b4-61fa51aa14bf", "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "Admin", "AQAAAAEAACcQAAAAEG9WRc1k3Bcfi21qRd2gFbyY63QEiKXYoomuPPxTYQqpAZzxT8KL/txhjGWIlxCDoA==", "9803364638", false, "C7STNXSE5EHSFNMWSFGWEWXLK6NJZRYQ", false, "admin@admin.com" });
+
+            migrationBuilder.InsertData(
+                table: "UserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "2c5e174e-3b0e-446f-86af-483d56fd7210", "8e445865-a24d-4543-a6c6-9443d048cdb9" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_DoctorId",
                 table: "Appointments",

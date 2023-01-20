@@ -22,6 +22,7 @@ namespace Silverline.Infrastructure.Services
             string fromPassword = "hdfocnrbdtfagnxi";
 
             MailMessage message = new MailMessage();
+
             message.From = new MailAddress(fromMail);
             message.Subject = subject;
             message.To.Add(new MailAddress(email));

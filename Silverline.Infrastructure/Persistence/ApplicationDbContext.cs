@@ -57,7 +57,14 @@ public class ApplicationDbContext : IdentityDbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = "2c5e174e-3b0e-446f-86af-483d56fd7210", Name = "ADMIN", NormalizedName = "ADMIN".ToUpper() });
+        modelBuilder.Entity<IdentityRole>().HasData(
+            new IdentityRole 
+            { 
+                Id = "2c5e174e-3b0e-446f-86af-483d56fd7210", 
+                Name = "ADMIN", 
+                NormalizedName = "ADMIN".ToUpper() 
+            }
+        );
 
         modelBuilder.Entity<IdentityUser>().HasData(
             new IdentityUser
