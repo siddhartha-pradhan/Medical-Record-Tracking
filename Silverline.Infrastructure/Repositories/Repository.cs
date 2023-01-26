@@ -17,56 +17,21 @@ public class Repository<T> : IRepository<T> where T : class
         _dbSet = _dbContext.Set<T>();
     }
 
-    public void Add(T entity)
+    public T Get(int id)
     {
-        _dbSet.Add(entity);
+        return _dbSet.Find(id);
     }
 
-    public List<T> GetAll(Expression<Func<T, bool>>? filter, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy, string? includeProperties)
+    public List<T> GetAll()
     {
         IQueryable<T> query = _dbSet;
-
-        if (filter != null)
-        {
-            query = query.Where(filter);
-        }
-
-        if (orderBy != null)
-        {
-            return orderBy(query).ToList();
-        }
-
-        if (includeProperties != null)
-        {
-            foreach (var includeprop in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(includeprop);
-            }
-        }
 
         return query.ToList();
     }
 
-    public T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties)
+    public void Add(T entity)
     {
-        IQueryable<T> query = _dbSet;
-
-        query = query.Where(filter);
-
-        if (includeProperties != null)
-        {
-            foreach (var includeprop in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(includeprop);
-            }
-        }
-
-        return query.FirstOrDefault();
-    }
-
-    public T GetItem(int ID)
-    {
-        return _dbSet.Find(ID);
+        _dbSet.Add(entity);
     }
 
     public void Remove(T entity)
@@ -74,8 +39,8 @@ public class Repository<T> : IRepository<T> where T : class
         _dbSet.Remove(entity);
     }
 
-    public void RemoveRange(IEnumerable<T> entities)
+    public void Save() 
     {
-        _dbContext.RemoveRange(entities);
+        _dbContext.SaveChanges();
     }
 }
