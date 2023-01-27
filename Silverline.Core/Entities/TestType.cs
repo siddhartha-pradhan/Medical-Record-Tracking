@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Silverline.Core.Entities.Shared;
+using System.ComponentModel.DataAnnotations;
 
 namespace Silverline.Core.Entities;
 
-public class TestType
+public class TestType : BaseEntity
 {
     [Key]
     public Guid Id { get; set; }

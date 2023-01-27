@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Silverline.Core.Entities.Shared;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Silverline.Core.Entities;
 
-public class DiagnosticTest
+public class DiagnosticTest : BaseEntity
 {
     [Key]
     public Guid Id { get; set; }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Silverline.Infrastructure.Persistence;
 using Silverline.Application.Interfaces.Repositories;
 
-namespace Silverline.Infrastructure.Repositories;
+namespace Silverline.Infrastructure.Implementation.Repositories;
 
 public class Repository<T> : IRepository<T> where T : class
 {
@@ -17,30 +17,25 @@ public class Repository<T> : IRepository<T> where T : class
         _dbSet = _dbContext.Set<T>();
     }
 
-    public T Get(int id)
+    public virtual T Get(int id)
     {
         return _dbSet.Find(id);
     }
 
-    public List<T> GetAll()
+    public virtual List<T> GetAll()
     {
         IQueryable<T> query = _dbSet;
 
         return query.ToList();
     }
 
-    public void Add(T entity)
+    public virtual void Add(T entity)
     {
         _dbSet.Add(entity);
     }
 
-    public void Remove(T entity)
+    public virtual void Remove(T entity)
     {
         _dbSet.Remove(entity);
-    }
-
-    public void Save() 
-    {
-        _dbContext.SaveChanges();
     }
 }

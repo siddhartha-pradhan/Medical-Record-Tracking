@@ -7,7 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Silverline.Infrastructure.Services
+namespace Silverline.Infrastructure.Implementation.Services
 {
     public class EmailSender : IEmailSender
     {
