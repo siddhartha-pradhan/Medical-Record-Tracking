@@ -7,5 +7,4 @@ public interface ITestRepository : IRepository<DiagnosticTest>
     void Update(DiagnosticTest diagnosticTest);
 
     void Delete(DiagnosticTest diagnosticTest);
-
 }

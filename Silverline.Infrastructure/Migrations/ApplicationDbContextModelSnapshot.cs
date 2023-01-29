@@ -52,7 +52,7 @@ namespace Silverline.Infrastructure.Migrations
                         new
                         {
                             Id = "2c5e174e-3b0e-446f-86af-483d56fd7210",
-                            ConcurrencyStamp = "3a20f051-e65e-4e3a-b511-1ca7e15048ec",
+                            ConcurrencyStamp = "b76573c6-35ff-4ef1-81c8-bc149af19e6b",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         });
@@ -157,8 +157,8 @@ namespace Silverline.Infrastructure.Migrations
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
-                            NormalizedUserName = "Admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEH+GDcbPr72Z7oAhjS84fkPnpOChQjrE3W3AWKy3f5pnAeB8hAHnkFTvguj5AOb5zw==",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIcQgMwe0keX1a0Mtv5hxMh0grH08JbRuKV7HYv/hU7l3vNjPhcUlGze9wDwSGGuOg==",
                             PhoneNumber = "9803364638",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "C7STNXSE5EHSFNMWSFGWEWXLK6NJZRYQ",
@@ -257,10 +257,8 @@ namespace Silverline.Infrastructure.Migrations
 
             modelBuilder.Entity("Silverline.Core.Entities.Appointment", b =>
                 {
-                    b.Property<Guid>("PatientId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("DoctorId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AppointmentStatus")
@@ -274,16 +272,24 @@ namespace Silverline.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<float>("FeeAmount")
                         .HasColumnType("real");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PaymentStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("PatientId", "DoctorId");
+                    b.HasKey("Id");
 
                     b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
 
                     b.ToTable("Appointments");
                 });
@@ -355,6 +361,15 @@ namespace Silverline.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModifiedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -373,6 +388,9 @@ namespace Silverline.Infrastructure.Migrations
                     b.Property<Guid>("ClassId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -382,6 +400,12 @@ namespace Silverline.Infrastructure.Migrations
 
                     b.Property<float>("InitialRange")
                         .HasColumnType("real");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModifiedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -460,6 +484,15 @@ namespace Silverline.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModifiedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -475,10 +508,8 @@ namespace Silverline.Infrastructure.Migrations
 
             modelBuilder.Entity("Silverline.Core.Entities.MedicationTreatment", b =>
                 {
-                    b.Property<Guid>("PatientId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MedicineId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ApprovedBy")
@@ -491,6 +522,12 @@ namespace Silverline.Infrastructure.Migrations
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
+                    b.Property<Guid>("MedicineId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("TimeFormat")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -498,11 +535,13 @@ namespace Silverline.Infrastructure.Migrations
                     b.Property<int>("TimePeriod")
                         .HasColumnType("int");
 
-                    b.HasKey("PatientId", "MedicineId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ApprovedBy");
 
                     b.HasIndex("MedicineId");
+
+                    b.HasIndex("PatientId");
 
                     b.ToTable("MedicationTreatments");
                 });
@@ -516,21 +555,23 @@ namespace Silverline.Infrastructure.Migrations
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModifiedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("ManufacturerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -577,10 +618,8 @@ namespace Silverline.Infrastructure.Migrations
 
             modelBuilder.Entity("Silverline.Core.Entities.OrderDetail", b =>
                 {
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MedicineId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ApprovedBy")
@@ -589,14 +628,22 @@ namespace Silverline.Infrastructure.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("MedicineId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.HasKey("OrderId", "MedicineId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ApprovedBy");
 
                     b.HasIndex("MedicineId");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("OrderDetails");
                 });
@@ -731,6 +778,15 @@ namespace Silverline.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModifiedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -763,10 +819,8 @@ namespace Silverline.Infrastructure.Migrations
 
             modelBuilder.Entity("Silverline.Core.Entities.TestDetail", b =>
                 {
-                    b.Property<Guid>("TestId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TestHeaderId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<float>("Price")
@@ -776,12 +830,20 @@ namespace Silverline.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("TestHeaderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TestId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<float>("Value")
                         .HasColumnType("real");
 
-                    b.HasKey("TestId", "TestHeaderId");
+                    b.HasKey("Id");
 
                     b.HasIndex("TestHeaderId");
+
+                    b.HasIndex("TestId");
 
                     b.ToTable("TestDetails");
                 });
@@ -817,6 +879,15 @@ namespace Silverline.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModifiedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()

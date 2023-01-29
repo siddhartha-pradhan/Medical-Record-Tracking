@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Silverline.Application.Interfaces.Repositories;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Infrastructure.Implementation.Repositories;
-using Silverline.Infrastructure.Implementation.Services;
 using Silverline.Infrastructure.Persistence;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Silverline.Application.Interfaces.Services;
+using Silverline.Application.Interfaces.Repositories;
+using Silverline.Infrastructure.Implementation.Services;
+using Silverline.Infrastructure.Implementation.Repositories;
 
 namespace Silverline.Infrastructure.Dependency;
 
@@ -15,7 +15,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("SilverlineContextConnection");
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
 
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(connectionString));

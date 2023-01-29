@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Silverline.Core.Entities;
 using Microsoft.EntityFrameworkCore;
-using Silverline.Core.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Silverline.Infrastructure.Persistence;
 
@@ -71,7 +71,7 @@ public class ApplicationDbContext : IdentityDbContext
             {
                 Id = "8e445865-a24d-4543-a6c6-9443d048cdb9", 
                 UserName = "admin@admin.com",
-                NormalizedUserName = "Admin",
+                NormalizedUserName = "ADMIN",
                 Email = "admin@admin.com",
                 NormalizedEmail = "ADMIN@ADMIN.COM",
                 EmailConfirmed = true,
@@ -91,9 +91,6 @@ public class ApplicationDbContext : IdentityDbContext
         );
 
         modelBuilder.Entity<Appointment>()
-            .HasKey(a => new { a.PatientId, a.DoctorId });
-
-        modelBuilder.Entity<Appointment>()
             .HasOne(x => x.Patient)
             .WithMany(x => x.Appointments)
             .HasForeignKey(p => p.PatientId)
@@ -106,9 +103,6 @@ public class ApplicationDbContext : IdentityDbContext
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<MedicationTreatment>()
-            .HasKey(a => new { a.PatientId, a.MedicineId });
-
-        modelBuilder.Entity<MedicationTreatment>()
             .HasOne(x => x.Patient)
             .WithMany(x => x.MedicationTreatments)
             .HasForeignKey(p => p.PatientId)
@@ -121,9 +115,6 @@ public class ApplicationDbContext : IdentityDbContext
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<OrderDetail>()
-            .HasKey(a => new { a.OrderId, a.MedicineId });
-
-        modelBuilder.Entity<OrderDetail>()
             .HasOne(x => x.OrderHeader)
             .WithMany(x => x.OrderDetails)
             .HasForeignKey(p => p.OrderId)
@@ -134,9 +125,6 @@ public class ApplicationDbContext : IdentityDbContext
             .WithMany(x => x.OrderDetails)
             .HasForeignKey(p => p.MedicineId)
             .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<TestDetail>()
-            .HasKey(a => new { a.TestId, a.TestHeaderId });
 
         modelBuilder.Entity<TestDetail>()
             .HasOne(x => x.TestHeader)
@@ -178,8 +166,8 @@ public class ApplicationDbContext : IdentityDbContext
         modelBuilder.Entity<IdentityRole>().ToTable("Roles");
         modelBuilder.Entity<IdentityUserToken<string>>().ToTable("Tokens");
         modelBuilder.Entity<IdentityUserRole<string>>().ToTable("UserRoles");
-        modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("LoginAttempts");
         modelBuilder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims");
         modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims");
+        modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("LoginAttempts");
     }
 }

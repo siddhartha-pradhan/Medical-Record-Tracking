@@ -7,5 +7,4 @@ public interface ITestTypeRepository : IRepository<TestType>
     void Update(TestType testType);
 
     void Delete(TestType testType);
-
 }

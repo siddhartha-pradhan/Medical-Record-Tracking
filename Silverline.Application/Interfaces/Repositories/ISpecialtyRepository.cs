@@ -7,5 +7,4 @@ public interface ISpecialtyRepository : IRepository<Specialty>
     void Update(Specialty specialty);
 
     void Delete(Specialty specialty);
-
 }

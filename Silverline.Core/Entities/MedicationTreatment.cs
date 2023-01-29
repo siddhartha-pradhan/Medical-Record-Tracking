@@ -1,9 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Silverline.Core.Entities;
 
 public class MedicationTreatment
 {
+    [Key]
+    public Guid Id { get; set; }
+
     public Guid PatientId { get; set; }
 
     public Guid MedicineId { get; set; }

@@ -2,6 +2,8 @@
 
 public interface IUnitOfWork
 {
+    void Save();
+
     ICategoryRepository Category { get; set; }
 
     IManufacturerRepository Manufacturer { get; set; }
@@ -13,6 +15,4 @@ public interface IUnitOfWork
     ITestRepository Test { get; set; }
 
     ITestTypeRepository TestType { get; set; }
-
-    void Save();
 }

@@ -5,6 +5,9 @@ namespace Silverline.Core.Entities;
 
 public class OrderDetail
 {
+    [Key]
+    public Guid Id { get; set; }
+
     public Guid OrderId { get; set; }
 
     public Guid MedicineId { get; set; }

@@ -1,9 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Silverline.Core.Entities;
 
 public class TestDetail
 {
+    [Key]
+    public Guid Id { get; set; }
+
     public Guid TestHeaderId { get; set; }
 
     public Guid TestId { get; set; }
