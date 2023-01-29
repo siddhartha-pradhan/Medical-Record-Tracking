@@ -1,8 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Silverline.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Silverline.Infrastructure.Implementation.Services;
+using Silverline.Infrastructure.Dependency;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,16 +6,7 @@ var services = builder.Services;
 
 var configurations = builder.Configuration;
 
-var connectionString = configurations.GetConnectionString("SilverlineContextConnection");
-
-services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-
-services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddDefaultTokenProviders()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-
-services.AddTransient<IEmailSender, EmailSender>();
+services.AddInfrastructure(configurations);
 
 services.AddControllersWithViews();
 

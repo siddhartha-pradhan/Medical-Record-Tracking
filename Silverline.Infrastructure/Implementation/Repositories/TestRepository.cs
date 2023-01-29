@@ -1,44 +1,48 @@
-﻿using Silverline.Application.Interfaces.Repositories;
-using Silverline.Core.Entities;
+﻿using Silverline.Core.Entities;
 using Silverline.Infrastructure.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Silverline.Application.Interfaces.Repositories;
 
-namespace Silverline.Infrastructure.Implementation.Repositories
+namespace Silverline.Infrastructure.Implementation.Repositories;
+
+public class TestRepository : Repository<DiagnosticTest>, ITestRepository
 {
-    public class TestRepository : Repository<DiagnosticTest>, ITestRepository
+    private readonly ApplicationDbContext _dbContext;
+
+    public TestRepository(ApplicationDbContext dbContext) : base(dbContext)
     {
-        private readonly ApplicationDbContext _dbContext;
+        _dbContext = dbContext;
+    }
 
-        public TestRepository(ApplicationDbContext dbContext) : base(dbContext)
+    public override List<DiagnosticTest> FilterDeleted()
+    {
+        return base.FilterDeleted().Where(x => !x.IsDeleted).ToList();
+    }
+
+    public override void Add(DiagnosticTest diagnosticTest)
+    {
+        diagnosticTest.CreatedAt = DateTime.Now;
+        base.Add(diagnosticTest);
+    }
+
+    public void Delete(DiagnosticTest diagnosticTest)
+    {
+        diagnosticTest.IsDeleted = true;
+    }
+
+    public void Update(DiagnosticTest diagnosticTest)
+    {
+        var item = _dbContext.DiagnosticTests.FirstOrDefault(x => x.Id == diagnosticTest.Id);
+
+        if (item != null)
         {
-            _dbContext = dbContext;
-        }
-
-        public override void Add(DiagnosticTest diagnosticTest)
-        {
-            diagnosticTest.CreatedAt = DateTime.Now;
-            base.Add(diagnosticTest);
-        }
-
-        public void Update(DiagnosticTest diagnosticTest)
-        {
-            var item = _dbContext.DiagnosticTests.FirstOrDefault(x => x.Id == diagnosticTest.Id);
-
-            if (item != null)
-            {
-                item.Title = diagnosticTest.Title;
-                item.Description = diagnosticTest.Description;
-                item.UnitPrice = diagnosticTest.UnitPrice;
-                item.InitialRange = diagnosticTest.InitialRange;
-                item.FinalRange = diagnosticTest.FinalRange;
-                item.Unit = diagnosticTest.Unit;
-                item.ClassId = diagnosticTest.ClassId;
-                item.LastModifiedAt = DateTime.Now;
-            }
+            item.Title = diagnosticTest.Title;
+            item.Description = diagnosticTest.Description;
+            item.UnitPrice = diagnosticTest.UnitPrice;
+            item.InitialRange = diagnosticTest.InitialRange;
+            item.FinalRange = diagnosticTest.FinalRange;
+            item.Unit = diagnosticTest.Unit;
+            item.ClassId = diagnosticTest.ClassId;
+            item.LastModifiedAt = DateTime.Now;
         }
     }
 }

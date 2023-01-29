@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Silverline.Core.Entities;
 
-namespace Silverline.Application.Interfaces.Services
+namespace Silverline.Application.Interfaces.Services;
+
+public interface IManufacturerService
 {
-    public interface IManufacturerService
-    {
-    }
+    Manufacturer GetManufacturer(Guid Id);
+
+    List<Manufacturer> GetAllManufacturerers();
+
+    void AddManufacturer(Manufacturer manufacturer);
+
+    void UpdateManufacturer(Manufacturer manufacturer);
+
+    void DeleteManufacturer(Manufacturer manufacturer);
 }

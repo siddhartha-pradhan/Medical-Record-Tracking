@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Silverline.Core.Entities;
 
-namespace Silverline.Application.Interfaces.Services
+namespace Silverline.Application.Interfaces.Services;
+
+public interface ITestService
 {
-    public class ITestService
-    {
-    }
+    DiagnosticTest GetDiagnosticTest(Guid Id);
+
+    List<DiagnosticTest> GetAllDiagnosticTests();
+
+    void AddDiagnosticTest(DiagnosticTest test);
+
+    void UpdateDiagnosticTest(DiagnosticTest test);
+
+    void DeleteDiagnosticTest(DiagnosticTest test);
 }

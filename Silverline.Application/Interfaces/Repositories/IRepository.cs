@@ -1,14 +1,12 @@
-﻿using System.Linq.Expressions;
-
-namespace Silverline.Application.Interfaces.Repositories;
+﻿namespace Silverline.Application.Interfaces.Repositories;
 
 public interface IRepository<T> where T : class
 {
-    T Get(int id);
+    T Get(Guid id);
 
-    List<T> GetAll();
+    List<T> FilterDeleted();
+
+    List<T> GetAll(bool filterDeleted = false);
 
     void Add(T entity);
-
-    void Remove(T entity);
 }

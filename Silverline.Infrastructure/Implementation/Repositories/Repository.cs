@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Silverline.Infrastructure.Persistence;
 using Silverline.Application.Interfaces.Repositories;
 
@@ -17,16 +16,26 @@ public class Repository<T> : IRepository<T> where T : class
         _dbSet = _dbContext.Set<T>();
     }
 
-    public virtual T Get(int id)
+    public virtual T Get(Guid id)
     {
         return _dbSet.Find(id);
     }
 
-    public virtual List<T> GetAll()
+    public virtual List<T> GetAll(bool includeDeleted = false)
     {
-        IQueryable<T> query = _dbSet;
+        if (!includeDeleted)
+        {
+            return FilterDeleted();
+        }
 
-        return query.ToList();
+        return _dbSet.ToList();
+    }
+
+    public virtual List<T> FilterDeleted()
+    {
+        IQueryable <T> query = _dbSet;
+
+        return query.ToList(); ;
     }
 
     public virtual void Add(T entity)

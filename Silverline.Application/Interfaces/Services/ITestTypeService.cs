@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Silverline.Core.Entities;
 
-namespace Silverline.Application.Interfaces.Services
+namespace Silverline.Application.Interfaces.Services;
+
+public interface ITestTypeService
 {
-    public class ITestTypeService
-    {
-    }
+    TestType GetTestType(Guid Id);
+
+    List<TestType> GetAllTestTypes();
+
+    void AddTestType(TestType testType);
+
+    void UpdateTestType(TestType testType);
+
+    void DeleteTestType(TestType testType);
 }

@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Silverline.Core.Entities;
 
-namespace Silverline.Application.Interfaces.Services
+namespace Silverline.Application.Interfaces.Services;
+
+public interface ISpecialtyService
 {
-    public interface ISpecialtyService
-    {
-    }
+    Specialty GetSpecialty(Guid Id);
+
+    List<Specialty> GetAllSpecialties();
+
+    void AddSpecialty(Specialty specialty);
+
+    void UpdateSpecialty(Specialty specialty);
+
+    void DeleteSpecialty(Specialty specialty);
 }
