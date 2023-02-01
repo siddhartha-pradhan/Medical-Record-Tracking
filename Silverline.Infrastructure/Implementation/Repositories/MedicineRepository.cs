@@ -39,6 +39,7 @@ public class MedicineRepository : Repository<Medicine>, IMedicineRepository
             item.Name = medicine.Name;
             item.Description = medicine.Description;
             item.UnitPrice = medicine.UnitPrice;
+            item.Type = medicine.Type;
             item.CategoryId = medicine.CategoryId;
             item.ManufacturerId = medicine.ManufacturerId;
             item.LastModifiedAt = DateTime.Now;

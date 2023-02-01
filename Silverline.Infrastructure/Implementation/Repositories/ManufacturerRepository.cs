@@ -26,6 +26,7 @@ public class ManufacturerRepository : Repository<Manufacturer>, IManufacturerRep
 
     public void Delete(Manufacturer manufacturer)
     {
+        manufacturer.IsActive = false;
         manufacturer.IsDeleted = true;
     }
 

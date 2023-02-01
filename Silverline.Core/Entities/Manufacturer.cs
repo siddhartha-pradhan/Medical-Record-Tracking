@@ -12,5 +12,7 @@ public class Manufacturer : BaseEntity
 
     public string Location { get; set; }    
 
+    public bool IsActive { get; set; }  
+
     public ICollection<Medicine> Medicines { get; set; }
 }

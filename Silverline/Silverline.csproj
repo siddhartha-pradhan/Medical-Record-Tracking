@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Areas\Doctor\Controllers\" />
     <Folder Include="Areas\Doctor\Views\" />
@@ -33,6 +32,7 @@
     <Folder Include="Areas\Patient\Views\" />
     <Folder Include="Areas\Pharmacist\Controllers\" />
     <Folder Include="Areas\Pharmacist\Views\" />
+    <Folder Include="wwwroot\images\medicines\" />
   </ItemGroup>
 
 </Project>

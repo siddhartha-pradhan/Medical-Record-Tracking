@@ -15,6 +15,10 @@ public class Medicine : BaseEntity
 
     public float UnitPrice { get; set; }
 
+    public string Type { get; set; }
+
+    public string ImageURL { get; set; }
+
     public Guid ManufacturerId { get; set; }    
 
     public Guid CategoryId { get; set; }

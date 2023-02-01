@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Silverline.Infrastructure.Persistence;
 using Silverline.Application.Interfaces.Repositories;
+using System.Linq.Expressions;
 
 namespace Silverline.Infrastructure.Implementation.Repositories;
 
@@ -21,6 +22,15 @@ public class Repository<T> : IRepository<T> where T : class
         return _dbSet.Find(id);
     }
 
+    public T GetFirstOrDefault(Expression<Func<T, bool>> filter)
+    {
+        IQueryable<T> query = _dbSet;
+
+        query = query.Where(filter);
+
+        return query.FirstOrDefault();
+    }
+
     public virtual List<T> GetAll(bool includeDeleted = false)
     {
         if (!includeDeleted)
@@ -35,7 +45,7 @@ public class Repository<T> : IRepository<T> where T : class
     {
         IQueryable <T> query = _dbSet;
 
-        return query.ToList(); ;
+        return query.ToList();
     }
 
     public virtual void Add(T entity)
