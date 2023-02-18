@@ -28,12 +28,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.12">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.12" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,7 +43,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Doctor\Controllers\" />
+    <Folder Include="Areas\Doctor\Views\" />
+    <Folder Include="Areas\LabTechnician\Controllers\" />
+    <Folder Include="Areas\LabTechnician\Views\" />
+    <Folder Include="Areas\Patient\Controllers\" />
+    <Folder Include="Areas\Patient\Views\" />
+    <Folder Include="Areas\Pharmacist\Controllers\" />
+    <Folder Include="Areas\Pharmacist\Views\" />
     <Folder Include="wwwroot\images\medicines\" />
+    <Folder Include="wwwroot\images\users\" />
   </ItemGroup>
 
 </Project>

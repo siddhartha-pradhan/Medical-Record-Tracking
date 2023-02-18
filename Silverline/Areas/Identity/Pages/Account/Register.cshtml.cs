@@ -85,22 +85,22 @@ namespace Silverline.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string? returnUrl = null)
         {
-            //if (!_roleManager.RoleExistsAsync(Constants.Patient).GetAwaiter().GetResult())
-            //{
-            //    _roleManager.CreateAsync(new IdentityRole(Constants.Patient)).GetAwaiter().GetResult();
-            //}
-            //if (!_roleManager.RoleExistsAsync(Constants.Doctor).GetAwaiter().GetResult())
-            //{
-            //    _roleManager.CreateAsync(new IdentityRole(Constants.Doctor)).GetAwaiter().GetResult();
-            //}
-            //if (!_roleManager.RoleExistsAsync(Constants.LabTechnician).GetAwaiter().GetResult())
-            //{
-            //    _roleManager.CreateAsync(new IdentityRole(Constants.LabTechnician)).GetAwaiter().GetResult();
-            //}
-            //if (!_roleManager.RoleExistsAsync(Constants.Pharmacist).GetAwaiter().GetResult())
-            //{
-            //    _roleManager.CreateAsync(new IdentityRole(Constants.Pharmacist)).GetAwaiter().GetResult();
-            //}
+            if (!_roleManager.RoleExistsAsync(Constants.Patient).GetAwaiter().GetResult())
+            {
+                _roleManager.CreateAsync(new IdentityRole(Constants.Patient)).GetAwaiter().GetResult();
+            }
+            if (!_roleManager.RoleExistsAsync(Constants.Doctor).GetAwaiter().GetResult())
+            {
+                _roleManager.CreateAsync(new IdentityRole(Constants.Doctor)).GetAwaiter().GetResult();
+            }
+            if (!_roleManager.RoleExistsAsync(Constants.LabTechnician).GetAwaiter().GetResult())
+            {
+                _roleManager.CreateAsync(new IdentityRole(Constants.LabTechnician)).GetAwaiter().GetResult();
+            }
+            if (!_roleManager.RoleExistsAsync(Constants.Pharmacist).GetAwaiter().GetResult())
+            {
+                _roleManager.CreateAsync(new IdentityRole(Constants.Pharmacist)).GetAwaiter().GetResult();
+            }
 
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -125,7 +125,7 @@ namespace Silverline.Areas.Identity.Pages.Account
 
                 await _userManager.AddToRoleAsync(user, Input.Role);
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, user.FullName, CancellationToken.None);
 
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 

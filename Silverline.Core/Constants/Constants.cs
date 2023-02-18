@@ -2,9 +2,9 @@
 
 public class Constants
 {
-    public const string Admin = "ADMIN";
-    public const string Patient = "PATIENT";
-    public const string Doctor = "DOCTOR";
-    public const string LabTechnician = "LABTECHNICIAN";
-    public const string Pharmacist = "PHARMACIST";
+    public const string Admin = "Admin";
+    public const string Patient = "Patient";
+    public const string Doctor = "Doctor";
+    public const string LabTechnician = "LabTechnician";
+    public const string Pharmacist = "Pharmacist";
 }
