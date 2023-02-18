@@ -24,11 +24,11 @@ public class DiagnosticTest : BaseEntity
     public Guid ClassId { get; set; }
 
     [ForeignKey("ClassId ")]
-    public  virtual TestType TestType { get; set; }
+    public  virtual TestType? TestType { get; set; }
 
-    public ICollection<TestDetail> TestDetails { get; set; }
+    public virtual ICollection<TestDetail>? TestDetails { get; set; }
 
-    public ICollection<TestCart> TestCarts { get; set; }
+    public virtual ICollection<TestCart>? TestCarts { get; set; }
 
 
 }

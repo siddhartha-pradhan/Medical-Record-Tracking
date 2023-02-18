@@ -28,6 +28,7 @@ public static class DependencyInjection
 
         services.AddTransient<IUnitOfWork, UnitOfWork>();
 
+        services.AddTransient<IAppUserService, AppUserService>();
         services.AddTransient<ICategoryService, CategoryService>();
         services.AddTransient<IEmailSender, EmailSender>();
         services.AddTransient<IManufacturerService, ManufacturerService>();

@@ -52,7 +52,10 @@
     <Folder Include="Areas\Pharmacist\Controllers\" />
     <Folder Include="Areas\Pharmacist\Views\" />
     <Folder Include="wwwroot\images\medicines\" />
-    <Folder Include="wwwroot\images\users\" />
+    <Folder Include="wwwroot\images\users\admin\" />
+    <Folder Include="wwwroot\images\users\doctors\" />
+    <Folder Include="wwwroot\images\users\staffs\" />
+    <Folder Include="wwwroot\images\users\patients\" />
   </ItemGroup>
 
 </Project>

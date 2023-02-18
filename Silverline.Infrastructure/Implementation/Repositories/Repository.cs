@@ -22,6 +22,11 @@ public class Repository<T> : IRepository<T> where T : class
         return _dbSet.Find(id);
     }
 
+    public virtual T Retrieve(string id)
+    {
+        return _dbSet.Find(id);
+    }
+
     public T GetFirstOrDefault(Expression<Func<T, bool>> filter)
     {
         IQueryable<T> query = _dbSet;

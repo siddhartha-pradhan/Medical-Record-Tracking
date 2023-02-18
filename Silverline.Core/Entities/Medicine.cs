@@ -24,14 +24,14 @@ public class Medicine : BaseEntity
     public Guid CategoryId { get; set; }
 
     [ForeignKey("ManufacturerId")]
-    public virtual Manufacturer Manufacturer { get; set; }
+    public virtual Manufacturer? Manufacturer { get; set; }
 
     [ForeignKey("CategoryId")]
-    public virtual Category Category { get; set; }
+    public virtual Category? Category { get; set; }
 
-    public ICollection<MedicineCart> MedicineCarts { get; set; }
+    public virtual ICollection<MedicineCart>? MedicineCarts { get; set; }
 
-    public ICollection<MedicationTreatment> MedicationTreatments { get; set; }
+    public virtual ICollection<MedicationTreatment>? MedicationTreatments { get; set; }
 
-    public ICollection<OrderDetail> OrderDetails { get; set; }
+    public virtual ICollection<OrderDetail>? OrderDetails { get; set; }
 }

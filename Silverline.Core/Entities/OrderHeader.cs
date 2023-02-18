@@ -19,5 +19,5 @@ public class OrderHeader
     [ForeignKey("PatientId")]
     public virtual Patient Patient { get; set; }
 
-    public ICollection<OrderDetail> OrderDetails { get; set; }
+    public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 }

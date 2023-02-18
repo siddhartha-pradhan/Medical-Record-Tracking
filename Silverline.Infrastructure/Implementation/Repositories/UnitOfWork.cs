@@ -10,6 +10,7 @@ public class UnitOfWork : IUnitOfWork
     public UnitOfWork(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
+        AppUser = new AppUserRepository(dbContext);
         Category = new CategoryRepository(_dbContext);
         Manufacturer = new ManufacturerRepository(_dbContext);
         Medicine = new MedicineRepository(_dbContext);
@@ -17,6 +18,8 @@ public class UnitOfWork : IUnitOfWork
         Test = new TestRepository(_dbContext);
         TestType = new TestTypeRepository(_dbContext);
     }
+
+    public IAppUserRepository AppUser { get; set; }
 
     public ICategoryRepository Category { get; set; }
     

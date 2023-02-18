@@ -19,5 +19,5 @@ public class TestHeader
     [ForeignKey("PatientId")]
     public virtual Patient Patient { get; set; }
 
-    public ICollection<TestDetail> TestDetails { get; set; }
+    public virtual ICollection<TestDetail> TestDetails { get; set; }
 }

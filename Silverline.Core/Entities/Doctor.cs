@@ -22,5 +22,5 @@ public class Doctor
     [ForeignKey("UserId")]
     public virtual AppUser AppUser { get; set; }
 
-    public ICollection<Appointment> Appointments { get; set; }
+    public virtual ICollection<Appointment> Appointments { get; set; }
 }

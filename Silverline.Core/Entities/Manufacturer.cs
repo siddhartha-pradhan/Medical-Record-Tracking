@@ -10,9 +10,9 @@ public class Manufacturer : BaseEntity
 
     public string Name { get; set; }
 
-    public string Location { get; set; }    
+    public string Location { get; set; }
 
-    public bool IsActive { get; set; }  
+    public bool IsActive { get; set; } = true;
 
-    public ICollection<Medicine> Medicines { get; set; }
+    public virtual ICollection<Medicine>? Medicines { get; set; }
 }

@@ -4,6 +4,8 @@ public interface IUnitOfWork
 {
     void Save();
 
+    IAppUserRepository AppUser { get; set; }
+
     ICategoryRepository Category { get; set; }
 
     IManufacturerRepository Manufacturer { get; set; }

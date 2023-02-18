@@ -10,5 +10,5 @@ public class Category : BaseEntity
 
     public string Name { get; set; }
 
-    public ICollection<Medicine> Medicines { get; set; }
+    public virtual ICollection<Medicine>? Medicines { get; set; }
 }

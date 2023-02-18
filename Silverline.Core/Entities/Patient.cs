@@ -21,17 +21,17 @@ public class Patient
     [ForeignKey("UserId")]
     public virtual AppUser AppUser { get; set; }
 
-    public ICollection<MedicationTreatment> MedicationTreatments { get; set; }
+    public virtual ICollection<MedicationTreatment> MedicationTreatments { get; set; }
 
-    public ICollection<MedicineCart> MedicineCarts { get; set; }
+    public virtual ICollection<MedicineCart> MedicineCarts { get; set; }
 
-    public ICollection<TestCart> TestCarts { get; set; }
+    public virtual ICollection<TestCart> TestCarts { get; set; }
 
-    public ICollection<TestHeader> TestHeaders { get; set; }
+    public virtual ICollection<TestHeader> TestHeaders { get; set; }
 
-    public ICollection<RecordHeader> RecordHeaders { get; set; }
+    public virtual ICollection<RecordHeader> RecordHeaders { get; set; }
 
-    public ICollection<OrderHeader> OrderHeaders { get; set; }
+    public virtual ICollection<OrderHeader> OrderHeaders { get; set; }
 
-    public ICollection<Appointment> Appointments { get; set; }
+    public virtual ICollection<Appointment> Appointments { get; set; }
 }
