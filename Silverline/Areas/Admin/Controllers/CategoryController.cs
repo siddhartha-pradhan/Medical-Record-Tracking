@@ -8,12 +8,12 @@ namespace Silverline.Areas.Admin.Controllers
     [Area("Admin")]
     public class CategoryController : Controller
     {
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly ICategoryService _categoryService;
 
-        public CategoryController(ICategoryRepository categoryRepository, ICategoryService categoryService)
+        public CategoryController(IUnitOfWork unitOfWork, ICategoryService categoryService)
         {
-            _categoryRepository = categoryRepository;
+            _unitOfWork = unitOfWork;
             _categoryService = categoryService;
         }
 
@@ -32,7 +32,7 @@ namespace Silverline.Areas.Admin.Controllers
                 return View();
             }
 
-            category = _categoryRepository.GetFirstOrDefault(x => x.Id == id);
+            category = _unitOfWork.Category.GetFirstOrDefault(x => x.Id == id);
 
             if(category == null)
             {
@@ -44,7 +44,7 @@ namespace Silverline.Areas.Admin.Controllers
 
         public IActionResult Delete(Guid id)
         {
-            var category = _categoryRepository.GetFirstOrDefault(x => x.Id == id);
+            var category = _unitOfWork.Category.GetFirstOrDefault(x => x.Id == id);
 
             if (category == null)
             {
@@ -89,7 +89,7 @@ namespace Silverline.Areas.Admin.Controllers
         [HttpDelete, ActionName("Delete")]
         public IActionResult DeleteCategory(Guid id)
         {
-            var category = _categoryRepository.GetFirstOrDefault(x => x.Id == id);
+            var category = _unitOfWork.Category.GetFirstOrDefault(x => x.Id == id);
             
             if (ModelState.IsValid)
             {

@@ -2,7 +2,7 @@
 
 namespace Silverline.Core.Entities
 {
-    public class AppUser : IdentityUser<Guid>
+    public class AppUser : IdentityUser
     {
         public string FullName { get; set; }
 

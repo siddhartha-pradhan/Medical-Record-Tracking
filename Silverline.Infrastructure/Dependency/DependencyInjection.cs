@@ -8,6 +8,7 @@ using Silverline.Application.Interfaces.Services;
 using Silverline.Application.Interfaces.Repositories;
 using Silverline.Infrastructure.Implementation.Services;
 using Silverline.Infrastructure.Implementation.Repositories;
+using Silverline.Core.Entities;
 
 namespace Silverline.Infrastructure.Dependency;
 
