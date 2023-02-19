@@ -89,7 +89,7 @@ public class CategoryController : Controller
 
     }
 
-    [HttpDelete, ActionName("Delete")]
+    [HttpPost, ActionName("Delete")]
     public IActionResult DeleteCategory(Guid id)
     {
         var category = _unitOfWork.Category.GetFirstOrDefault(x => x.Id == id);
@@ -100,6 +100,7 @@ public class CategoryController : Controller
             {
                 _categoryService.DeleteCategory(category);
                 TempData["Delete"] = "Category Delete Successfully";
+                return RedirectToAction("Index");
             }
             else
             {

@@ -1,17 +1,17 @@
 ﻿@{
-    ViewData["Title"] = "Category";
+    ViewData["Title"] = "Specialty";
 }
 
 <partial name="_Notification" />
 
-<h1>Category Index</h1>
+<h1>Specialty Index</h1>
 
 <div class="row mb-3">
     <div class="col-6">
-        <h2 class="text-primary">List of Category</h2>
+        <h2 class="text-primary">List of Specialty</h2>
     </div>
     <div class="col-6 text-end">
-        <a class="btn btn-primary" asp-action="Upsert"><i class="fa-solid fa-plus"></i> &nbsp; Create A New Category</a>
+        <a class="btn btn-primary" asp-action="Upsert"><i class="fa-solid fa-plus"></i> &nbsp; Create A New Specialty</a>
     </div>
 </div>
 
@@ -19,7 +19,7 @@
     <table id="tableData" class="table table-striped table-bordered" style="width:100%">
         <thead class="mt-2">
             <tr class="table-info">
-                <th class="text-center">Category Title</th>
+                <th class="text-center">Specialty Title</th>
                 <th class="text-center">Options</th>
             </tr>
         </thead>
@@ -27,6 +27,6 @@
 </div>
 
 @section Scripts{
-    <script src="~/js/category.js"></script>
+    <script src="~/js/specialty.js"></script>
 }
 

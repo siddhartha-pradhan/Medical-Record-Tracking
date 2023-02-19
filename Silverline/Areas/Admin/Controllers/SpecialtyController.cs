@@ -12,12 +12,12 @@ namespace Silverline.Areas.Admin.Controllers;
 [Authorize(Roles = Constants.Admin)]
 public class SpecialtyController : Controller
 {
-	private readonly ISpecialtyRepository _specialtyRepository;
-	private readonly ISpecialtyService _specialtyService;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly ISpecialtyService _specialtyService;
 
-	public SpecialtyController(ISpecialtyRepository specialtyRepository, ISpecialtyService specialtyService)
+	public SpecialtyController(IUnitOfWork unitOfWork, ISpecialtyService specialtyService)
 	{
-		_specialtyRepository = specialtyRepository;
+        _unitOfWork = unitOfWork;
 		_specialtyService = specialtyService;
 	}
 
@@ -33,10 +33,10 @@ public class SpecialtyController : Controller
 
 		if (id == null)
 		{
-			return View();
+			return View(specialty);
 		}
 
-		specialty = _specialtyRepository.GetFirstOrDefault(x => x.Id == id);
+		specialty = _unitOfWork.Specialty.GetFirstOrDefault(x => x.Id == id);
 
 		if (specialty == null)
 		{
@@ -48,7 +48,7 @@ public class SpecialtyController : Controller
 
 	public IActionResult Delete(Guid id)
 	{
-		var specialty = _specialtyRepository.GetFirstOrDefault(x => x.Id == id);
+		var specialty = _unitOfWork.Specialty.GetFirstOrDefault(x => x.Id == id);
 
 		if (specialty == null)
 		{
@@ -90,10 +90,10 @@ public class SpecialtyController : Controller
 
 	}
 
-	[HttpDelete, ActionName("Delete")]
+	[HttpPost, ActionName("Delete")]
 	public IActionResult DeleteSpecialty(Guid id)
 	{
-		var specialty = _specialtyRepository.GetFirstOrDefault(x => x.Id == id);
+		var specialty = _unitOfWork.Specialty.GetFirstOrDefault(x => x.Id == id);
 
 		if (ModelState.IsValid)
 		{
@@ -101,8 +101,9 @@ public class SpecialtyController : Controller
 			{
 				_specialtyService.DeleteSpecialty(specialty);
 				TempData["Delete"] = "Specialty Delete Successfully";
-			}
-			else
+				return RedirectToAction("Index");
+            }
+            else
 			{
 				return NotFound();
 			}

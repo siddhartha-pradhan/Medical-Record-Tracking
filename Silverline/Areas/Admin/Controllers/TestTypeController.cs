@@ -11,12 +11,12 @@ namespace Silverline.Areas.Admin.Controllers;
 	[Authorize(Roles = Constants.Admin)]
 	public class TestTypeController : Controller
 {
-    private readonly ITestTypeRepository _testTypeRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly ITestTypeService _testTypeService;
 
-    public TestTypeController(ITestTypeRepository testTypeRepository, ITestTypeService testTypeService)
+    public TestTypeController(IUnitOfWork unitOfWork, ITestTypeService testTypeService)
     {
-        _testTypeRepository = testTypeRepository;
+        _unitOfWork = unitOfWork;
         _testTypeService = testTypeService;
     }
 
@@ -32,10 +32,10 @@ namespace Silverline.Areas.Admin.Controllers;
 
         if (id == null)
         {
-            return View();
+            return View(testType);
         }
 
-        testType = _testTypeRepository.GetFirstOrDefault(x => x.Id == id);
+        testType = _unitOfWork.TestType.GetFirstOrDefault(x => x.Id == id);
 
         if (testType == null)
         {
@@ -47,7 +47,7 @@ namespace Silverline.Areas.Admin.Controllers;
 
     public IActionResult Delete(Guid id)
     {
-        var testType = _testTypeRepository.GetFirstOrDefault(x => x.Id == id);
+        var testType = _unitOfWork.TestType.GetFirstOrDefault(x => x.Id == id);
 
         if (testType == null)
         {
@@ -89,10 +89,10 @@ namespace Silverline.Areas.Admin.Controllers;
 
     }
 
-    [HttpDelete, ActionName("Delete")]
+    [HttpPost, ActionName("Delete")]
     public IActionResult DeleteTestType(Guid id)
     {
-        var testType = _testTypeRepository.GetFirstOrDefault(x => x.Id == id);
+        var testType = _unitOfWork.TestType.GetFirstOrDefault(x => x.Id == id);
 
         if (ModelState.IsValid)
         {
@@ -100,6 +100,7 @@ namespace Silverline.Areas.Admin.Controllers;
             {
                 _testTypeService.DeleteTestType(testType);
                 TempData["Delete"] = "Test Type Delete Successfully";
+                return RedirectToAction("Index");
             }
             else
             {

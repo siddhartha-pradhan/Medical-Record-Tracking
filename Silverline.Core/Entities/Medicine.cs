@@ -17,10 +17,12 @@ public class Medicine : BaseEntity
 
     public string Type { get; set; }
 
-    public string ImageURL { get; set; }
+    public string? ImageURL { get; set; }
 
+    [Display(Name = "Manufacturer")]
     public Guid ManufacturerId { get; set; }    
 
+    [Display(Name = "Category")]
     public Guid CategoryId { get; set; }
 
     [ForeignKey("ManufacturerId")]

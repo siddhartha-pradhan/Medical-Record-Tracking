@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
 using Silverline.Application.Interfaces.Services;
 using Silverline.Application.Interfaces.Repositories;
+using Silverline.Infrastructure.Implementation.Repositories;
+using Silverline.Core.Entities;
 
 namespace Silverline.Areas.Admin.Controllers;
 
@@ -12,16 +14,18 @@ namespace Silverline.Areas.Admin.Controllers;
 [Authorize(Roles = Constants.Admin)]
 public class MedicineController : Controller
 {
-    private readonly IMedicineRepository _medicineRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMedicineService _medicineService;
     private readonly ICategoryService _categoryService;
     private readonly IManufacturerService _manufacturerService;
     private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public MedicineController(IMedicineRepository medicineRepository, IMedicineService medicineService, IWebHostEnvironment webHostEnvironment)
+    public MedicineController(IUnitOfWork unitOfWork, IMedicineService medicineService, ICategoryService categoryService, IManufacturerService manufacturerService,IWebHostEnvironment webHostEnvironment)
     {
-        _medicineRepository = medicineRepository;
+        _unitOfWork = unitOfWork;
         _medicineService = medicineService;
+        _categoryService = categoryService;
+        _manufacturerService = manufacturerService;
         _webHostEnvironment = webHostEnvironment;
     }
 
@@ -55,7 +59,7 @@ public class MedicineController : Controller
             return View(medicineViewModel);
         }
 
-        var medicine = medicineViewModel.Medicine = _medicineRepository.GetFirstOrDefault(x => x.Id == id);
+        var medicine = medicineViewModel.Medicine = _unitOfWork.Medicine.GetFirstOrDefault(x => x.Id == id);
 
         if(medicine == null) 
         {
@@ -67,16 +71,33 @@ public class MedicineController : Controller
 
     public IActionResult Delete(Guid id)
     {
-        var medicineViewModel = new MedicineViewModel();
-        
-        var medicine = medicineViewModel.Medicine = _medicineRepository.GetFirstOrDefault(x => x.Id == id);
+        var medicines = _unitOfWork.Medicine.GetAll();
+        var categories = _unitOfWork.Category.GetAll();
+        var manufacturers = _unitOfWork.Manufacturer.GetAll();
 
-        if (medicine == null)
+        var result = (from medicine in medicines
+                     join category in categories
+                     on medicine.CategoryId equals category.Id
+                     join manufacturer in manufacturers
+                     on medicine.ManufacturerId equals manufacturer.Id
+                     where medicine.Id == id
+                     select new DeleteMedicineViewModel
+                     {
+                         Id = medicine.Id,
+                         Name = medicine.Name,
+                         Description = medicine.Description,
+                         UnitPrice = medicine.UnitPrice,
+                         Type = medicine.Type,
+                         Category = category.Name,
+                         Manufacturer = manufacturer.Name,
+                     }).FirstOrDefault();
+
+        if (result == null)
         {
             return NotFound();
         }
 
-        return View(medicineViewModel);
+        return View(result);
     }
     #endregion
 
@@ -84,8 +105,27 @@ public class MedicineController : Controller
     [HttpGet]
     public IActionResult GetAll()
     {
-        var medicines = _medicineService.GetAllMedicines();
-        return Json(new { data = medicines });
+        var medicines = _unitOfWork.Medicine.GetAll();
+        var categories = _unitOfWork.Category.GetAll();
+        var manufacturers = _unitOfWork.Manufacturer.GetAll();
+
+        var result = from medicine in medicines
+                     join category in categories
+                     on medicine.CategoryId equals category.Id
+                     join manufacturer in manufacturers
+                     on medicine.ManufacturerId equals manufacturer.Id
+                     select new 
+                     {
+                         Id = medicine.Id,
+                         Name = medicine.Name,
+                         Description = medicine.Description,
+                         UnitPrice = medicine.UnitPrice,
+                         Type = medicine.Type,
+                         Category = category.Name,
+                         Manufacturer = manufacturer.Name,
+                     };
+
+        return Json(new { data = result });
     }
 
     [HttpPost, ActionName("Upsert")]
@@ -144,7 +184,7 @@ public class MedicineController : Controller
     [HttpPost, ActionName("Delete")]
     public IActionResult DeleteMedicine(Guid id)
     {
-        var medicine = _medicineRepository.GetFirstOrDefault(u => u.Id == id);
+        var medicine = _unitOfWork.Medicine.GetFirstOrDefault(u => u.Id == id);
 
         if (medicine != null)
         {

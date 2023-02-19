@@ -12,6 +12,7 @@ public class Manufacturer : BaseEntity
 
     public string Location { get; set; }
 
+    [Display(Name = "Activation Status")]
     public bool IsActive { get; set; } = true;
 
     public virtual ICollection<Medicine>? Medicines { get; set; }

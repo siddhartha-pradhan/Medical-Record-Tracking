@@ -40,6 +40,14 @@ namespace Silverline.Infrastructure.Implementation.Services
             return _unitOfWork.Manufacturer.Get(Id);
         }
 
+        public void UpdateStatusManufacturer(Manufacturer manufacturer)
+        {
+            var result = _unitOfWork.Manufacturer.GetFirstOrDefault(x => x.Id == manufacturer.Id);
+            result.IsActive = result.IsActive == true ? false : true;
+            _unitOfWork.Manufacturer.Update(manufacturer);
+            _unitOfWork.Save();
+        }
+
         public void UpdateManufacturer(Manufacturer manufacturer)
         {
             _unitOfWork.Manufacturer.Update(manufacturer);

@@ -12,5 +12,7 @@ public interface IManufacturerService
 
     void UpdateManufacturer(Manufacturer manufacturer);
 
+    void UpdateStatusManufacturer(Manufacturer manufacturer);
+
     void DeleteManufacturer(Manufacturer manufacturer);
 }

@@ -11,12 +11,12 @@ namespace Silverline.Areas.Admin.Controllers;
 [Authorize(Roles = Constants.Admin)]
 public class TestController : Controller
 {
-	private readonly ITestRepository _testRepository;
-	private readonly ITestService _testService;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly ITestService _testService;
 
-	public TestController(ITestRepository testRepository, ITestService testService)
+	public TestController(IUnitOfWork unitOfWork, ITestService testService)
 	{
-		_testRepository = testRepository;
+		_unitOfWork = unitOfWork;
 		_testService = testService;
 	}
 
@@ -32,10 +32,10 @@ public class TestController : Controller
 
 		if (id == null)
 		{
-			return View();
+			return View(test);
 		}
 
-		test = _testRepository.GetFirstOrDefault(x => x.Id == id);
+		test = _unitOfWork.Test.GetFirstOrDefault(x => x.Id == id);
 
 		if (test == null)
 		{
@@ -47,7 +47,7 @@ public class TestController : Controller
 
 	public IActionResult Delete(Guid id)
 	{
-		var test = _testRepository.GetFirstOrDefault(x => x.Id == id);
+		var test = _unitOfWork.Test.GetFirstOrDefault(x => x.Id == id);
 
 		if (test == null)
 		{
@@ -89,10 +89,10 @@ public class TestController : Controller
 
 	}
 
-	[HttpDelete, ActionName("Delete")]
+	[HttpPost, ActionName("Delete")]
 	public IActionResult DeleteDiagnosticTest(Guid id)
 	{
-		var test = _testRepository.GetFirstOrDefault(x => x.Id == id);
+		var test = _unitOfWork.Test.GetFirstOrDefault(x => x.Id == id);
 
 		if (ModelState.IsValid)
 		{
