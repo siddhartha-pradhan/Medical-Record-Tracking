@@ -4,6 +4,10 @@ using Silverline.Core.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Silverline.Application.Interfaces.Services;
 using Silverline.Application.Interfaces.Repositories;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Silverline.Core.ViewModels;
+using Silverline.Infrastructure.Implementation.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace Silverline.Areas.Admin.Controllers;
 
@@ -13,34 +17,58 @@ public class TestController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly ITestService _testService;
+	private readonly ITestTypeService _testTypeService;
 
-	public TestController(IUnitOfWork unitOfWork, ITestService testService)
+	public TestController(IUnitOfWork unitOfWork, ITestService testService, ITestTypeService testTypeService)
 	{
 		_unitOfWork = unitOfWork;
 		_testService = testService;
+		_testTypeService = testTypeService;
 	}
 
 	#region Razor Pages
 	public IActionResult Index()
 	{
-		return View();
-	}
+        var tests = _testService.GetAllDiagnosticTests().AsQueryable().Include(x => x.TestType).ToList();
+        var testTypes = _testTypeService.GetAllTestTypes();
+
+        //var result = (from test in tests
+        //			 join testType in testTypes
+        //			 on test.ClassId equals testType.Id
+        //			 select new
+        //			 {
+        //				 Id = test.Id,
+        //				 Title = test.Title,
+        //				 InitialRange = test.InitialRange,
+        //				 FinalRange = test.FinalRange,
+        //				 Unit = test.Unit,
+        //				 UnitPrice = test.UnitPrice,
+        //				 TestType = testType.Name
+        //			 }).ToList();
+
+
+        return View(tests);
+    }
+
 
 	public IActionResult Upsert(Guid? id)
 	{
 		var test = new DiagnosticTest();
 
-		if (id == null)
-		{
-			return View(test);
-		}
+		var tests = _testService.GetAllDiagnosticTests().AsQueryable().Include(x => x.TestType).ToList();
 
+        if (id == null)
+		{
+			ViewBag.ClassId = new SelectList(_testTypeService.GetAllTestTypes(), "Id", "Name");
+			return View();
+		}
 		test = _unitOfWork.Test.GetFirstOrDefault(x => x.Id == id);
 
 		if (test == null)
 		{
 			return NotFound();
 		}
+		ViewBag.ClassId = new SelectList(_testTypeService.GetAllTestTypes(), "Id", "Name", test.ClassId);
 
 		return View(test);
 	}
@@ -62,8 +90,25 @@ public class TestController : Controller
 	[HttpGet]
 	public IActionResult GetAll()
 	{
-		var test = _testService.GetAllDiagnosticTests();
-		return Json(new { data = test });
+		var tests = _testService.GetAllDiagnosticTests().AsQueryable().Include(x=>x.TestType).ToList();
+		var testTypes = _testTypeService.GetAllTestTypes();
+
+		//var result = (from test in tests
+		//			 join testType in testTypes
+		//			 on test.ClassId equals testType.Id
+		//			 select new
+		//			 {
+		//				 Id = test.Id,
+		//				 Title = test.Title,
+		//				 InitialRange = test.InitialRange,
+		//				 FinalRange = test.FinalRange,
+		//				 Unit = test.Unit,
+		//				 UnitPrice = test.UnitPrice,
+		//				 TestType = testType.Name
+		//			 }).ToList();
+
+
+        return View(tests);
 	}
 
 	[HttpPost, ActionName("Upsert")]

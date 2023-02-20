@@ -1,0 +1,91 @@
+﻿@model Silverline.Core.Entities.DiagnosticTest
+
+@{
+	ViewData["Title"] = "Diagnostic Test";
+	var title = "Create a new Diagnostic Test";
+}
+
+<h1 class="mb-4">Category Index</h1>
+@if (Model != null)
+{
+	title = "Edit an existing Diagnostic Test";
+}
+<h2 class="text-primary">@title</h2>
+<form method="post">
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	<div class="row mt-4">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label asp-for="@Model.Title" class="control-label mb-2"></label>
+				<input asp-for="@Model.Title" class="form-control" />
+				<span asp-validation-for="@Model.Title" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<label asp-for="@Model.Description" class="control-label mb-2"></label>
+				<input asp-for="@Model.Description" class="form-control" />
+				<span asp-validation-for="@Model.Description" class="text-danger"></span>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-4">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label asp-for="@Model.InitialRange" class="control-label mb-2"></label>
+				<input asp-for="@Model.InitialRange" class="form-control" />
+				<span asp-validation-for="@Model.InitialRange" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<label asp-for="@Model.FinalRange" class="control-label mb-2"></label>
+				<input asp-for="@Model.FinalRange" class="form-control" />
+				<span asp-validation-for="@Model.FinalRange" class="text-danger"></span>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-4">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label asp-for="@Model.Unit" class="control-label mb-2"></label>
+				<input asp-for="@Model.Unit" class="form-control" />
+				<span asp-validation-for="@Model.Unit" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<label asp-for="@Model.UnitPrice" class="control-label mb-2"></label>
+				<input asp-for="@Model.UnitPrice" class="form-control" />
+				<span asp-validation-for="@Model.UnitPrice" class="text-danger"></span>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-4">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label asp-for="@Model.ClassId" class="control-label mb-2"></label>
+				@Html.DropDownList("ClassId", null, "",htmlAttributes: new { @class = "form-control dropdowns-views" })
+				<span asp-validation-for="@Model.ClassId" class="text-danger"></span>
+			</div>
+		</div> 
+	</div>
+	<div class="row mt-4">
+		<div class="col-md-6">
+			<div class="form-group mt-4">
+				@if (Model != null)
+				{
+					<partial name="_UpdateAndBackToList" model="Model.Id" />
+				}
+				else
+				{
+					<partial name="_CreateAndBackToList" />
+				}
+			</div>
+		</div> 
+	</div>
+</form>
+
+@section Scripts{
+	<partial name="_ValidationScriptsPartial" />
+}

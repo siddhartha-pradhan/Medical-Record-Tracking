@@ -10,7 +10,7 @@ services.AddInfrastructure(configurations);
 
 services.AddControllersWithViews();
 
-services.AddRazorPages();
+services.AddRazorPages().AddRazorRuntimeCompilation();
 
 services.ConfigureApplicationCookie(options =>
 {

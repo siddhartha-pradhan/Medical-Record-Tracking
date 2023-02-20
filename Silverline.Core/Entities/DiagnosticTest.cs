@@ -21,6 +21,7 @@ public class DiagnosticTest : BaseEntity
 
     public float UnitPrice { get; set; }
 
+    [Display(Name = "Test Type")]
     public Guid ClassId { get; set; }
 
     [ForeignKey("ClassId ")]

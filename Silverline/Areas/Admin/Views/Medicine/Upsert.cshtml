@@ -60,7 +60,7 @@
 
                     <div class="mb-4 col-6">
                         <label asp-for="Medicine.Type" class="mb-2"></label>
-                        <select asp-for="Medicine.Type" class="form-select">
+                        <select asp-for="Medicine.Type" class="form-select dropdowns-views">
                            <option disabled selected>Medicine Type</option>
                            <option value="Injectibles">Injectibles</option>
                            <option value="Antibiotics">Antibiotics</option>
@@ -82,9 +82,9 @@
 
                     <div class="mb-4 col-6">
                         <label asp-for="Medicine.ManufacturerId" class="mb-2"></label>
-                            <select asp-for="Medicine.ManufacturerId" asp-items="@Model.Manufacturerers" class="form-select">
-                                <option disabled selected>Select a Category</option>
-                            </select>
+                        <select asp-for="Medicine.ManufacturerId" asp-items="@Model.Manufacturerers" class="form-select">
+                            <option disabled selected>Select a Category</option>
+                        </select>
                         <span asp-validation-for="Medicine.ManufacturerId" class="text-danger"></span>
                     </div>
                 </div>
