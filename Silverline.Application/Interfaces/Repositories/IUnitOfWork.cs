@@ -6,6 +6,14 @@ public interface IUnitOfWork
 
     IAppUserRepository AppUser { get; set; }
 
+    IPatientRepository Patient { get; set; }
+
+    IDoctorRepository Doctor { get; set; }
+
+    ILabTechnicianRepository LabTechnician { get; set; }
+    
+    IPharmacistRepository Pharmacist { get; set; }
+
     ICategoryRepository Category { get; set; }
 
     IManufacturerRepository Manufacturer { get; set; }

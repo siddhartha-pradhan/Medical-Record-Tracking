@@ -29,6 +29,10 @@ public static class DependencyInjection
         services.AddTransient<IUnitOfWork, UnitOfWork>();
 
         services.AddTransient<IAppUserService, AppUserService>();
+        services.AddTransient<IPatientService, PatientService>();
+        services.AddTransient<IDoctorService, DoctorService>();
+        services.AddTransient<ILabTechnicianService, LabTechnicianService>();
+        services.AddTransient<IPharmacistService, PharmacistService>();
         services.AddTransient<ICategoryService, CategoryService>();
         services.AddTransient<IEmailSender, EmailSender>();
         services.AddTransient<IManufacturerService, ManufacturerService>();
