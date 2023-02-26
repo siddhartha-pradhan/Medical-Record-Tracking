@@ -65,7 +65,7 @@
 		<div class="col-md-6">
 			<div class="form-group">
 				<label asp-for="@Model.ClassId" class="control-label mb-2"></label>
-				@Html.DropDownList("ClassId", null, "",htmlAttributes: new { @class = "form-control dropdowns-views" })
+				@Html.DropDownList("ClassId", null, "",htmlAttributes: new { @class = "form-control dropdown" })
 				<span asp-validation-for="@Model.ClassId" class="text-danger"></span>
 			</div>
 		</div> 

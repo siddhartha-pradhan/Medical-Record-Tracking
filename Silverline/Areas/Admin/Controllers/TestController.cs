@@ -30,7 +30,6 @@ public class TestController : Controller
 	public IActionResult Index()
 	{
         var tests = _testService.GetAllDiagnosticTests().AsQueryable().Include(x => x.TestType).ToList();
-        var testTypes = _testTypeService.GetAllTestTypes();
 
         //var result = (from test in tests
         //			 join testType in testTypes
@@ -68,6 +67,7 @@ public class TestController : Controller
 		{
 			return NotFound();
 		}
+
 		ViewBag.ClassId = new SelectList(_testTypeService.GetAllTestTypes(), "Id", "Name", test.ClassId);
 
 		return View(test);

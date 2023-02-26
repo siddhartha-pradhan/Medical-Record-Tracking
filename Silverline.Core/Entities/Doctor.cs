@@ -16,11 +16,19 @@ public class Doctor
 
     public Guid DepartmentId { get; set; }
 
+    public byte[] Resume { get; set; }
+
+    public string ResumeURL { get; set; }
+
+    public byte[] Certification { get; set; }
+
+    public string CertificationURL { get; set; }
+
     [ForeignKey("DepartmentId")]
-    public virtual Specialty Specialty { get; set; }
+    public virtual Specialty? Specialty { get; set; }
 
     [ForeignKey("UserId")]
-    public virtual AppUser AppUser { get; set; }
+    public virtual AppUser? AppUser { get; set; }
 
-    public virtual ICollection<Appointment> Appointments { get; set; }
+    public virtual ICollection<Appointment>? Appointments { get; set; }
 }

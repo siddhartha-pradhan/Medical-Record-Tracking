@@ -53,6 +53,8 @@
     <Folder Include="Areas\Pharmacist\Controllers\" />
     <Folder Include="Areas\Pharmacist\Views\" />
     <Folder Include="wwwroot\images\medicines\" />
+    <Folder Include="wwwroot\images\certification\" />
+    <Folder Include="wwwroot\images\resume\" />
     <Folder Include="wwwroot\images\users\admin\" />
     <Folder Include="wwwroot\images\users\doctors\" />
     <Folder Include="wwwroot\images\users\staffs\" />

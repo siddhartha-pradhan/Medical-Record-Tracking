@@ -7,14 +7,19 @@
 
 <h1>@ViewData["Title"]</h1>
 
+<partial name="_Notification" />
+
 <div class="row">
     <div class="col-md-4">
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" enctype = "multipart/form-data" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="form-label mt-4">Select a Role</label>
-                <select asp-for="Input.Role" asp-items="@Model.Input.RolesList" class="form-select">
+                <select asp-for="Input.Role" class="form-select">
                    <option disabled selected>User Role</option>
+                   <option value="Doctor">I am a Doctor</option>
+                   <option value="LabTechnician">I am a Lab Technician</option>
+                   <option value="Pharmacist">I am a Pharmacist</option>
                 </select>
             </div>
             <div class="form-group">
@@ -30,45 +35,50 @@
             </div>
             <div class="form-group">
                 <label asp-for="Input.PhoneNumber" class="form-label mt-4"></label>
-                <input asp-for="Input.PhoneNumber" class="form-control mb-2" autocomplete="username" aria-required="true"/>
+                <input asp-for="Input.PhoneNumber" class="form-control mb-2" aria-required="true"/>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger mt-3"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.Password" class="form-label mt-4"></label>
-                <input asp-for="Input.Password" class="form-control" id="passcode" autocomplete="new-password" aria-required="true" />
-                <span asp-validation-for="Input.Password" class="text-danger mt-3"></span>
+                <label asp-for="Input.CertificationNumber" class="form-label mt-4"></label>
+                <input asp-for="Input.CertificationNumber" class="form-control mb-2" aria-required="true"/>
+                <span asp-validation-for="Input.CertificationNumber" class="text-danger mt-3"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword" class="form-label mt-4"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" id="password" autocomplete="new-password" aria-required="true" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger mt-3"></span>
-            </div>
-            <div class="form-check mt-3">
-                <input class="form-check-input" type="checkbox" onclick="showpassword(this);">
-                <label class="form-check-label">Show Password</label>
-                <script type="text/javascript">
-                    function showpassword(check_box) {
-                        var code = document.getElementById("passcode");
-                        var confirm = document.getElementById("password");
-                        if (check_box.checked)
-                            code.setAttribute("type", "text");
-                            confirm.setAttribute("type", "text");
-                        else
-                            code.setAttribute("type", "password");
-                            confirm.setAttribute("type", "password");
-                    }
-                </script>
+            <div class="form-group" id="Department" style="display: none">
+                <label asp-for="Input.DepartmentId" class="form-label mt-4"></label>
+                @Html.DropDownList("Input.DepartmentId", (IEnumerable<SelectListItem>)ViewData["DepartmentId"], "Select a department", htmlAttributes: new { @class = "form-control dropdown" })
+                <span asp-validation-for="Input.DepartmentId" class="text-danger mt-3"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.ProfileImage" class="form-label mt-4"></label>
                 <input asp-for="Input.ProfileImage" name="UserImage" class="form-control" type="file" id="formFile"  accept=".png,.jpg,.jpeg,.gif,.tif">
             </div>
-            <button type="submit" class="btn btn-primary mt-4">Register</button>
-
+            
+            <div class="form-group">
+                <label asp-for="Input.ResumeURL" class="form-label mt-4"></label>
+                <input type="file" id="uploadResume" onchange="readURL(this);" name="resume" class="form-control" accept="application/pdf" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.CertificationURL" class="form-label mt-4"></label>
+                <input type="file" id="uploadCertificate" onchange="readURL(this);" name="certification" class="form-control" accept="application/pdf" />
+            </div>
+            <button type="submit" class="btn btn-primary mt-4">Request a Registration</button>
         </form>
     </div>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $('#Input_Role').change(function () {
+                var selection = $('#Input_Role Option:Selected').val();
+                console.log(selection);
+                if (selection != 'Doctor') {
+                    $('#Department').hide();
+                } else {
+                    $('#Department').show();
+                }
+            })
+        })
+    </script>
 }
