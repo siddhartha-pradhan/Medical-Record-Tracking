@@ -17,4 +17,9 @@ public class AppUserService : IAppUserService
     {
         return _unitOfWork.AppUser.Retrieve(Id);
     }
+
+    public List<AppUser> GetAllUsers()
+    {
+        return _unitOfWork.AppUser.GetAll();
+    }
 }

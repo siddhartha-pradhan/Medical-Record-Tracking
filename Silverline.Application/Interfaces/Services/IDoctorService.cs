@@ -9,4 +9,6 @@ public interface IDoctorService
     List<Doctor> GetAllDoctors();
 
     void AddDoctor(Doctor Doctor);
+
+    void ApproveDoctor(AppUser appUser);
 }

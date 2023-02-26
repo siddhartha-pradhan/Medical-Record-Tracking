@@ -19,6 +19,12 @@ public class LabTechnicianService : ILabTechnicianService
         _unitOfWork.Save();
     }
 
+    public void ApproveLabTechnician(AppUser appUser)
+    {
+        appUser.EmailConfirmed = true;
+        _unitOfWork.Save();
+    }
+
     public List<LabTechnician> GetAllLabTechnicians()
     {
         return _unitOfWork.LabTechnician.GetAll();

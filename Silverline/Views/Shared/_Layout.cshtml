@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Silverline.Core.Constants;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,19 +26,38 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            
+                        @if (User.IsInRole(Constants.Admin))
+                        {
+                            <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
                                 <a class="dropdown-item" asp-area="Admin" asp-controller="Manufacturer" asp-action="Index">Manufacturer</a>
                                 <a class="dropdown-item" asp-area="Admin" asp-controller="Medicine" asp-action="Index">Medicine</a>
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="Test" asp-action="Index">Test</a>
                                 <a class="dropdown-item" asp-area="Admin" asp-controller="TestType" asp-action="Index">Test Type</a>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Test" asp-action="Index">Diagnostic Test</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" asp-area="Admin" asp-controller="Specialty" asp-action="Index">Specialty</a>
                             </div>
-                        </li>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Users</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Patient" asp-action="Index">Patients</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Doctor" asp-action="Index">Doctors</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Pharmacist" asp-action="Index">Pharmacists</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="LabTechnician" asp-action="Index">Lab Technician</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Personnel Approval</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Approval" asp-action="Doctor">Doctors</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Approval" asp-action="Pharmacist">Pharmacists</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Approval" asp-action="LabTechnician">Lab Technician</a>
+                                </div>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

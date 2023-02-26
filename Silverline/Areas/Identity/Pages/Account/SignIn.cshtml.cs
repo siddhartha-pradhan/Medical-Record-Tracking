@@ -105,7 +105,7 @@ namespace Silverline.Areas.Identity.Pages.Account
             [Display(Name = "Profile Image")]
             public byte[] ProfileImage { get; set; }
 
-            public string Role { get; set; } = "Patient";
+            public string Role { get; set; } = "Admin";
         }
 
 
@@ -167,6 +167,7 @@ namespace Silverline.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
+
                     var test = new Patient() { 
                         UserId = userId,
                         Address = Input.Address,

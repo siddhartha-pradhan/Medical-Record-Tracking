@@ -14,6 +14,16 @@ public class PatientService : IPatientService
         _unitOfWork = unitOfWork;
     }
 
+    public void AddCredits(Guid id)
+    {
+        var patient = _unitOfWork.Patient.GetFirstOrDefault(x => x.Id == id);
+        
+        if (patient == null)
+        {
+            patient.CreditPoints += 10;
+        }
+    }
+
     public void AddPatient(Patient patient)
     {
         _unitOfWork.Patient.Add(patient);

@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Silverline.Application.Interfaces.Services;
 using Silverline.Application.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Silverline.Core.ViewModels;
-using Silverline.Infrastructure.Implementation.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Silverline.Areas.Admin.Controllers;
@@ -29,24 +27,24 @@ public class TestController : Controller
 	#region Razor Pages
 	public IActionResult Index()
 	{
-        var tests = _testService.GetAllDiagnosticTests().AsQueryable().Include(x => x.TestType).ToList();
+		var tests = _testService.GetAllDiagnosticTests().ToList();
+		var testTypes = _testTypeService.GetAllTestTypes();
 
-        //var result = (from test in tests
-        //			 join testType in testTypes
-        //			 on test.ClassId equals testType.Id
-        //			 select new
-        //			 {
-        //				 Id = test.Id,
-        //				 Title = test.Title,
-        //				 InitialRange = test.InitialRange,
-        //				 FinalRange = test.FinalRange,
-        //				 Unit = test.Unit,
-        //				 UnitPrice = test.UnitPrice,
-        //				 TestType = testType.Name
-        //			 }).ToList();
+        var result = (from test in tests
+					  join testType in testTypes
+					  on test.ClassId equals testType.Id
+					  select new
+					  {
+						  Id = test.Id,
+						  Title = test.Title,
+						  InitialRange = test.InitialRange,
+						  FinalRange = test.FinalRange,
+						  Unit = test.Unit,
+						  UnitPrice = test.UnitPrice,
+						  TestType = testType.Name
+					  }).ToList();
 
-
-        return View(tests);
+		return View(tests);
     }
 
 
@@ -87,30 +85,6 @@ public class TestController : Controller
 	#endregion
 
 	#region API Calls
-	[HttpGet]
-	public IActionResult GetAll()
-	{
-		var tests = _testService.GetAllDiagnosticTests().AsQueryable().Include(x=>x.TestType).ToList();
-		var testTypes = _testTypeService.GetAllTestTypes();
-
-		//var result = (from test in tests
-		//			 join testType in testTypes
-		//			 on test.ClassId equals testType.Id
-		//			 select new
-		//			 {
-		//				 Id = test.Id,
-		//				 Title = test.Title,
-		//				 InitialRange = test.InitialRange,
-		//				 FinalRange = test.FinalRange,
-		//				 Unit = test.Unit,
-		//				 UnitPrice = test.UnitPrice,
-		//				 TestType = testType.Name
-		//			 }).ToList();
-
-
-        return View(tests);
-	}
-
 	[HttpPost, ActionName("Upsert")]
 	public IActionResult UpsertDiagnosticTest(DiagnosticTest test)
 	{

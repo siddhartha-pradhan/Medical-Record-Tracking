@@ -5,7 +5,7 @@
     var title = "Create a new Medicine";
 }
 
-<h1 class="mb-4">Book Index</h1>
+<h1 class="mb-4">Medicine Index</h1>
 
 <form method="post" enctype="multipart/form-data">
     <div class="row mb-3">
@@ -60,7 +60,7 @@
 
                     <div class="mb-4 col-6">
                         <label asp-for="Medicine.Type" class="mb-2"></label>
-                        <select asp-for="Medicine.Type" class="form-select dropdowns-views">
+                        <select asp-for="Medicine.Type" class="form-select">
                            <option disabled selected>Medicine Type</option>
                            <option value="Injectibles">Injectibles</option>
                            <option value="Antibiotics">Antibiotics</option>

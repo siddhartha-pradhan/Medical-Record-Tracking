@@ -12,11 +12,7 @@ public class Pharmacist
 
     public string HighestMedicalDegree { get; set; }
 
-    public byte[] Resume { get; set; }
-
     public string ResumeURL { get; set; }
-
-    public byte[] Certification { get; set; }
 
     public string CertificationURL { get; set; }
 

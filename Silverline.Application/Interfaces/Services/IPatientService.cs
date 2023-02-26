@@ -10,4 +10,6 @@ public interface IPatientService
 
     void AddPatient(Patient patient);
 
+    void AddCredits(Guid id);
+
 }

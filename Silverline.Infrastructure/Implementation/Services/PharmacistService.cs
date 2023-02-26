@@ -19,6 +19,12 @@ public class PharmacistService : IPharmacistService
         _unitOfWork.Save();
     }
 
+    public void ApprovePharmacist(AppUser appUser)
+    {
+        appUser.EmailConfirmed = true;
+        _unitOfWork.Save();
+    }
+
     public List<Pharmacist> GetAllPharmacists()
     {
         return _unitOfWork.Pharmacist.GetAll();

@@ -9,4 +9,6 @@ public interface ILabTechnicianService
     List<LabTechnician> GetAllLabTechnicians();
 
     void AddLabTechnician(LabTechnician LabTechnician);
+
+    void ApproveLabTechnician(AppUser appUser);
 }

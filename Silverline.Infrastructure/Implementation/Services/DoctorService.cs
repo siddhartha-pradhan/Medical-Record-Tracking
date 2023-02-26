@@ -19,6 +19,12 @@ public class DoctorService : IDoctorService
         _unitOfWork.Save();
     }
 
+    public void ApproveDoctor(AppUser appUser)
+    {
+        appUser.EmailConfirmed = true;
+        _unitOfWork.Save();
+    }
+
     public List<Doctor> GetAllDoctors()
     {
         return _unitOfWork.Doctor.GetAll();

@@ -5,4 +5,6 @@ namespace Silverline.Application.Interfaces.Services;
 public interface IAppUserService
 {
     AppUser GetUser(string Id);
+
+    List<AppUser> GetAllUsers();
 }

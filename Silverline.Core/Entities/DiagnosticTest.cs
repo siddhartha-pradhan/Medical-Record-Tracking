@@ -13,12 +13,15 @@ public class DiagnosticTest : BaseEntity
 
     public string Description { get; set; }
 
+    [Display(Name = "Initial Range")]
     public float InitialRange { get; set; }
 
+    [Display(Name = "Final Range")]
     public float FinalRange { get; set; }
 
     public string Unit { get; set; }
 
+    [Display(Name = "Unit Price")]
     public float UnitPrice { get; set; }
 
     [Display(Name = "Test Type")]

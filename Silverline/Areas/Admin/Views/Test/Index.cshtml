@@ -38,7 +38,7 @@
                     <td>@item.FinalRange</td>
                     <td>@item.Unit</td>
                     <td>@item.UnitPrice</td>
-                    <td>@item.TestType.Name</td>
+                    <td>@item.TestType?.Name</td>
                     <td>
                         <a href="@Url.Action("Upsert", "Test", new { id=item.Id })" class="btn btn-primary btn-sm"><i class="fa fa-cogs"></i></a>
                         <a href="@Url.Action("Delete", "Test", new { id=item.Id })" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a> 

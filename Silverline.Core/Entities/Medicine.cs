@@ -9,19 +9,27 @@ public class Medicine : BaseEntity
     [Key]
     public Guid Id { get; set; }
 
+    [Required]
     public string Name { get; set; }
 
+    [Required]
     public string Description { get; set; }
 
+    [Required]
+    [Display(Name = "Unit Price")]
     public float UnitPrice { get; set; }
 
+    [Required]
     public string Type { get; set; }
 
+    [Display(Name = "Image")]
     public string? ImageURL { get; set; }
 
+    [Required]
     [Display(Name = "Manufacturer")]
     public Guid ManufacturerId { get; set; }    
 
+    [Required]
     [Display(Name = "Category")]
     public Guid CategoryId { get; set; }
 

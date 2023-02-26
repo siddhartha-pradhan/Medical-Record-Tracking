@@ -9,4 +9,6 @@ public interface IPharmacistService
     List<Pharmacist> GetAllPharmacists();
 
     void AddPharmacist(Pharmacist Pharmacist);
+
+    void ApprovePharmacist(AppUser appUser);
 }
