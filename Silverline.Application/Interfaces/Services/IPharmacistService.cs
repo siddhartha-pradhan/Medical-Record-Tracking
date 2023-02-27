@@ -5,10 +5,12 @@ namespace Silverline.Application.Interfaces.Services;
 public interface IPharmacistService
 {
     Pharmacist GetPharmacist(Guid Id);
+    
+    Pharmacist GetUserPharmacist(string Id);
 
     List<Pharmacist> GetAllPharmacists();
 
-    void AddPharmacist(Pharmacist Pharmacist);
+    void AddPharmacist(Pharmacist pharmacist);
 
-    void ApprovePharmacist(AppUser appUser);
+    void ApprovePharmacist(Pharmacist pharmacist);
 }

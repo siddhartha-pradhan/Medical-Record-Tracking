@@ -26,6 +26,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Areas\Patient\Controllers\AppointmentController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Areas\Patient\Views\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Patient\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
@@ -48,8 +63,6 @@
     <Folder Include="Areas\Doctor\Views\" />
     <Folder Include="Areas\LabTechnician\Controllers\" />
     <Folder Include="Areas\LabTechnician\Views\" />
-    <Folder Include="Areas\Patient\Controllers\" />
-    <Folder Include="Areas\Patient\Views\" />
     <Folder Include="Areas\Pharmacist\Controllers\" />
     <Folder Include="Areas\Pharmacist\Views\" />
     <Folder Include="wwwroot\images\certification\staffs\" />
@@ -59,6 +72,10 @@
     <Folder Include="wwwroot\images\users\doctors\" />
     <Folder Include="wwwroot\images\users\staffs\" />
     <Folder Include="wwwroot\images\users\patients\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Patient\Views\Appointment\Index.cshtml" />
   </ItemGroup>
 
 </Project>

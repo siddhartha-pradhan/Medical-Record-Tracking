@@ -181,7 +181,7 @@ public class RegisterModel : PageModel
 					folder = "staffs";
                     break;
 
-                case "Pharmacits":
+                case "Pharmacist":
                     pharmacist.CertificateNumber = Input.CertificationNumber;
                     pharmacist.HighestMedicalDegree = "Bachelor of Pharmacy";
 					folder = "staffs";
@@ -235,7 +235,7 @@ public class RegisterModel : PageModel
                         labTechnician.ResumeURL = @$"\images\resume\{folder}\" + fileName + extension;
                         break;
 
-                    case "Pharmacits":
+                    case "Pharmacist":
                         pharmacist.ResumeURL = @$"\images\resume\{folder}\" + fileName + extension;
                         break;
                 }
@@ -263,7 +263,7 @@ public class RegisterModel : PageModel
                         labTechnician.CertificationURL = @$"\images\certification\{folder}\" + fileName + extension;
                         break;
 
-                    case "Pharmacits":
+                    case "Pharmacist":
                         pharmacist.CertificationURL = @$"\images\certification\{folder}\" + fileName + extension;
                         break;
                 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -105,7 +106,7 @@ namespace Silverline.Areas.Identity.Pages.Account
             [Display(Name = "Profile Image")]
             public byte[] ProfileImage { get; set; }
 
-            public string Role { get; set; } = "Admin";
+            public string Role { get; set; } = "Patient";
         }
 
 
@@ -122,10 +123,21 @@ namespace Silverline.Areas.Identity.Pages.Account
             if (!ModelState.IsValid)
             {
                 var user = CreateUser();
-                var patient = CreatePatient();
                 var wwwRootPath = _webHostEnvironment.WebRootPath;
                 var fileCount = Request.Form.Files.Count;
 
+                var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                var stringChars = new char[8];
+                var random = new Random();
+
+                for (int i = 0; i < stringChars.Length; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+
+                var finalString = new String(stringChars);
+
+                var role = Input.Role;
                 user.FullName = Input.FullName;
                 user.PhoneNumber = Input.PhoneNumber;
 
@@ -133,9 +145,9 @@ namespace Silverline.Areas.Identity.Pages.Account
                 {
                     var file = Request.Form.Files.FirstOrDefault();
 
-                    var fileName = $"{Guid.NewGuid().ToString()} - {user.FullName}";
+                    var fileName = $"[{role} - {finalString}] {user.FullName} - Image";
 
-                    var uploads = Path.Combine(wwwRootPath, @$"images\users\patients");
+                    var uploads = Path.Combine(wwwRootPath, @$"images\users\patients\");
                     
                     var extension = Path.GetExtension(file.FileName);
 
@@ -150,7 +162,7 @@ namespace Silverline.Areas.Identity.Pages.Account
                         file.CopyTo(fileStreams);
                     }
 
-                    user.ImageURL = @$"images\users\patient" + fileName + extension;
+                    user.ImageURL = @$"images\users\patient\" + fileName + extension;
                 }
                 
                 
@@ -168,7 +180,7 @@ namespace Silverline.Areas.Identity.Pages.Account
 
                     var userId = await _userManager.GetUserIdAsync(user);
 
-                    var test = new Patient() { 
+                    var test = new Core.Entities.Patient() { 
                         UserId = userId,
                         Address = Input.Address,
                         Street = Input.Street,
@@ -223,9 +235,9 @@ namespace Silverline.Areas.Identity.Pages.Account
             }
         }
 
-        private Patient CreatePatient()
+        private Core.Entities.Patient CreatePatient()
         {
-            return new Patient();
+            return new Core.Entities.Patient();
         }
 
         private IUserEmailStore<IdentityUser> GetEmailStore()

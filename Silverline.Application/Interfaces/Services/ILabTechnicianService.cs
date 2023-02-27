@@ -6,9 +6,11 @@ public interface ILabTechnicianService
 {
     LabTechnician GetLabTechnician(Guid Id);
 
+    LabTechnician GetUserLabTechnician(string Id);
+
     List<LabTechnician> GetAllLabTechnicians();
 
-    void AddLabTechnician(LabTechnician LabTechnician);
+    void AddLabTechnician(LabTechnician labTechnician);
 
-    void ApproveLabTechnician(AppUser appUser);
+    void ApproveLabTechnician(LabTechnician labTechnician);
 }

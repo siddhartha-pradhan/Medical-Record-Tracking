@@ -20,7 +20,7 @@ public class Appointment
 
     public float FeeAmount { get; set; }
 
-    public string DiagnosisDescription { get; set; }
+    public string AppointmentRequest { get; set; }
 
     [ForeignKey("PatientId")]
     public virtual Patient Patient { get; set; }

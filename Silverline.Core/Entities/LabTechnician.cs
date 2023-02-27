@@ -16,6 +16,8 @@ public class LabTechnician
 
     public string CertificationURL { get; set; }
 
+    public bool IsApproved { get; set; } = false;
+
     [ForeignKey("UserId")]
     public virtual AppUser AppUser { get; set; }
 }

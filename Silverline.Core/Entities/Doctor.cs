@@ -22,6 +22,8 @@ public class Doctor
 
     public string CertificationURL { get; set; }
 
+    public bool IsApproved { get; set; } = false;
+
     [ForeignKey("DepartmentId")]
     public virtual Specialty? Specialty { get; set; }
 

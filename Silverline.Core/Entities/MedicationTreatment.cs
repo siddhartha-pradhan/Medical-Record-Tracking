@@ -8,9 +8,9 @@ public class MedicationTreatment
     [Key]
     public Guid Id { get; set; }
 
-    public Guid PatientId { get; set; }
-
     public Guid MedicineId { get; set; }
+
+    public Guid ReferralId { get; set; }
 
     public string Dose { get; set; }
 
@@ -19,15 +19,17 @@ public class MedicationTreatment
     public int TimePeriod { get; set; }  
     
     public string TimeFormat { get; set; }
+    
+    public string Remarks { get; set; }
 
-    public Guid ApprovedBy { get; set; }
+    public Guid PharmacistId { get; set; }
 
-    [ForeignKey("PatientId")]
-    public  virtual Patient Patient { get; set; }
+    [ForeignKey("PharmacistId")]
+    public virtual Pharmacist? Pharmacist { get; set; }
 
     [ForeignKey("MedicineId")]
     public virtual Medicine Medicine { get; set; }
 
-    [ForeignKey("ApprovedBy")]
-    public virtual Doctor Doctor { get; set; }
+    [ForeignKey("ReferralId")]
+    public virtual AppointmentDetail AppointmentDetail { get; set; }
 }

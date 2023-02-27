@@ -120,10 +120,12 @@ public class ApprovalController : Controller
     public IActionResult ApproveDoctor(string id)
     {
         var user = _appUserService.GetUser(id);
+        var doctor = _doctorService.GetUserDoctor(user.Id);
 
         if (ModelState.IsValid)
         {
-            _doctorService.ApproveDoctor(user);
+            _doctorService.ApproveDoctor(doctor);
+
             TempData["Success"] = "Doctor Approved Successfully";
 
             _emailSender.SendEmailAsync(user.Email, "Successful Registration",
@@ -139,10 +141,11 @@ public class ApprovalController : Controller
     public IActionResult ApproveLabTechnician(string id)
     {
         var user = _appUserService.GetUser(id);
+        var labTechnician = _labTechnicianService.GetUserLabTechnician(user.Id);
 
         if (ModelState.IsValid)
         {
-            _labTechnicianService.ApproveLabTechnician(user);
+            _labTechnicianService.ApproveLabTechnician(labTechnician);
             TempData["Success"] = "Lab Technician Approved Successfully";
 
             _emailSender.SendEmailAsync(user.Email, "Successful Registration",
@@ -158,10 +161,11 @@ public class ApprovalController : Controller
     public IActionResult ApprovePharmacist(string id)
     {
         var user = _appUserService.GetUser(id);
+        var pharmacist = _pharmacistService.GetUserPharmacist(user.Id);
 
         if (ModelState.IsValid)
         {
-            _pharmacistService.ApprovePharmacist(user);
+            _pharmacistService.ApprovePharmacist(pharmacist);
             TempData["Success"] = "Pharmacist Approved Successfully";
 
             _emailSender.SendEmailAsync(user.Email, "Successful Registration",

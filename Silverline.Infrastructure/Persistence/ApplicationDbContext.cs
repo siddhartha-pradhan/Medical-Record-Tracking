@@ -15,11 +15,15 @@ public class ApplicationDbContext : IdentityDbContext
 
     public DbSet<Appointment> Appointments { get; set; }
 
+    public DbSet<AppointmentDetail> AppointmentDetails { get; set; }
+
     public DbSet<Category> Categories { get; set; }
 
     public DbSet<DiagnosticTest> DiagnosticTests { get; set; }
 
     public DbSet<Doctor> Doctors { get; set; }
+    
+    public DbSet<LaboratoryDiagnosis> LaboratoryDiagnosis { get; set; }
 
     public DbSet<LabTechnician> LabTechnicians { get; set; }
 
@@ -103,9 +107,9 @@ public class ApplicationDbContext : IdentityDbContext
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<MedicationTreatment>()
-            .HasOne(x => x.Patient)
-            .WithMany(x => x.MedicationTreatments)
-            .HasForeignKey(p => p.PatientId)
+            .HasOne(x => x.AppointmentDetail)
+            .WithMany(x => x.MedicalTreatments)
+            .HasForeignKey(p => p.ReferralId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<MedicationTreatment>()

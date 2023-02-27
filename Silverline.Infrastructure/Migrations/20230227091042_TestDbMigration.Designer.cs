@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Silverline.Infrastructure.Persistence;
 
@@ -11,9 +12,10 @@ using Silverline.Infrastructure.Persistence;
 namespace Silverline.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230227091042_TestDbMigration")]
+    partial class TestDbMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -286,7 +288,7 @@ namespace Silverline.Infrastructure.Migrations
 
                     b.HasIndex("AppointmentId");
 
-                    b.ToTable("AppointmentDetails");
+                    b.ToTable("AppointmentDetail");
                 });
 
             modelBuilder.Entity("Silverline.Core.Entities.Category", b =>
@@ -398,39 +400,6 @@ namespace Silverline.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Doctors");
-                });
-
-            modelBuilder.Entity("Silverline.Core.Entities.LaboratoryDiagnosis", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ReferralId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Remarks")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("TechnicianId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TestId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<float>("Value")
-                        .HasColumnType("real");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReferralId");
-
-                    b.HasIndex("TechnicianId");
-
-                    b.HasIndex("TestId");
-
-                    b.ToTable("LaboratoryDiagnosis");
                 });
 
             modelBuilder.Entity("Silverline.Core.Entities.LabTechnician", b =>
@@ -924,6 +893,36 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("TestTypes");
                 });
 
+            modelBuilder.Entity("Silverline.Core.LaboratoryDiagnosis", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ReferralId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Remarks")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("TechnicianId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TestId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReferralId");
+
+                    b.HasIndex("TechnicianId");
+
+                    b.HasIndex("TestId");
+
+                    b.ToTable("LaboratoryDiagnosis");
+                });
+
             modelBuilder.Entity("Silverline.Core.Entities.AppUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -1054,33 +1053,6 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("Specialty");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.LaboratoryDiagnosis", b =>
-                {
-                    b.HasOne("Silverline.Core.Entities.AppointmentDetail", "AppointmentDetail")
-                        .WithMany("LaboratoryDiagnosis")
-                        .HasForeignKey("ReferralId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Silverline.Core.Entities.LabTechnician", "LabTechnician")
-                        .WithMany()
-                        .HasForeignKey("TechnicianId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Silverline.Core.Entities.DiagnosticTest", "DiagnosticTest")
-                        .WithMany()
-                        .HasForeignKey("TestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppointmentDetail");
-
-                    b.Navigation("DiagnosticTest");
-
-                    b.Navigation("LabTechnician");
-                });
-
             modelBuilder.Entity("Silverline.Core.Entities.LabTechnician", b =>
                 {
                     b.HasOne("Silverline.Core.Entities.AppUser", "AppUser")
@@ -1113,7 +1085,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.HasOne("Silverline.Core.Entities.AppointmentDetail", "AppointmentDetail")
                         .WithMany("MedicalTreatments")
                         .HasForeignKey("ReferralId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AppointmentDetail");
@@ -1298,6 +1270,33 @@ namespace Silverline.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("Silverline.Core.LaboratoryDiagnosis", b =>
+                {
+                    b.HasOne("Silverline.Core.Entities.AppointmentDetail", "AppointmentDetail")
+                        .WithMany("LaboratoryDiagnosis")
+                        .HasForeignKey("ReferralId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Silverline.Core.Entities.LabTechnician", "LabTechnician")
+                        .WithMany()
+                        .HasForeignKey("TechnicianId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Silverline.Core.Entities.DiagnosticTest", "DiagnosticTest")
+                        .WithMany()
+                        .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppointmentDetail");
+
+                    b.Navigation("DiagnosticTest");
+
+                    b.Navigation("LabTechnician");
                 });
 
             modelBuilder.Entity("Silverline.Core.Entities.AppointmentDetail", b =>

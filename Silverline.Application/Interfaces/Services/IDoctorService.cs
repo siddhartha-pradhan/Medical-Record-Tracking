@@ -6,9 +6,11 @@ public interface IDoctorService
 {
     Doctor GetDoctor(Guid Id);
 
+    Doctor GetUserDoctor(string Id);
+
     List<Doctor> GetAllDoctors();
 
-    void AddDoctor(Doctor Doctor);
+    void AddDoctor(Doctor doctor);
 
-    void ApproveDoctor(AppUser appUser);
+    void ApproveDoctor(Doctor doctor);
 }
