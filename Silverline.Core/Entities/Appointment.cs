@@ -16,9 +16,9 @@ public class Appointment
     
     public string AppointmentStatus { get; set; }
 
-    public string PaymentStatus { get; set; }
+    public string PaymentStatus { get; set; } = "Pending";
 
-    public float FeeAmount { get; set; }
+    public float FeeAmount { get; set; } = 5;
 
     public string AppointmentRequest { get; set; }
 

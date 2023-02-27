@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Silverline.Core.ViewModels.DoctorViewModel>
+﻿@model List<Silverline.Core.ViewModels.DoctorViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -7,7 +7,7 @@
 <h1>View all doctors index</h1>
 
 <div class="row pb-3">
-    @foreach (var item in Model)
+    @foreach (var @item in Model)
     { 
         <div class="col-lg-3 col-md-6">
             <div class="row p-2">
@@ -18,18 +18,19 @@
                     <div>
                         <div class="p-lg-3">
                             <p class="card-title h5 text-primary">@item.Name</p>
-                            <p class="card-title text-info">@item.HighestMedicalDegree</p>
+                            <p class="card-title text-dark">@item.HighestMedicalDegree</p>
                         </div>
                         <div class="ps-3">
                             <p>Department: <b>@item.Specialty</b></p>
                         </div>
                     </div>
                     <div>
+                        <a asp-action="Details" class="btn btn-primary form-control">
+                            Book Appointment
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     }
 </div>
-
-

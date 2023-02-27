@@ -12,6 +12,8 @@ public class MedicationTreatment
 
     public Guid ReferralId { get; set; }
 
+    public string Status { get; set; }
+
     public string Dose { get; set; }
 
     public bool IsCompleted { get; set; }

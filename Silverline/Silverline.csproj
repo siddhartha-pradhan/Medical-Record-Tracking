@@ -30,11 +30,35 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Areas\Doctor\Views\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Doctor\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\LabTechnician\Views\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\LabTechnician\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="Areas\Patient\Views\_ViewImports.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="Areas\Patient\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Pharmacist\Views\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Pharmacist\Views\_ViewStart.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
@@ -60,11 +84,8 @@
 
   <ItemGroup>
     <Folder Include="Areas\Doctor\Controllers\" />
-    <Folder Include="Areas\Doctor\Views\" />
     <Folder Include="Areas\LabTechnician\Controllers\" />
-    <Folder Include="Areas\LabTechnician\Views\" />
     <Folder Include="Areas\Pharmacist\Controllers\" />
-    <Folder Include="Areas\Pharmacist\Views\" />
     <Folder Include="wwwroot\images\certification\staffs\" />
     <Folder Include="wwwroot\images\medicines\" />
     <Folder Include="wwwroot\images\resume\staffs\" />
@@ -75,6 +96,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Patient\Views\Appointment\Book.cshtml" />
     <None Include="Areas\Patient\Views\Appointment\Index.cshtml" />
   </ItemGroup>
 
