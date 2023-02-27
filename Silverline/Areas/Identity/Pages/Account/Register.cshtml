@@ -2,83 +2,135 @@
 @model RegisterModel
 
 @{
-    ViewData["Title"] = "User Registration";
+	ViewData["Title"] = "User Registration";
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <partial name="_Notification" />
 
-<div class="row">
-    <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" enctype = "multipart/form-data" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label class="form-label mt-4">Select a Role</label>
-                <select asp-for="Input.Role" class="form-select">
-                   <option disabled selected>User Role</option>
-                   <option value="Doctor">I am a Doctor</option>
-                   <option value="LabTechnician">I am a Lab Technician</option>
-                   <option value="Pharmacist">I am a Pharmacist</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.FullName" class="form-label mt-4"></label>
-                <input asp-for="Input.FullName" class="form-control mb-2" autocomplete="username" aria-required="true"/>
-                <span asp-validation-for="Input.FullName" class="text-danger mt-3"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Email" class="form-label mt-4"></label>
-                <input asp-for="Input.Email" class="form-control mb-2" autocomplete="username" aria-required="true" placeholder="Enter your email address"/>
-                <small class="form-text text-muted">We'll never share your email with anyone else.</small>
-                <span asp-validation-for="Input.Email" class="text-danger mt-3"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.PhoneNumber" class="form-label mt-4"></label>
-                <input asp-for="Input.PhoneNumber" class="form-control mb-2" aria-required="true"/>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger mt-3"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.CertificationNumber" class="form-label mt-4"></label>
-                <input asp-for="Input.CertificationNumber" class="form-control mb-2" aria-required="true"/>
-                <span asp-validation-for="Input.CertificationNumber" class="text-danger mt-3"></span>
-            </div>
-            <div class="form-group" id="Department" style="display: none">
-                <label asp-for="Input.DepartmentId" class="form-label mt-4"></label>
-                @Html.DropDownList("Input.DepartmentId", (IEnumerable<SelectListItem>)ViewData["DepartmentId"], "Select a department", htmlAttributes: new { @class = "form-control dropdown" })
-                <span asp-validation-for="Input.DepartmentId" class="text-danger mt-3"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.ProfileImage" class="form-label mt-4"></label>
-                <input asp-for="Input.ProfileImage" name="UserImage" class="form-control" type="file" id="formFile"  accept=".png,.jpg,.jpeg,.gif,.tif">
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="Input.ResumeURL" class="form-label mt-4"></label>
-                <input type="file" id="uploadResume" onchange="readURL(this);" name="resume" class="form-control" accept="application/pdf" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.CertificationURL" class="form-label mt-4"></label>
-                <input type="file" id="uploadCertificate" onchange="readURL(this);" name="certification" class="form-control" accept="application/pdf" />
-            </div>
-            <button type="submit" class="btn btn-primary mt-4">Request a Registration</button>
-        </form>
-    </div>
-</div>
+<form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" enctype = "multipart/form-data" method="post">
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-group">
+				<label class="form-label mt-4">Select your Role</label>
+				<select asp-for="Input.Role" class="form-select">
+					<option disabled selected>User Role</option>
+					<option value="Doctor">I am a Doctor</option>
+					<option value="LabTechnician">I am a Lab Technician</option>
+					<option value="Pharmacist">I am a Pharmacist</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label asp-for="Input.Email" class="form-label mt-4"></label>
+				<input asp-for="Input.Email" class="form-control mb-2" autocomplete="username" aria-required="true" placeholder="Enter your email address"/>
+				<small class="form-text text-muted">We'll never share your email with anyone else.</small>
+				<span asp-validation-for="Input.Email" class="text-danger mt-3"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Input.CertificationNumber" class="form-label mt-4"></label>
+				<input asp-for="Input.CertificationNumber" class="form-control mb-2" aria-required="true"/>
+				<span asp-validation-for="Input.CertificationNumber" class="text-danger mt-3"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Input.ProfileImage" class="form-label mt-4"></label>
+				<input asp-for="Input.ProfileImage" name="UserImage" class="form-control" type="file" id="formFile"  accept=".png,.jpg,.jpeg,.gif,.tif">
+			</div>
+			<button type="submit" class="btn btn-primary mt-5">Request a Registration</button>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<label asp-for="Input.FullName" class="form-label mt-4"></label>
+				<input asp-for="Input.FullName" class="form-control mb-2" autocomplete="username" aria-required="true"/>
+				<span asp-validation-for="Input.FullName" class="text-danger mt-3"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Input.PhoneNumber" class="form-label mt-4"></label>
+				<input asp-for="Input.PhoneNumber" class="form-control mb-2" aria-required="true"/>
+				<span asp-validation-for="Input.PhoneNumber" class="text-danger mt-3"></span>
+			</div>
+			<div class="form-group mt-4">
+				<label asp-for="Input.ResumeURL" class="form-label mt-4"></label>
+				<input type="file" id="uploadResume" onchange="readURL(this);" name="resume" class="form-control" accept="application/pdf" />
+			</div>
+			<div class="form-group mt-2">
+				<label asp-for="Input.CertificationURL" class="form-label mt-4"></label>
+				<input type="file" id="uploadCertificate" onchange="readURL(this);" name="certification" class="form-control" accept="application/pdf" />
+			</div>
+			<div class="form-group" id="Department" style="display: none">
+				<label asp-for="Input.DepartmentId" class="form-label mt-4"></label>
+				@Html.DropDownList("Input.DepartmentId", (IEnumerable<SelectListItem>)ViewData["DepartmentId"], "Select a department", htmlAttributes: new { @class = "form-control dropdown" })
+				<span asp-validation-for="Input.DepartmentId" class="text-danger mt-3"></span>
+			</div>
+			<div class="form-group" id="Doctor" style="display: none">
+				<label class="form-label mt-3">Select your Medical Course</label>
+				<select asp-for="Input.HighestMedicalDegree" class="form-select">
+					<option disabled selected>Medical Course</option>
+					<option value="Bachelor of Medicine, Bachelor of Surgery">Bachelor of Medicine, Bachelor of Surgery</option>
+					<option value="Bachelor of Dental Surgery">Bachelor of Dental Surgery</option>
+					<option value="Bachelor of Ayurveda, Medicine and Surgery">Bachelor of Ayurveda, Medicine and Surgery</option>
+					<option value="Bachelor of Homeopathic Medicine and Surgery">Bachelor of Homeopathic Medicine and Surgery</option>
+					<option value="BSc. Medical Technology">BSc. Medical Technology</option>
+					<option value="BSc. in Applied Health Sciences">BSc. in Applied Health Sciences</option>
+					<option value="Master of Surgery">Master of Surgery</option>
+					<option value="Doctor of Medicine">Doctor of Medicine</option>
+					
+				</select>
+			</div>
+			<div class="form-group" id="Pharmacist" style="display: none">
+				<label class="form-label mt-3">Select your Medical Course</label>
+				<select asp-for="Input.HighestMedicalDegree" class="form-select">
+					<option disabled selected>Medical Course</option>
+					<option value="Bachelor of Pharmacy">Bachelor of Pharmacy</option>
+					<option value="Bachleor of Pharmaceutical Chemistry">Bachleor of Pharmaceutical Chemistry</option>
+					<option value="Bachelor of Pharmacy in Pharmacognosy">Bachelor of Pharmacy in Pharmacognosy</option>
+					<option value="Bachelor of Ayurvedic Pharmacy">Bachelor of Ayurvedic Pharmacy</option>
+					<option value="Master of Pharmacy">Master of Pharmacy</option>
+					<option value="Postgraduate on Clinical and Industrial Pharmacy">Postgraduate on Clinical and Industrial Pharmacy</option>
+				</select>
+			</div>
+			<div class="form-group" id="LabTechnician" style="display: none">
+				<label class="form-label mt-3">Select your Medical Course</label>
+				<select asp-for="Input.HighestMedicalDegree" class="form-select">
+					<option disabled selected>Medical Course</option>
+					<option value="B.Sc Medical Laboratory Technology">B.Sc Medical Laboratory Technology</option>
+					<option value="Proficiency in Laboratory Technology">Proficiency in Laboratory Technology</option>
+				</select>
+			</div>
+		</div>
+	</div>
+</form>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script>
-        $(document).ready(function () {
-            $('#Input_Role').change(function () {
-                var selection = $('#Input_Role Option:Selected').val();
-                console.log(selection);
-                if (selection != 'Doctor') {
-                    $('#Department').hide();
-                } else {
-                    $('#Department').show();
-                }
-            })
-        })
-    </script>
+	<partial name="_ValidationScriptsPartial" />
+	<script>
+		$(document).ready(function () {
+			$('#Input_HighestMedicalDegree').change(function () {
+				var result = $('#Input_HighestMedicalDegree Option:Selected').val();
+				console.log(result);
+				if (result == 'Doctor') {
+					$('#Doctor').show();
+					$('#Pharmacist').hide();
+					$('#LabTechnician').hide();
+				} else if (result == 'Pharmacist') {
+					$('#Doctor').hide();
+					$('#Pharmacist').show();
+					$('#LabTechnician').hide();
+				} else {
+					$('#Doctor').hide();
+					$('#Pharmacist').hide();
+					$('#LabTechnician').show();
+				}
+			});
+			$('#Input_Role').change(function () {
+				var selection = $('#Input_Role Option:Selected').val();
+				if (selection != 'Doctor') {
+					$('#Department').hide();
+				} else {
+					$('#Department').show();
+				}
+			});
+		})
+	</script>
 }

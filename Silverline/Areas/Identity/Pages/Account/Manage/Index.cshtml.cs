@@ -87,7 +87,7 @@ namespace Silverline.Areas.Identity.Pages.Account.Manage
         {
             var user = await _userManager.GetUserAsync(User);
             var roles = await _userManager.GetRolesAsync(user);
-            var role = roles.ToList().FirstOrDefault();
+            var role = roles.ToList().FirstOrDefault().ToLower();
             var appUser = _appUserService.GetUser(user.Id);
             var wwwRootPath = _webHostEnvironment.WebRootPath;
 
@@ -110,7 +110,7 @@ namespace Silverline.Areas.Identity.Pages.Account.Manage
 
                 var fileName = $"{Guid.NewGuid().ToString()} - {appUser.FullName} [Updated]";
 
-                var uploads = Path.Combine(wwwRootPath, @$"images\users\{role}");
+                var uploads = Path.Combine(wwwRootPath, @$"images\users\{role}\");
 
                 var extension = Path.GetExtension(file.FileName);
 
@@ -125,7 +125,7 @@ namespace Silverline.Areas.Identity.Pages.Account.Manage
                     file.CopyTo(fileStreams);
                 }
 
-                appUser.ImageURL = @$"\images\users\{role}" + fileName + extension;
+                appUser.ImageURL = @$"\images\users\{role}\" + fileName + extension;
 
                 await _userManager.UpdateAsync(user);
             }

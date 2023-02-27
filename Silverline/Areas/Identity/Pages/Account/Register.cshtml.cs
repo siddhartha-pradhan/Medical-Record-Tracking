@@ -88,11 +88,15 @@ public class RegisterModel : PageModel
         public Guid DepartmentId { get; set; }
 
         [Required]
+        [Display(Name = "Highest Medical Degree")]
+        public string HighestMedicalDegree { get; set; }
+
+        [Required]
         [Display(Name = "Resume PDF")]
         public string? ResumeURL { get; set; }
 
         [Required]
-        [Display(Name = "Resume PDF")]
+        [Display(Name = "Certification PDF")]
         public string? CertificationURL { get; set; }
 
         [Required]
@@ -138,7 +142,7 @@ public class RegisterModel : PageModel
         ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         if (!ModelState.IsValid)
         {
-            var folder = "staff";
+            var folder = "staffs";
             var user = CreateUser();
             var role = Input.Role;
             var password = "Silverline@123";
@@ -167,20 +171,20 @@ public class RegisterModel : PageModel
                 case "Doctor":
                     doctor.DepartmentId = Input.DepartmentId;
                     doctor.CertificationNumber = Input.CertificationNumber;
-                    doctor.HighestMedicalDegree = "MBBS";
+                    doctor.HighestMedicalDegree = "Bachelor of Medicine, Bachelor of Surgery";
                     folder = "doctors";
                     break;
                 
                 case "LabTechnician":
                     labTechnician.CertificateNumber = Input.CertificationNumber;
-                    labTechnician.HighestMedicalDegree = "MBBS";
-                    folder = "staffs";
+                    labTechnician.HighestMedicalDegree = "B.Sc Medical Laboratory Technology";
+					folder = "staffs";
                     break;
 
                 case "Pharmacits":
                     pharmacist.CertificateNumber = Input.CertificationNumber;
-                    pharmacist.HighestMedicalDegree = "MBBS";
-                    folder = "staffs";
+                    pharmacist.HighestMedicalDegree = "Bachelor of Pharmacy";
+					folder = "staffs";
                     break;
             }
 
@@ -190,7 +194,7 @@ public class RegisterModel : PageModel
 
                 var fileName = $"[{role} - {finalString}] {user.FullName} - Image";
 
-                var uploads = Path.Combine(wwwRootPath, @$"images\users\{folder}");
+                var uploads = Path.Combine(wwwRootPath, @$"images\users\{folder}\");
                 
                 var extension = Path.GetExtension(file.FileName);
 
@@ -205,7 +209,7 @@ public class RegisterModel : PageModel
                     file.CopyTo(fileStreams);
                 }
 
-                user.ImageURL = @$"\images\users\{folder}" + fileName + extension;
+                user.ImageURL = @$"\images\users\{folder}\" + fileName + extension;
 
                 await _userManager.UpdateAsync(user);
             }
@@ -213,7 +217,7 @@ public class RegisterModel : PageModel
             if(resume != null)
             {
                 var fileName = $"[{role} - {finalString}] {user.FullName} - Resume";
-                var uploads = Path.Combine(wwwRootPath, @$"images\resume");
+                var uploads = Path.Combine(wwwRootPath, @$"images\resume\{folder}\");
                 var extension = Path.GetExtension(resume.FileName);
 
                 using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
@@ -224,15 +228,15 @@ public class RegisterModel : PageModel
                 switch (role)
                 {
                     case "Doctor":
-                        doctor.ResumeURL = @$"\images\resume\{folder}" + fileName + extension;
+                        doctor.ResumeURL = @$"\images\resume\{folder}\" + fileName + extension;
                         break;
 
                     case "LabTechnician":
-                        labTechnician.ResumeURL = @$"\images\resume\{folder}" + fileName + extension;
+                        labTechnician.ResumeURL = @$"\images\resume\{folder}\" + fileName + extension;
                         break;
 
                     case "Pharmacits":
-                        pharmacist.ResumeURL = @$"\images\resume\{folder}" + fileName + extension;
+                        pharmacist.ResumeURL = @$"\images\resume\{folder}\" + fileName + extension;
                         break;
                 }
 
@@ -241,7 +245,7 @@ public class RegisterModel : PageModel
             if (certification != null)
             {
                 var fileName = $"[{role} - {finalString}] {user.FullName} - Certificates";
-                var uploads = Path.Combine(wwwRootPath, @$"images\certification");
+                var uploads = Path.Combine(wwwRootPath, @$"images\certification\{folder}\");
                 var extension = Path.GetExtension(certification.FileName);
 
                 using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
@@ -252,15 +256,15 @@ public class RegisterModel : PageModel
                 switch (role)
                 {
                     case "Doctor":
-                        doctor.CertificationURL = @$"\images\certification\{folder}" + fileName + extension;
+                        doctor.CertificationURL = @$"\images\certification\{folder}\" + fileName + extension;
                         break;
 
                     case "LabTechnician":
-                        labTechnician.CertificationURL = @$"\images\certification\{folder}" + fileName + extension;
+                        labTechnician.CertificationURL = @$"\images\certification\{folder}\" + fileName + extension;
                         break;
 
                     case "Pharmacits":
-                        pharmacist.CertificationURL = @$"\images\certification\{folder}" + fileName + extension;
+                        pharmacist.CertificationURL = @$"\images\certification\{folder}\" + fileName + extension;
                         break;
                 }
             }

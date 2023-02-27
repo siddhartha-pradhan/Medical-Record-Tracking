@@ -1,0 +1,52 @@
+﻿@model List<Silverline.Core.ViewModels.ApprovalViewModel>;
+
+@{
+    ViewData["Title"] = "Pharmacist";
+}
+
+<h1>Approval for Pharmacist Registrations</h1>
+
+<partial name="_Notification" />
+
+@foreach (var item in Model)
+{
+    <form method="post">
+        <input asp-for="@item.UserId" class="form-control" type="hidden" />
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <img id="profilePicture" style="width:485px;height:400px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(@item.ProfileImage))">
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            Name: @item.FullName
+                        </div>
+                        <div class="row">
+                            Email: @item.EmailAddress
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            Medical Degree: @item.HighestMedicalDegree
+                        </div>
+                        <div class="row">
+                            Certification: @item.CertificationNumber
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <a class="btn btn-outline-primary mb-2" href="@item.ResumeURL" target="_blank">Resume</a>
+                        </div>
+                        <div class="row">
+                            <a class="btn btn-outline-primary mb-2" href="@item.CertificationURL" target="_blank">Certification</a>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-dark mb-2" asp-route-id="@item.UserId">Approve</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+}

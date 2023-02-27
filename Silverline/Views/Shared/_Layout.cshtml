@@ -23,9 +23,6 @@
                 </button>
                 <div class="navbar-collapse collapse justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
                         @if (User.IsInRole(Constants.Admin))
                         {
                             <li class="nav-item dropdown">
@@ -50,7 +47,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Personnel Approval</a>
+                                <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Approvals</a>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Approval" asp-action="Doctor">Doctors</a>
                                     <a class="dropdown-item" asp-area="Admin" asp-controller="Approval" asp-action="Pharmacist">Pharmacists</a>
