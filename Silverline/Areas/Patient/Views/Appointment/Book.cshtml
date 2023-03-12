@@ -1,18 +1,90 @@
-﻿@model Silverline.Core.Entities.Appointment
+﻿@model Silverline.Core.ViewModels.AppointmentViewModel
 
 @{
-    ViewData["Title"] = "Book";
+    ViewData["Title"] = "Appointment Booking";
 }
 
 <h1>Book an Appointment</h1>
 
 <form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
     <div class="row">
         <div class="col-md-8">
+            <div class="form-group row">
+                <input asp-for="Appointment.DoctorId" class="form-control" hidden/>
+                <input asp-for="Appointment.PatientId" class="form-control" hidden/>
+                <div class="col-4">
+                    <label asp-for="PatientName"></label>
+                </div>
+                <div class="col-8 mb-4">
+                    <input asp-for="PatientName" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Age"></label>
+                </div>
+                <div class="col-8 mb-4">
+                    <input asp-for="Age" class="form-control" disabled/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Appointment.AppointmentRequest"></label>
+                </div>
+                <div class="col-8 mb-4">
+                    <textarea asp-for="Appointment.AppointmentRequest" class="form-control"></textarea>
+                    <span asp-validation-for="Appointment.AppointmentRequest" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Appointment.DateOfAppointment" class="form-label mt-4"></label>
+                </div>
+                <div class="col-8 mb-4">
+                    <input asp-for="Appointment.DateOfAppointment" class="form-control mb-2" autocomplete="username" aria-required="true"/>
+                    <span asp-validation-for="Appointment.DateOfAppointment" class="text-danger mt-3"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                </div>
+                <div class="col-8 mb-4">
+                    <button type="submit" class="btn btn-primary form-control">Book</button>
+                </div>
+            </div>
 
         </div>
         <div class="col-md-4">
-
+            <div class="row">
+                <img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="data:image/*;base64,@(Convert.ToBase64String(Model.DoctorProfileImage))">
+            </div>
+            <div class="row">
+                <p class="text-center h4 text-primary">@Model.DoctorName</p>
+            </div>
+            <div class="row">
+                <p class="text-center h5 text-dark">@Model.DoctorSpecialty</p>
+            </div>
+            <div class="row">
+                <p class="text-center h5 text-dark">@Model.HighestMedicalDegree</p>
+            </div>
         </div>
     </div>
 </form>
+
+@section Scripts{
+        <script>
+            tinymce.init({
+                forced_root_block : false,
+                selector: 'textarea',
+                plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+                ]
+            });
+        </script>
+}

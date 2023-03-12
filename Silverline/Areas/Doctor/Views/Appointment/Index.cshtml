@@ -1,0 +1,31 @@
+﻿@model List<Silverline.Core.ViewModels.AppointmentsViewModel>
+
+<h1>List of Appointments</h1>
+
+<div class="col-md-12">
+	@foreach (var @item in Model)
+	{
+		<div class="card">
+			<div class="card-body">
+					<div class="row">
+					<div class="col">
+						<img id="profilePicture" style="width:485px;height:400px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(@item.PatientImage))">
+						Name: @item.PatientName
+					</div>
+					<div class="col">
+						<div class="row">
+							<h3>@Html.Raw(@item.PatientRequest)</h3>
+						</div>
+					</div>
+					<div class="col">
+						<div class="row">
+							<a asp-action="Start" class="btn btn-primary form-control" asp-route-id="@item.AppointmentId">
+								Start Appointment
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+</div>

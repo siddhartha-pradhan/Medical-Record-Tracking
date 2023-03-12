@@ -240,6 +240,9 @@ namespace Silverline.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("BookedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DateOfAppointment")
                         .HasColumnType("datetime2");
 
@@ -249,12 +252,18 @@ namespace Silverline.Infrastructure.Migrations
                     b.Property<float>("FeeAmount")
                         .HasColumnType("real");
 
+                    b.Property<DateTime>("FinalizedTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("PatientId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PaymentStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -519,7 +528,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.Property<Guid?>("PatientId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("PharmacistId")
+                    b.Property<Guid?>("PharmacistId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ReferralId")
@@ -529,12 +538,17 @@ namespace Silverline.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TimeFormat")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TimePeriod")
-                        .HasColumnType("int");
+                    b.Property<string>("TimePeriod")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -890,6 +904,10 @@ namespace Silverline.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<float>("TotalAmount")
                         .HasColumnType("real");
 
@@ -1106,9 +1124,7 @@ namespace Silverline.Infrastructure.Migrations
 
                     b.HasOne("Silverline.Core.Entities.Pharmacist", "Pharmacist")
                         .WithMany()
-                        .HasForeignKey("PharmacistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PharmacistId");
 
                     b.HasOne("Silverline.Core.Entities.AppointmentDetail", "AppointmentDetail")
                         .WithMany("MedicalTreatments")

@@ -15,4 +15,6 @@ public interface IRepository<T> where T : class
     List<T> GetAll(bool filterDeleted = false);
 
     void Add(T entity);
+
+    void Remove(T entity);
 }

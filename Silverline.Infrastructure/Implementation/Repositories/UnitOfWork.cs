@@ -1,5 +1,6 @@
 ﻿using Silverline.Infrastructure.Persistence;
 using Silverline.Application.Interfaces.Repositories;
+using Silverline.Core.Entities;
 
 namespace Silverline.Infrastructure.Implementation.Repositories;
 
@@ -10,8 +11,10 @@ public class UnitOfWork : IUnitOfWork
     public UnitOfWork(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
-        AppUser = new AppUserRepository(dbContext);
-        Category = new CategoryRepository(_dbContext);
+        AppUser = new AppUserRepository(_dbContext);
+        Appointment = new AppointmentRepository(_dbContext);
+		AppointmentDetail = new AppointmentDetailRepository(_dbContext);
+		Category = new CategoryRepository(_dbContext);
         Manufacturer = new ManufacturerRepository(_dbContext);
         Medicine = new MedicineRepository(_dbContext);
         Specialty = new SpecialtyRepository(_dbContext);
@@ -21,11 +24,16 @@ public class UnitOfWork : IUnitOfWork
         Doctor = new DoctorRepository(_dbContext);
         Pharmacist = new PharmacistRepository(_dbContext);
         LabTechnician = new LabTechnicianRepository(_dbContext);
+        TestCart = new TestCartRepository(_dbContext);
     }
 
     public IAppUserRepository AppUser { get; set; }
 
-    public IPatientRepository Patient { get; set; }
+    public IAppointmentRepository Appointment { get; set; }
+
+	IAppointmentDetailRepository AppointmentDetail { get; set; }
+
+	public IPatientRepository Patient { get; set; }
     
     public IDoctorRepository Doctor { get; set; }
     
@@ -44,6 +52,8 @@ public class UnitOfWork : IUnitOfWork
     public ITestRepository Test { get; set; }
     
     public ITestTypeRepository TestType { get; set; }
+
+    public ITestCartRepository TestCart { get; set; }
 
     public void Save()
     {

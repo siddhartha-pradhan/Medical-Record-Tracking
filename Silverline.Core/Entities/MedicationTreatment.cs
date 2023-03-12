@@ -12,19 +12,23 @@ public class MedicationTreatment
 
     public Guid ReferralId { get; set; }
 
-    public string Status { get; set; }
+    public string Status { get; set; } = Constants.Constants.Ongoing; // refers to the medication being under going
 
     public string Dose { get; set; }
 
-    public bool IsCompleted { get; set; }
+    public bool IsCompleted { get; set; } = false;
 
-    public int TimePeriod { get; set; }  
+    public string TimePeriod { get; set; }  // Period refering for how long the medication is to be taken or intervals
     
-    public string TimeFormat { get; set; }
-    
-    public string Remarks { get; set; }
+    public string TimeFormat { get; set; }  // Format refering for when the medication is to be taken
 
-    public Guid PharmacistId { get; set; }
+	public string DoctorRemarks { get; set; }
+
+	public string? PharmacistRemarks { get; set; }
+
+	public string ActionStatus { get; set; }
+
+	public Guid? PharmacistId { get; set; }
 
     [ForeignKey("PharmacistId")]
     public virtual Pharmacist? Pharmacist { get; set; }

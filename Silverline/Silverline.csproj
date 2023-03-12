@@ -26,7 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Areas\Doctor\Controllers\AppointmentController.cs" />
     <Compile Include="Areas\Patient\Controllers\AppointmentController.cs" />
+    <Compile Include="Areas\Patient\Controllers\CartController.cs" />
+    <Compile Include="Areas\Patient\Controllers\TestController.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -69,8 +72,13 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.9.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -83,7 +91,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Doctor\Controllers\" />
     <Folder Include="Areas\LabTechnician\Controllers\" />
     <Folder Include="Areas\Pharmacist\Controllers\" />
     <Folder Include="wwwroot\images\certification\staffs\" />
@@ -96,8 +103,53 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Doctor\Views\Appointment\Index.cshtml" />
+    <None Include="Areas\Doctor\Views\Appointment\Start.cshtml" />
     <None Include="Areas\Patient\Views\Appointment\Book.cshtml" />
     <None Include="Areas\Patient\Views\Appointment\Index.cshtml" />
+    <None Include="wwwroot\js\tinymce\CHANGELOG.md" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\icons\default\icons.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\langs\README.md" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\models\dom\model.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\advlist\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\anchor\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\autolink\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\autoresize\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\autosave\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\charmap\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\codesample\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\code\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\directionality\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\emoticons\js\emojiimages.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\emoticons\js\emojiimages.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\emoticons\js\emojis.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\emoticons\js\emojis.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\emoticons\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\fullscreen\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\help\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\image\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\importcss\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\insertdatetime\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\link\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\lists\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\media\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\nonbreaking\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\pagebreak\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\preview\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\quickbars\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\save\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\searchreplace\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\table\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\template\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\visualblocks\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\visualchars\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\wordcount\plugin.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\themes\silver\theme.min.js" />
+    <None Include="wwwroot\js\tinymce\js\tinymce\tinymce.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\js\tinymce\js\tinymce\tinymce.d.ts" />
   </ItemGroup>
 
 </Project>

@@ -10,14 +10,16 @@ public class TestHeader
 
     public Guid PatientId { get; set; }
 
-    public DateTime OrderedDate { get; set; }
+    public string Status { get; set; } = Constants.Constants.Booked;
 
-    public string PaymentStatus { get; set; }
+    public DateTime OrderedDate { get; set; } = DateTime.Now;
+
+    public string PaymentStatus { get; set; } = Constants.Constants.Pending;
 
     public float TotalAmount { get; set; }
 
     [ForeignKey("PatientId")]
-    public virtual Patient Patient { get; set; }
+    public virtual Patient? Patient { get; set; }
 
-    public virtual ICollection<TestDetail> TestDetails { get; set; }
+    public virtual ICollection<TestDetail>? TestDetails { get; set; }
 }

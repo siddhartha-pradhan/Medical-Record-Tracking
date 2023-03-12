@@ -29,6 +29,7 @@ public static class DependencyInjection
         services.AddTransient<IUnitOfWork, UnitOfWork>();
 
         services.AddTransient<IAppUserService, AppUserService>();
+        services.AddTransient<IAppointmentService, AppointmentService>();
         services.AddTransient<IPatientService, PatientService>();
         services.AddTransient<IDoctorService, DoctorService>();
         services.AddTransient<ILabTechnicianService, LabTechnicianService>();
@@ -40,6 +41,7 @@ public static class DependencyInjection
         services.AddTransient<ISpecialtyService, SpecialtyService>();
         services.AddTransient<ITestService, TestService>();
         services.AddTransient<ITestTypeService, TestTypeService>();
+        services.AddTransient<ITestCartService, TestCartService>();
 
         return services;
     }

@@ -6,6 +6,10 @@ public interface IUnitOfWork
 
     IAppUserRepository AppUser { get; set; }
 
+    IAppointmentRepository Appointment { get; set; }
+
+    IAppointmentDetailRepository AppointmentDetail { get; set; }
+
     IPatientRepository Patient { get; set; }
 
     IDoctorRepository Doctor { get; set; }
@@ -25,4 +29,6 @@ public interface IUnitOfWork
     ITestRepository Test { get; set; }
 
     ITestTypeRepository TestType { get; set; }
+
+    ITestCartRepository TestCart { get; set; }  
 }

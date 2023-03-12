@@ -117,10 +117,10 @@ public class ApprovalController : Controller
 
     #region API Calls
     [HttpPost, ActionName("Doctor")]
-    public IActionResult ApproveDoctor(string id)
+    public IActionResult ApproveDoctor(string id, Guid staffId)
     {
         var user = _appUserService.GetUser(id);
-        var doctor = _doctorService.GetUserDoctor(user.Id);
+        var doctor = _doctorService.GetDoctor(staffId);
 
         if (ModelState.IsValid)
         {
@@ -138,10 +138,10 @@ public class ApprovalController : Controller
     }
 
     [HttpPost, ActionName("LabTechnician")]
-    public IActionResult ApproveLabTechnician(string id)
+    public IActionResult ApproveLabTechnician(string id, Guid staffId)
     {
         var user = _appUserService.GetUser(id);
-        var labTechnician = _labTechnicianService.GetUserLabTechnician(user.Id);
+        var labTechnician = _labTechnicianService.GetLabTechnician(staffId);
 
         if (ModelState.IsValid)
         {
@@ -158,10 +158,10 @@ public class ApprovalController : Controller
     }
 
     [HttpPost, ActionName("Pharmacist")]
-    public IActionResult ApprovePharmacist(string id)
+    public IActionResult ApprovePharmacist(string id, Guid staffId)
     {
         var user = _appUserService.GetUser(id);
-        var pharmacist = _pharmacistService.GetUserPharmacist(user.Id);
+        var pharmacist = _pharmacistService.GetPharmacist(staffId);
 
         if (ModelState.IsValid)
         {

@@ -12,6 +12,7 @@
 {
     <form method="post">
         <input asp-for="@item.UserId" class="form-control" type="hidden" />
+        <input asp-for="@item.StaffId" class="form-control" type="hidden" />
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -42,7 +43,7 @@
                             <a class="btn btn-outline-primary mb-2" href="@item.CertificationURL" target="_blank">Certification</a>
                         </div>
                         <div class="row">
-                            <button class="btn btn-dark mb-2" asp-route-id="@item.UserId">Approve</button>
+                            <button class="btn btn-dark mb-2" asp-route-id="@item.UserId" asp-route-staffId="@item.StaffId">Approve</button>
                         </div>
                     </div>
                 </div>

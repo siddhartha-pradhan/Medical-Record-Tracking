@@ -12,9 +12,15 @@ public class LaboratoryDiagnosis
 
     public Guid ReferralId { get; set; }
 
-    public float Value { get; set; }    
+    public float? Value { get; set; }
 
-    public string Remarks { get; set; }
+	public string DoctorRemarks { get; set; }
+
+	public string? TechnicianRemarks { get; set; }
+
+    public string? Status { get; set; } 
+
+    public string ActionStatus { get; set; }
 
     public Guid TechnicianId { get; set; }
 

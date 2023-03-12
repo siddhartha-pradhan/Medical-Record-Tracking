@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Silverline.Application.Interfaces.Services;
 using Silverline.Core.Constants;
 using Silverline.Core.Entities;
@@ -8,19 +9,22 @@ using System.Security.Claims;
 namespace Silverline.Areas.Patient.Controllers;
 
 [Area("Patient")]
+[Authorize(Roles = Constants.Patient)]
 public class AppointmentController : Controller
 {
     private readonly IAppUserService _appUserService;
     private readonly IDoctorService _doctorService;
     private readonly ISpecialtyService _specialtyService;
     private readonly IPatientService _patientService;
+    private readonly IAppointmentService _appointmentService;
 
-    public AppointmentController(IAppUserService appUserService, IDoctorService doctorService, ISpecialtyService specialtyService, IPatientService patientService)
+    public AppointmentController(IAppUserService appUserService, IDoctorService doctorService, ISpecialtyService specialtyService, IPatientService patientService, IAppointmentService appointmentService)
     {
         _appUserService = appUserService;
         _doctorService = doctorService;
         _specialtyService = specialtyService;
         _patientService = patientService;
+        _appointmentService = appointmentService;
     }
 
     #region Razor Pages
@@ -77,6 +81,22 @@ public class AppointmentController : Controller
         };
 
         return View(appointment);
+    }
+    #endregion
+
+    #region API Calls
+    [HttpPost]
+    public IActionResult Book(AppointmentViewModel appointmentViewModel)
+    {
+        if (ModelState.IsValid)
+        {
+            _appointmentService.BookAppointment(appointmentViewModel.Appointment);
+            TempData["Success"] = "Appointment Successfully Booked";
+            return RedirectToAction("Index");
+        }
+
+        return View(appointmentViewModel);
+
     }
     #endregion
 }

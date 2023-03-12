@@ -5,7 +5,7 @@
 }
 
 <h1>View all doctors index</h1>
-
+<partial name="_Notification" />
 <div class="row pb-3">
     @foreach (var @item in Model)
     { 
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                     <div>
-                        <a asp-action="Details" class="btn btn-primary form-control">
+                        <a asp-action="Book" class="btn btn-primary form-control" asp-route-id="@item.DoctorId">
                             Book Appointment
                         </a>
                     </div>

@@ -148,9 +148,9 @@ public class RegisterModel : PageModel
             var password = "Silverline@123";
             var wwwRootPath = _webHostEnvironment.WebRootPath;
             var fileCount = Request.Form.Files.Count;
-            var doctor = new Doctor();
-            var labTechnician = new LabTechnician(); 
-            var pharmacist = new Pharmacist();
+            var doctor = new Core.Entities.Doctor();
+            var labTechnician = new Core.Entities.LabTechnician(); 
+            var pharmacist = new Core.Entities.Pharmacist();
 
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var stringChars = new char[8];
