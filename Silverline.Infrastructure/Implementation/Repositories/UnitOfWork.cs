@@ -31,7 +31,7 @@ public class UnitOfWork : IUnitOfWork
 
     public IAppointmentRepository Appointment { get; set; }
 
-	IAppointmentDetailRepository AppointmentDetail { get; set; }
+	public IAppointmentDetailRepository AppointmentDetail { get; set; }
 
 	public IPatientRepository Patient { get; set; }
     
