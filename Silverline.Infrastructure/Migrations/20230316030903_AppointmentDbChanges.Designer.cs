@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Silverline.Infrastructure.Persistence;
 
@@ -11,9 +12,10 @@ using Silverline.Infrastructure.Persistence;
 namespace Silverline.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230316030903_AppointmentDbChanges")]
+    partial class AppointmentDbChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -416,6 +418,7 @@ namespace Silverline.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ActionStatus")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DoctorRemarks")
@@ -428,7 +431,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("TechnicianId")
+                    b.Property<Guid>("TechnicianId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("TechnicianRemarks")
@@ -525,6 +528,7 @@ namespace Silverline.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ActionStatus")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DoctorRemarks")
@@ -1097,7 +1101,9 @@ namespace Silverline.Infrastructure.Migrations
 
                     b.HasOne("Silverline.Core.Entities.LabTechnician", "LabTechnician")
                         .WithMany()
-                        .HasForeignKey("TechnicianId");
+                        .HasForeignKey("TechnicianId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Silverline.Core.Entities.DiagnosticTest", "DiagnosticTest")
                         .WithMany()

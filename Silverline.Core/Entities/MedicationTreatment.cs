@@ -26,7 +26,7 @@ public class MedicationTreatment
 
 	public string? PharmacistRemarks { get; set; }
 
-	public string ActionStatus { get; set; }
+	public string? ActionStatus { get; set; }
 
 	public Guid? PharmacistId { get; set; }
 
@@ -34,8 +34,8 @@ public class MedicationTreatment
     public virtual Pharmacist? Pharmacist { get; set; }
 
     [ForeignKey("MedicineId")]
-    public virtual Medicine Medicine { get; set; }
+    public virtual Medicine? Medicine { get; set; }
 
     [ForeignKey("ReferralId")]
-    public virtual AppointmentDetail AppointmentDetail { get; set; }
+    public virtual AppointmentDetail? AppointmentDetail { get; set; }
 }

@@ -20,16 +20,16 @@ public class LaboratoryDiagnosis
 
     public string? Status { get; set; } 
 
-    public string ActionStatus { get; set; }
+    public string? ActionStatus { get; set; }
 
-    public Guid TechnicianId { get; set; }
+    public Guid? TechnicianId { get; set; }
 
     [ForeignKey("TechnicianId")]
     public virtual LabTechnician? LabTechnician { get; set; }
 
     [ForeignKey("TestId")]
-    public virtual DiagnosticTest DiagnosticTest { get; set; }
+    public virtual DiagnosticTest? DiagnosticTest { get; set; }
 
     [ForeignKey("ReferralId")]
-    public virtual AppointmentDetail AppointmentDetail { get; set; }
+    public virtual AppointmentDetail? AppointmentDetail { get; set; }
 }

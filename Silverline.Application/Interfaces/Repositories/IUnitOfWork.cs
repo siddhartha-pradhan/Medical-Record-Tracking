@@ -22,6 +22,8 @@ public interface IUnitOfWork
 
     IManufacturerRepository Manufacturer { get; set; }
 
+    IMedicalRecordRepository MedicalRecord { get; set; }
+
     IMedicineRepository Medicine { get; set; }
 
     ISpecialtyRepository Specialty { get; set; }

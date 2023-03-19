@@ -17,6 +17,7 @@ public class UnitOfWork : IUnitOfWork
 		Category = new CategoryRepository(_dbContext);
         Manufacturer = new ManufacturerRepository(_dbContext);
         Medicine = new MedicineRepository(_dbContext);
+        MedicalRecord = new MedicalRecordRepository(_dbContext);
         Specialty = new SpecialtyRepository(_dbContext);
         Test = new TestRepository(_dbContext);
         TestType = new TestTypeRepository(_dbContext);
@@ -38,6 +39,8 @@ public class UnitOfWork : IUnitOfWork
     public IDoctorRepository Doctor { get; set; }
     
     public ILabTechnicianRepository LabTechnician { get; set; }
+
+    public IMedicalRecordRepository MedicalRecord { get; set; }
     
     public IPharmacistRepository Pharmacist { get; set; }
 

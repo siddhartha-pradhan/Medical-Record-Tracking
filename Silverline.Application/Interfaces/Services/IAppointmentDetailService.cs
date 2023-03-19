@@ -4,7 +4,7 @@ namespace Silverline.Application.Interfaces.Services;
 
 public interface IAppointmentDetailService
 {
-	List<AppointmentDetail> GetAllAppointments(Guid Id);
+	List<AppointmentDetail> GetAllAppointments();
 
 	AppointmentDetail GetAppointmentDetail(Guid Id);
 

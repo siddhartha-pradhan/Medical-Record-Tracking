@@ -12,26 +12,33 @@ namespace Silverline.Areas.Doctor.Controllers;
 public class AppointmentController : Controller
 {
     private readonly IAppointmentService _appointmentService;
+    private readonly IAppointmentDetailService _appointmentDetailService;
     private readonly IAppUserService _userService;
     private readonly IDoctorService _doctorService;
+    private readonly ISpecialtyService _specialtyService;
     private readonly IPatientService _patientService;
     private readonly IMedicineService _medicineService;
+    private readonly IMedicalRecordService _medicalRecordService;
     private readonly ITestService _testService;
 
     public AppointmentController(
         IAppointmentService appointmentService, 
+        IAppointmentDetailService appointmentDetailService,
         IAppUserService userService, 
-        IDoctorService doctorService, 
+        IDoctorService doctorService,
+        ISpecialtyService specialtyService,
         IPatientService patientService, 
         IMedicineService medicineService,
         ITestService testService)
     {
         _userService = userService;
         _appointmentService = appointmentService;
+        _appointmentDetailService = appointmentDetailService;
         _doctorService = doctorService;
         _patientService = patientService;
         _medicineService = medicineService;
-		_testService = testService;
+        _specialtyService = specialtyService;
+        _testService = testService;
 
 	}
 
@@ -108,7 +115,45 @@ public class AppointmentController : Controller
     [HttpPost]
 	public IActionResult Start(AppointmentDetailViewModel appointmentVm)
     {
-        return View();
+        _appointmentDetailService.FinalizeAppointment(appointmentVm.Appointment);
+
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+        var doctor = _doctorService.GetAllDoctors().Where(x => x.UserId == claim.Value).FirstOrDefault();
+
+        var docUser = _userService.GetUser(doctor.UserId);
+
+        var specialty = _specialtyService.GetSpecialty(doctor.DepartmentId);
+
+        var appointment = _appointmentService.GetAppointment(appointmentVm.Appointment.AppointmentId);
+
+        var patient = _patientService.GetPatient(appointment.PatientId);
+
+        var medicines = new List<string>();
+
+        var medicalTreatments = appointmentVm.Appointment.MedicalTreatments;
+
+        for (int i = 0; i < medicalTreatments.Count(); i++)
+        {
+            var medicine = medicalTreatments[i].MedicineId;
+            var result = _medicineService.GetMedicine(medicine);
+            var meds = $"{result.Name}: {medicalTreatments[i].Dose}";
+            medicines.Add(meds);
+        }
+
+        _medicalRecordService.AddMedicalRecord(new Core.Entities.MedicalRecord
+        {
+            PatientId = patient.Id,
+            DoctorId = doctor.Id,
+            Specialty = specialty.Name,
+            DoctorName = docUser.FullName,
+            Title = appointmentVm.Appointment.AppointmentTitle,
+            Description = appointmentVm.Appointment.AppointmentDescription,
+            Medicines = string.Join(", ", medicines)
+        }); 
+
+        return RedirectToAction("Index");
     }
 	#endregion
 }
