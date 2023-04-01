@@ -31,6 +31,8 @@ public class ApplicationDbContext : IdentityDbContext
 
     public DbSet<MedicationTreatment> MedicationTreatments { get; set; }
 
+    public DbSet<MedicalRecord> MedicalRecords { get; set; }
+
     public DbSet<Medicine> Medicines { get; set; }
 
     public DbSet<MedicineCart> MedicineCarts { get; set; }
@@ -60,39 +62,6 @@ public class ApplicationDbContext : IdentityDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        //modelBuilder.Entity<IdentityRole>().HasData(
-        //    new IdentityRole
-        //    {
-        //        Id = "2c5e174e-3b0e-446f-86af-483d56fd7210",
-        //        Name = "ADMIN",
-        //        NormalizedName = "ADMIN".ToUpper()
-        //    }
-        //);
-
-        //modelBuilder.Entity<IdentityUser>().HasData(
-        //    new IdentityUser
-        //    {
-        //        Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
-        //        UserName = "admin@admin.com",
-        //        NormalizedUserName = "ADMIN",
-        //        Email = "admin@admin.com",
-        //        NormalizedEmail = "ADMIN@ADMIN.COM",
-        //        EmailConfirmed = true,
-        //        PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "@ff!N1ty"),
-        //        PhoneNumber = "9803364638",
-        //        SecurityStamp = "C7STNXSE5EHSFNMWSFGWEWXLK6NJZRYQ",
-        //        ConcurrencyStamp = "dd0a4161-07b1-4d5d-92b4-61fa51aa14bf"
-        //    }
-        //);
-
-        //modelBuilder.Entity<IdentityUserRole<string>>().HasData(
-        //    new IdentityUserRole<string>
-        //    {
-        //        RoleId = "2c5e174e-3b0e-446f-86af-483d56fd7210",
-        //        UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
-        //    }
-        //);
 
         modelBuilder.Entity<Appointment>()
             .HasOne(x => x.Patient)

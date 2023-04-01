@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Silverline.Application.Interfaces.Services;
 using Silverline.Core.Constants;
 using Silverline.Core.ViewModels;
-using Silverline.Infrastructure.Implementation.Services;
 using System.Security.Claims;
 
 namespace Silverline.Areas.Doctor.Controllers;
 
 [Area("Doctor")]
+[Authorize(Roles = Constants.Doctor)]
 public class AppointmentController : Controller
 {
     private readonly IAppointmentService _appointmentService;
@@ -118,6 +119,7 @@ public class AppointmentController : Controller
         _appointmentDetailService.FinalizeAppointment(appointmentVm.Appointment);
 
         var claimsIdentity = (ClaimsIdentity)User.Identity;
+
         var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
         var doctor = _doctorService.GetAllDoctors().Where(x => x.UserId == claim.Value).FirstOrDefault();

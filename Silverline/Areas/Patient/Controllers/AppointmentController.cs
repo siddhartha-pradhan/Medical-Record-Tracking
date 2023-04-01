@@ -18,7 +18,11 @@ public class AppointmentController : Controller
     private readonly IPatientService _patientService;
     private readonly IAppointmentService _appointmentService;
 
-    public AppointmentController(IAppUserService appUserService, IDoctorService doctorService, ISpecialtyService specialtyService, IPatientService patientService, IAppointmentService appointmentService)
+    public AppointmentController(IAppUserService appUserService, 
+        IDoctorService doctorService, 
+        ISpecialtyService specialtyService, 
+        IPatientService patientService, 
+        IAppointmentService appointmentService)
     {
         _appUserService = appUserService;
         _doctorService = doctorService;
@@ -33,7 +37,6 @@ public class AppointmentController : Controller
         var doctors = _doctorService.GetAllDoctors().ToList();
         var appUsers = _appUserService.GetAllUsers().Where(x => x.EmailConfirmed).ToList();
         var specialties = _specialtyService.GetAllSpecialties().ToList();
-
 
         var result = (from appUser in appUsers
                       join doctor in doctors

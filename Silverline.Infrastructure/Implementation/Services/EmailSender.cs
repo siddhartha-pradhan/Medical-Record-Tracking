@@ -18,7 +18,7 @@ namespace Silverline.Infrastructure.Implementation.Services
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            string fromMail = "anuj.pradhan.ix@gmail.com";
+            string fromMail = "siddhartha.pradhan.ix@gmail.com";
             string fromPassword = "xefyqvgnvzuroypo";
 
             MailMessage message = new MailMessage();

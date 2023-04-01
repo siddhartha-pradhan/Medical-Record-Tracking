@@ -20,7 +20,11 @@ public class MedicineController : Controller
     private readonly IManufacturerService _manufacturerService;
     private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public MedicineController(IUnitOfWork unitOfWork, IMedicineService medicineService, ICategoryService categoryService, IManufacturerService manufacturerService,IWebHostEnvironment webHostEnvironment)
+    public MedicineController(IUnitOfWork unitOfWork, 
+        IMedicineService medicineService, 
+        ICategoryService categoryService, 
+        IManufacturerService manufacturerService,
+        IWebHostEnvironment webHostEnvironment)
     {
         _unitOfWork = unitOfWork;
         _medicineService = medicineService;
