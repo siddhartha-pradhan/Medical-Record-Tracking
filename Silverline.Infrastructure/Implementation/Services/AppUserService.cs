@@ -22,4 +22,14 @@ public class AppUserService : IAppUserService
     {
         return _unitOfWork.AppUser.GetAll();
     }
+
+	public string GetUserName(string email)
+	{
+		return _unitOfWork.AppUser.GetAll().Where(x => x.UserName == email).FirstOrDefault().FullName;
+	}
+
+	public byte[] GetImage(string email)
+	{
+		return _unitOfWork.AppUser.GetAll().Where(x => x.UserName == email).FirstOrDefault().ProfileImage;
+	}
 }

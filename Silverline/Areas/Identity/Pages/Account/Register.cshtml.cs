@@ -109,30 +109,12 @@ public class RegisterModel : PageModel
 
     public async Task OnGetAsync(string? returnUrl = null)
     {
-        if (!_roleManager.RoleExistsAsync(Constants.Admin).GetAwaiter().GetResult())
-        {
-            _roleManager.CreateAsync(new IdentityRole(Constants.Admin)).GetAwaiter().GetResult();
-        }
-        if (!_roleManager.RoleExistsAsync(Constants.Patient).GetAwaiter().GetResult())
-        {
-            _roleManager.CreateAsync(new IdentityRole(Constants.Patient)).GetAwaiter().GetResult();
-        }
-        if (!_roleManager.RoleExistsAsync(Constants.Doctor).GetAwaiter().GetResult())
-        {
-            _roleManager.CreateAsync(new IdentityRole(Constants.Doctor)).GetAwaiter().GetResult();
-        }
-        if (!_roleManager.RoleExistsAsync(Constants.LabTechnician).GetAwaiter().GetResult())
-        {
-            _roleManager.CreateAsync(new IdentityRole(Constants.LabTechnician)).GetAwaiter().GetResult();
-        }
-        if (!_roleManager.RoleExistsAsync(Constants.Pharmacist).GetAwaiter().GetResult())
-        {
-            _roleManager.CreateAsync(new IdentityRole(Constants.Pharmacist)).GetAwaiter().GetResult();
-        }
-
         ReturnUrl = returnUrl;
+
         ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+        
         var departments = new SelectList(_specialtyService.GetAllSpecialties(), "Id", "Name");
+        
         ViewData["DepartmentId"] = departments;
     }
 

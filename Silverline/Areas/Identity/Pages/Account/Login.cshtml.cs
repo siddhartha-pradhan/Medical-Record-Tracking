@@ -1,28 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Mvc;
+using Silverline.Core.Constants;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authentication;
+using System.ComponentModel.DataAnnotations;
 
 namespace Silverline.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+		public LoginModel(SignInManager<IdentityUser> signInManager, 
+            ILogger<LoginModel> logger,
+            UserManager<IdentityUser> userManager)
         {
-            _signInManager = signInManager;
             _logger = logger;
-        }
+            _signInManager = signInManager;
+			_userManager = userManager;
+		}
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -73,20 +71,53 @@ namespace Silverline.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+
+				if (result.RequiresTwoFactor)
+				{
+					return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+				}
+
+				if (result.IsLockedOut)
+				{
+					_logger.LogWarning("User account locked out.");
+
+					return RedirectToPage("./Lockout");
+				}
+
+				if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+
+					var user = await _userManager.FindByNameAsync(Input.Email);
+
+					var roles = await _userManager.GetRolesAsync(user);
+
+                    if (roles.Contains(Constants.Admin))
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Admin" });
+                    }
+					if (roles.Contains(Constants.Patient))
+					{
+
+					}
+					if (roles.Contains(Constants.Doctor))
+					{
+
+					}
+					if (roles.Contains(Constants.Pharmacist))
+					{
+
+					}
+					if (roles.Contains(Constants.LabTechnician))
+					{
+
+					}
+
+					return LocalRedirect(returnUrl);
                 }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
-                }
+                
+                
+                
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");

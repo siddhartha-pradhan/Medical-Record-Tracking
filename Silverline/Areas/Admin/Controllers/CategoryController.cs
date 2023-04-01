@@ -14,7 +14,8 @@ public class CategoryController : Controller
     private readonly IUnitOfWork _unitOfWork;
     private readonly ICategoryService _categoryService;
 
-    public CategoryController(IUnitOfWork unitOfWork, ICategoryService categoryService)
+    public CategoryController(IUnitOfWork unitOfWork, 
+        ICategoryService categoryService)
     {
         _unitOfWork = unitOfWork;
         _categoryService = categoryService;
@@ -63,6 +64,7 @@ public class CategoryController : Controller
     public IActionResult GetAll()
     {
         var categories = _categoryService.GetAllCategories();
+
         return Json(new { data = categories });
     }
 
@@ -74,11 +76,13 @@ public class CategoryController : Controller
             if(category.Id == Guid.Empty)
             {
                 _categoryService.AddCategory(category);
+
                 TempData["Success"] = "Category Added Successfully";
             }
             else
             {
                 _categoryService.UpdateCategory(category);
+                
                 TempData["Info"] = "Category Updated Successfully";
             }
             

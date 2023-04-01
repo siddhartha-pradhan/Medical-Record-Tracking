@@ -14,7 +14,8 @@ namespace Silverline.Areas.Admin.Controllers;
     private readonly IUnitOfWork _unitOfWork;
     private readonly ITestTypeService _testTypeService;
 
-    public TestTypeController(IUnitOfWork unitOfWork, ITestTypeService testTypeService)
+    public TestTypeController(IUnitOfWork unitOfWork, 
+        ITestTypeService testTypeService)
     {
         _unitOfWork = unitOfWork;
         _testTypeService = testTypeService;
@@ -63,6 +64,7 @@ namespace Silverline.Areas.Admin.Controllers;
     public IActionResult GetAll()
     {
         var testTypes = _testTypeService.GetAllTestTypes();
+
         return Json(new { data = testTypes });
     }
 
@@ -74,11 +76,13 @@ namespace Silverline.Areas.Admin.Controllers;
             if (testType.Id == Guid.Empty)
             {
                 _testTypeService.AddTestType(testType);
+
                 TempData["Success"] = "Test Type Added Successfully";
             }
             else
             {
                 _testTypeService.UpdateTestType(testType);
+
                 TempData["Info"] = "Test Type Updated Successfully";
             }
 
@@ -99,7 +103,9 @@ namespace Silverline.Areas.Admin.Controllers;
             if (testType != null)
             {
                 _testTypeService.DeleteTestType(testType);
+
                 TempData["Delete"] = "Test Type Delete Successfully";
+                
                 return RedirectToAction("Index");
             }
             else

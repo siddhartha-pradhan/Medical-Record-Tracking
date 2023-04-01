@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Data;
 using Microsoft.AspNetCore.Mvc;
-using Silverline.Application.Interfaces.Repositories;
-using Silverline.Application.Interfaces.Services;
 using Silverline.Core.Constants;
-using Silverline.Infrastructure.Implementation.Services;
-using System.Data;
-using static System.Net.Mime.MediaTypeNames;
+using Microsoft.AspNetCore.Authorization;
+using Silverline.Application.Interfaces.Services;
 
 namespace Silverline.Areas.Admin.Controllers;
 

@@ -5,45 +5,49 @@
     var title = "Create a new category";
 }
 
-<h1 class="mb-4">Category Index</h1>
+<div class="pt-2 ml-4 pl-3">
+    <h1>Category Index</h1>
+</div>
 
-<form method="post">
-    <div class="row mb-3">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        @if (Model.Id != Guid.Empty)
-        {
-            title = "Edit an existing category";
-        }
-        <div class="col-6">
-            <h2 class="text-primary">@title</h2>
-        </div>
-        <div class="col-8 pt-4">
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Name"></label>
-                </div>
-                <div class="col-8 mb-4">
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <input asp-for="CreatedAt" class="form-control" type="hidden" />
-                <input asp-for="LastModifiedAt" class="form-control" type="hidden" />
+<div class="container-fluid" style="width:95%">
+    <form method="post">
+        <div class="row mb-3">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @if (Model.Id != Guid.Empty)
+                {
+                    title = "Edit an existing category";
+                }
+            <div class="col-6">
+                <h2 class="text-primary">@title</h2>
             </div>
-            <div class="form-group row">
-                <div class="col-8 offset-4">
-                    @if (Model.Id != Guid.Empty)
-                    {
-                        <partial name="_UpdateAndBackToList" model="Model.Id" />
-                    }
-                    else
-                    {
-                        <partial name="_CreateAndBackToList" />
-                    }
+            <div class="col-8 pt-4">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Name"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <input asp-for="CreatedAt" class="form-control" type="hidden" />
+                    <input asp-for="LastModifiedAt" class="form-control" type="hidden" />
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-4">
+                            @if (Model.Id != Guid.Empty)
+                            {
+                                <partial name="_UpdateAndBackToList" model="Model.Id" />
+                            }
+                            else
+                            {
+                                <partial name="_CreateAndBackToList" />
+                            }
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />

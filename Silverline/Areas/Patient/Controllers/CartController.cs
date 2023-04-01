@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
-using Silverline.Application.Interfaces.Services;
+﻿using Microsoft.AspNetCore.Mvc;
 using Silverline.Core.Constants;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Silverline.Application.Interfaces.Services;
 
 namespace Silverline.Areas.Patient.Controllers;
 
@@ -14,7 +14,8 @@ public class CartController : Controller
 
     private readonly IEmailSender _emailSender;
 
-    public CartController(ITestCartService testCartService, IEmailSender emailSender)
+    public CartController(ITestCartService testCartService, 
+        IEmailSender emailSender)
     {
         _testCartService = testCartService;
         _emailSender = emailSender;

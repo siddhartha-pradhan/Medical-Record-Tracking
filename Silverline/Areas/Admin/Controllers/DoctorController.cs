@@ -15,7 +15,9 @@ public class DoctorController : Controller
     private readonly IDoctorService _doctorService;
     private readonly ISpecialtyService _specialtyService;
 
-    public DoctorController(IAppUserService appUserService, IDoctorService doctorService, ISpecialtyService specialtyService)
+    public DoctorController(IAppUserService appUserService, 
+        IDoctorService doctorService, 
+        ISpecialtyService specialtyService)
     {
         _appUserService = appUserService;
         _doctorService = doctorService;

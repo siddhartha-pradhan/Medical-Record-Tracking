@@ -2,88 +2,140 @@
 @model SignInModel
 
 @{
-    ViewData["Title"] = "Patient Registration";
+	Layout = null;
 }
 
-<h1>@ViewData["Title"]</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-<form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" enctype = "multipart/form-data" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="row">
-        <div class="col">
-            <div class="form-group">
-                <label asp-for="Input.FullName" class="form-label mt-4"></label>
-                <input asp-for="Input.FullName" class="form-control mb-2" autocomplete="username" aria-required="true"/>
-                <span asp-validation-for="Input.FullName" class="text-danger mt-3"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Email" class="form-label mt-4"></label>
-                <input asp-for="Input.Email" class="form-control mb-2" autocomplete="username" aria-required="true" placeholder="Enter your email address"/>
-                <small class="form-text text-muted">We'll never share your email with anyone else.</small>
-                <span asp-validation-for="Input.Email" class="text-danger mt-3"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.PhoneNumber" class="form-label mt-4"></label>
-                <input asp-for="Input.PhoneNumber" class="form-control mb-2" autocomplete="username" aria-required="true"/>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger mt-3"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Password" class="form-label mt-4"></label>
-                <input asp-for="Input.Password" class="form-control" id="passcode" autocomplete="new-password" aria-required="true" />
-                <span asp-validation-for="Input.Password" class="text-danger mt-3"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword" class="form-label mt-4"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" id="password" autocomplete="new-password" aria-required="true" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger mt-3"></span>
-            </div>
-            <div class="form-check mt-3">
-                <input class="form-check-input" type="checkbox" onclick="showpassword(this);">
-                <label class="form-check-label">Show Password</label>
-                <script type="text/javascript">
-                    function showpassword(check_box) {
-                        var code = document.getElementById("passcode");
-                        var confirm = document.getElementById("password");
-                        if (check_box.checked) {
-                            code.setAttribute("type", "text");
-                            confirm.setAttribute("type", "text");
-                        }
-                        else{
-                            code.setAttribute("type", "password");
-                            confirm.setAttribute("type", "password");
-                        }
-                    }
-                </script>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.ProfileImage" class="form-label mt-4"></label>
-                <input asp-for="Input.ProfileImage" class="form-control" type="file" accept=".png,.jpg,.jpeg,.gif,.tif">
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <label asp-for="Input.DateOfBirth" class="form-label mt-4"></label>
-                <input asp-for="Input.DateOfBirth" class="form-control mb-2" autocomplete="username" aria-required="true"/>
-                <small class="form-text text-muted">Your date of birth will stay confidential too.</small>
-                <span asp-validation-for="Input.DateOfBirth" class="text-danger mt-3"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Street" class="form-label mt-4"></label>
-                <input asp-for="Input.Street" class="form-control mb-2" autocomplete="username" aria-required="true"/>
-                <span asp-validation-for="Input.Street" class="text-danger mt-3"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Address" class="form-label mt-4"></label>
-                <input asp-for="Input.Address" class="form-control mb-2" autocomplete="username" aria-required="true"/>
-                <span asp-validation-for="Input.Address" class="text-danger mt-3"></span>
-            </div>
-        </div>
-    </div>
-    
-    <button type="submit" class="btn btn-primary mt-4">Register</button>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Sign In</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+	<link rel="stylesheet" href="~/css/all.min.css">
+	<link rel="stylesheet" href="~/css/icheck-bootstrap.min.css">
+	<link rel="stylesheet" href="~/css/adminlte.min.css">
+	<link rel="stylesheet" href="~/css/daterangepicker.css">
+	<link rel="stylesheet" href="~/css//tempusdominus-bootstrap-4.min.css">
+</head>
 
-</form>
+<body class="hold-transition register-page">
+	<div class="register-box w-50">
+		<div class="card card-outline card-primary">
+			<div class="card-header text-center">
+				<a href="#" class="h1"><b>Silver</b>line</a>
+			</div>
+			<div class="card-body">
+				<p class="login-box-msg">Register a new membership</p>
+				<form action="" method="post">
+					<div class="row">
+						<div class="col">
+							<div class="input-group mb-3">
+								<input asp-for="Input.FullName" type="text"  class="form-control" aria-required="true" placeholder="Full Name"/>
+								<div class="input-group-append">
+									<div class="input-group-text">
+										<span class="fas fa-user"></span>
+									</div>
+								</div>
+							</div>
+							<div class="input-group mb-3">
+								<input asp-for="Input.Email" type="email" class="form-control" aria-required="true" placeholder="Email Address"/>
+								<div class="input-group-append">
+									<div class="input-group-text">
+										<span class="fas fa-envelope"></span>
+									</div>
+								</div>
+							</div>
+							<div class="input-group mb-3">
+								<input asp-for="Input.Street" type="text" class="form-control" aria-required="true" placeholder="State Street"/>
+								<div class="input-group-append">
+									<div class="input-group-text">
+										<i class="fa-sharp fa-solid fa-location-dot fa-lg"></i>
+									</div>
+								</div>
+							</div>
+							<div class="input-group mb-3">
+								<input asp-for="Input.Address" type="text" class="form-control" aria-required="true" placeholder="Residential Address"/>
+								<div class="input-group-append">
+									<div class="input-group-text">
+										<i class="fa-solid fa-address-book"></i>
+									</div>
+								</div>
+							</div>
+							<div class="input-group mb-3">
+								<div class="custom-file">
+									<input asp-for="Input.ProfileImage" type="file"  placeholder="Profile Image" class="custom-file-input" id="exampleInputFile" accept=".png,.jpg,.jpeg,.gif,.tif">
+									<label class="custom-file-label">Choose your Profile Image</label>
+								</div>
+							</div>
+						</div>
+						<div class="col">
+							<div class="input-group mb-3">
+								<input asp-for="Input.PhoneNumber" type="number" class="form-control" aria-required="true" placeholder="Phone Number"/>
+								<div class="input-group-append">
+									<div class="input-group-text">
+										<i class="fa-solid fa-phone"></i>
+									</div>
+								</div>
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group date" id="reservationdate" data-target-input="nearest">
+									<input asp-for="Input.DateOfBirth"  type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask placeholder="Date of Birth">
+									<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+									</div>
+								</div>
+							</div>
+							<div class="input-group mb-3">
+								<input asp-for="Input.Password" type="password" class="form-control" placeholder="Password">
+								<div class="input-group-append">
+									<div class="input-group-text">
+										<span class="fas fa-lock"></span>
+									</div>
+								</div>
+							</div>
+							<div class="input-group mb-3">
+								<input asp-for="Input.ConfirmPassword" type="password" class="form-control" placeholder="Confirm Password">
+								<div class="input-group-append">
+									<div class="input-group-text">
+										<span class="fas fa-lock"></span>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-8">
+									<div class="icheck-primary">
+										<input type="checkbox" id="agreeTerms" name="terms" value="agree">
+										<label for="agreeTerms">
+											I agree to the <a href="#">terms</a>
+										</label>
+									</div>
+								</div>
+								<div class="col-4">
+									<button type="submit" class="btn btn-secondary btn-block">Register</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+				<a href="#" class="text-center">I already have a membership</a>
+			</div>
+		</div>
+	</div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/adminlte.min.js"></script>
+	<script src="~/js/bs-custom-file-input.min.js"></script>
+	<script src="~/js/inputmask.min.js"></script>
+	<script src="~/js/jquery.inputmask.min.js"></script>
+	<script src="https://kit.fontawesome.com/1c1a57d0d0.js"></script>
+	<script>
+		$(function () {
+			$('[data-mask]').inputmask()
+		});
+	</script>
+</body>
+
+</html>

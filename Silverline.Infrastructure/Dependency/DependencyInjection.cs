@@ -9,6 +9,7 @@ using Silverline.Application.Interfaces.Repositories;
 using Silverline.Infrastructure.Implementation.Services;
 using Silverline.Infrastructure.Implementation.Repositories;
 using Silverline.Core.Entities;
+using Silverline.Infrastructure.Persistence.Seed;
 
 namespace Silverline.Infrastructure.Dependency;
 
@@ -26,9 +27,18 @@ public static class DependencyInjection
             .AddDefaultTokenProviders()
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
-        services.AddTransient<IUnitOfWork, UnitOfWork>();
+		services.AddSession(options =>
+		{
+			options.IdleTimeout = TimeSpan.FromMinutes(100);
+			options.Cookie.HttpOnly = true;
+			options.Cookie.IsEssential = true;
+		});
 
-        services.AddTransient<IAppUserService, AppUserService>();
+		services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+		services.AddScoped<IDbInitializer, DbInitializer>();
+
+		services.AddTransient<IAppUserService, AppUserService>();
         services.AddTransient<IAppointmentService, AppointmentService>();
         services.AddTransient<IAppointmentDetailService, AppointmentDetailService>();
         services.AddTransient<IPatientService, PatientService>();

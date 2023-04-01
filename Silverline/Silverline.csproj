@@ -27,9 +27,19 @@
 
   <ItemGroup>
     <Compile Include="Areas\Doctor\Controllers\AppointmentController.cs" />
+    <Compile Include="Areas\Doctor\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Doctor\Controllers\LabTestController.cs" />
+    <Compile Include="Areas\Doctor\Controllers\MedicineController.cs" />
+    <Compile Include="Areas\Doctor\Controllers\PatientController.cs" />
+    <Compile Include="Areas\LabTechnician\Controllers\DiagnosisController.cs" />
+    <Compile Include="Areas\LabTechnician\Controllers\HomeController.cs" />
     <Compile Include="Areas\Patient\Controllers\AppointmentController.cs" />
     <Compile Include="Areas\Patient\Controllers\CartController.cs" />
+    <Compile Include="Areas\Patient\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Patient\Controllers\LabTestController.cs" />
     <Compile Include="Areas\Patient\Controllers\TestController.cs" />
+    <Compile Include="Areas\Pharmacist\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Pharmacist\Controllers\PrescriptionController.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -83,7 +93,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.12" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
@@ -93,8 +103,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\LabTechnician\Controllers\" />
-    <Folder Include="Areas\Pharmacist\Controllers\" />
     <Folder Include="wwwroot\images\certification\staffs\" />
     <Folder Include="wwwroot\images\medicines\" />
     <Folder Include="wwwroot\images\resume\staffs\" />
@@ -107,8 +115,19 @@
   <ItemGroup>
     <None Include="Areas\Doctor\Views\Appointment\Index.cshtml" />
     <None Include="Areas\Doctor\Views\Appointment\Start.cshtml" />
+    <None Include="Areas\Doctor\Views\Home\Index.cshtml" />
+    <None Include="Areas\Doctor\Views\LabTest\Index.cshtml" />
+    <None Include="Areas\Doctor\Views\Medicine\Index.cshtml" />
+    <None Include="Areas\Doctor\Views\Patient\Index.cshtml" />
+    <None Include="Areas\LabTechnician\Views\Diagnosis\Index.cshtml" />
+    <None Include="Areas\LabTechnician\Views\Home\Index.cshtml" />
     <None Include="Areas\Patient\Views\Appointment\Book.cshtml" />
     <None Include="Areas\Patient\Views\Appointment\Index.cshtml" />
+    <None Include="Areas\Patient\Views\Cart\Index.cshtml" />
+    <None Include="Areas\Patient\Views\Home\Index.cshtml" />
+    <None Include="Areas\Patient\Views\LabTest\Index.cshtml" />
+    <None Include="Areas\Pharmacist\Views\Home\Index.cshtml" />
+    <None Include="Areas\Pharmacist\Views\Prescription\Index.cshtml" />
     <None Include="wwwroot\js\tinymce\CHANGELOG.md" />
     <None Include="wwwroot\js\tinymce\js\tinymce\icons\default\icons.min.js" />
     <None Include="wwwroot\js\tinymce\js\tinymce\langs\README.md" />

@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
 using Silverline.Application.Interfaces.Services;
 using Silverline.Application.Interfaces.Repositories;
-using Silverline.Infrastructure.Implementation.Repositories;
-using Silverline.Core.Entities;
 
 namespace Silverline.Areas.Admin.Controllers;
 

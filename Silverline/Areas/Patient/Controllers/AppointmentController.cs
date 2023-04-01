@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Core.Constants;
+﻿using System.Security.Claims;
 using Silverline.Core.Entities;
+using Microsoft.AspNetCore.Mvc;
+using Silverline.Core.Constants;
 using Silverline.Core.ViewModels;
-using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Silverline.Application.Interfaces.Services;
 
 namespace Silverline.Areas.Patient.Controllers;
 
@@ -85,10 +85,15 @@ public class AppointmentController : Controller
 
         return View(appointment);
     }
-    #endregion
 
-    #region API Calls
-    [HttpPost]
+    public IActionResult MedicalRecords()
+    {
+        return View();
+    }
+	#endregion
+
+	#region API Calls
+	[HttpPost]
     public IActionResult Book(AppointmentViewModel appointmentViewModel)
     {
         if (ModelState.IsValid)

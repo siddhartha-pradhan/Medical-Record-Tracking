@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Silverline.Application.Interfaces.Services;
 using Silverline.Core.Constants;
 using Silverline.Core.ViewModels;
-using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Silverline.Application.Interfaces.Services;
 
 namespace Silverline.Areas.Doctor.Controllers;
 
@@ -47,6 +47,7 @@ public class AppointmentController : Controller
     public IActionResult Index()
     {
         var claimsIdentity = (ClaimsIdentity)User.Identity;
+
         var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
         var doctor = _doctorService.GetAllDoctors().Where(x => x.UserId == claim.Value).FirstOrDefault();

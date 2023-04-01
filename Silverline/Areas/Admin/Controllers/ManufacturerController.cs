@@ -4,7 +4,6 @@ using Silverline.Core.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Silverline.Application.Interfaces.Services;
 using Silverline.Application.Interfaces.Repositories;
-using Silverline.Infrastructure.Implementation.Repositories;
 
 namespace Silverline.Areas.Admin.Controllers;
 

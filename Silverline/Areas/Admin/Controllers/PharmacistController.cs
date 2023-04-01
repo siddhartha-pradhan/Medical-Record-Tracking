@@ -1,5 +1,5 @@
-﻿using Silverline.Core.Constants;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Silverline.Core.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Silverline.Application.Interfaces.Services;
 

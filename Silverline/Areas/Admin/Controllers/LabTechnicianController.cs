@@ -14,7 +14,8 @@ public class LabTechnicianController : Controller
     private readonly IAppUserService _appUserService;
     private readonly ILabTechnicianService _labTechnicianService;
 
-    public LabTechnicianController(IAppUserService appUserService, ILabTechnicianService labTechnicianService)
+    public LabTechnicianController(IAppUserService appUserService, 
+        ILabTechnicianService labTechnicianService)
     {
         _appUserService = appUserService;
         _labTechnicianService = labTechnicianService;

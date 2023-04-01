@@ -17,7 +17,9 @@ public class TestController : Controller
     private readonly ITestService _testService;
 	private readonly ITestTypeService _testTypeService;
 
-	public TestController(IUnitOfWork unitOfWork, ITestService testService, ITestTypeService testTypeService)
+	public TestController(IUnitOfWork unitOfWork, 
+		ITestService testService, 
+		ITestTypeService testTypeService)
 	{
 		_unitOfWork = unitOfWork;
 		_testService = testService;
@@ -27,7 +29,8 @@ public class TestController : Controller
 	#region Razor Pages
 	public IActionResult Index()
 	{
-		var tests = _testService.GetAllDiagnosticTests().ToList();
+		var tests = _testService.GetAllDiagnosticTests();
+
 		var testTypes = _testTypeService.GetAllTestTypes();
 
         var result = (from test in tests
@@ -57,6 +60,7 @@ public class TestController : Controller
         if (id == null)
 		{
 			ViewBag.ClassId = new SelectList(_testTypeService.GetAllTestTypes(), "Id", "Name");
+
 			return View();
 		}
 		test = _unitOfWork.Test.GetFirstOrDefault(x => x.Id == id);
@@ -93,11 +97,13 @@ public class TestController : Controller
 			if (test.Id == Guid.Empty)
 			{
 				_testService.AddDiagnosticTest(test);
+
 				TempData["Success"] = "Diagnostic Test Added Successfully";
 			}
 			else
 			{
 				_testService.UpdateDiagnosticTest(test);
+				
 				TempData["Info"] = "Diagnostic Test Updated Successfully";
 			}
 
@@ -118,6 +124,7 @@ public class TestController : Controller
 			if (test != null)
 			{
 				_testService.DeleteDiagnosticTest(test);
+				
 				TempData["Delete"] = "Diagnostic Test Delete Successfully";
 			}
 			else

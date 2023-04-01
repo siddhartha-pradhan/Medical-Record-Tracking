@@ -6,6 +6,9 @@
 }
 
 <h3>@ViewData["Title"]</h3>
+
+<link rel="stylesheet" href="~/css/adminlte.min.css" asp-append-version="true" />
+
 <partial name="_StatusMessage" for="StatusMessage" />
 
 <div class="row">
@@ -22,16 +25,17 @@
 				{
 					<img id="profilePicture" style="width:500px;height:350px; object-fit:cover" src="">
 				}
-				<input asp-for="Input.ProfileImage" name="UserImage" class="form-control mt-2" type="file" id="formFile" accept=".png,.jpg,.jpeg,.gif,.tif" onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
+				<label class="form-label mt-3">Upload a new picture</label>
+				<input asp-for="Input.ProfileImage" name="UserImage" type="file" id="exampleInputFile" accept=".png,.jpg,.jpeg,.gif,.tif" onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
 				<span asp-validation-for="Input.ProfileImage" class="text-danger"></span>
 			</div>
 			<div class="form-floating mb-3">
-				<input asp-for="Username" class="form-control" disabled />
 				<label asp-for="Username" class="form-label"></label>
+				<input asp-for="Username" class="form-control" disabled />
 			</div>
 			<div class="form-floating mb-3">
-				<input asp-for="Input.PhoneNumber" class="form-control" />
 				<label asp-for="Input.PhoneNumber" class="form-label"></label>
+				<input asp-for="Input.PhoneNumber" class="form-control" />
 				<span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
 			</div>
 			<button id="update-profile-button" type="submit" class="w-100 btn btn-primary mt-3">Save</button>
@@ -39,7 +43,7 @@
 	</form>
 
 </div>
-
+<script src="~/js/bs-custom-file-input.min.js"></script>
 @section Scripts {
-		<partial name="_ValidationScriptsPartial" />
+	<partial name="_ValidationScriptsPartial" />
 }

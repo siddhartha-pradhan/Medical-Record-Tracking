@@ -15,7 +15,8 @@ public class SpecialtyController : Controller
     private readonly IUnitOfWork _unitOfWork;
     private readonly ISpecialtyService _specialtyService;
 
-	public SpecialtyController(IUnitOfWork unitOfWork, ISpecialtyService specialtyService)
+	public SpecialtyController(IUnitOfWork unitOfWork, 
+		ISpecialtyService specialtyService)
 	{
         _unitOfWork = unitOfWork;
 		_specialtyService = specialtyService;
