@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Net;
 using System.Net.Mail;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Silverline.Infrastructure.Implementation.Services
 {
@@ -19,7 +14,7 @@ namespace Silverline.Infrastructure.Implementation.Services
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             string fromMail = "siddhartha.pradhan.ix@gmail.com";
-            string fromPassword = "xefyqvgnvzuroypo";
+            string fromPassword = "pdmbzacgnxdifhya";
 
             MailMessage message = new MailMessage();
 

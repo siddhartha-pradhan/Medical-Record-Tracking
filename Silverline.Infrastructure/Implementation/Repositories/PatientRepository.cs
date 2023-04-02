@@ -12,4 +12,15 @@ public class PatientRepository : Repository<Patient>, IPatientRepository
     {
         _dbContext = dbContext;
     }
+
+    public void Update(Patient patient)
+    {
+        var item = _dbContext.Patients.FirstOrDefault(x => x.Id == patient.Id);
+
+        if (item != null)
+        {
+            item.Address = patient.Address;
+            item.CreditPoints = patient.CreditPoints;
+        }
+    }
 }

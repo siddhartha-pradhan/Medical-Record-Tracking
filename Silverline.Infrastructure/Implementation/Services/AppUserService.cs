@@ -32,4 +32,26 @@ public class AppUserService : IAppUserService
 	{
 		return _unitOfWork.AppUser.GetAll().Where(x => x.UserName == email).FirstOrDefault().ProfileImage;
 	}
+
+    public void LockUser(string Id)
+    {
+        var user = _unitOfWork.AppUser.GetFirstOrDefault(x => x.Id == Id);
+
+        if (user != null)
+        {
+            user.LockoutEnabled = true;
+            user.LockoutEnd = DateTime.Now.AddDays(5);
+        }
+    }
+
+    public void UnlockUser(string Id)
+    {
+        var user = _unitOfWork.AppUser.GetFirstOrDefault(x => x.Id == Id);
+
+        if (user != null)
+        {
+            user.LockoutEnabled = false;
+            user.LockoutEnd = DateTime.Now;
+        }
+    }
 }

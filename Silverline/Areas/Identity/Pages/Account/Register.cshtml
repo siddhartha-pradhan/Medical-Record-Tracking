@@ -18,9 +18,14 @@
 	<link rel="stylesheet" href="~/css/adminlte.min.css">
 	<link rel="stylesheet" href="~/css/daterangepicker.css">
 	<link rel="stylesheet" href="~/css//tempusdominus-bootstrap-4.min.css">
+	<link rel="shortcut icon" href="~/favicon.png" />
+	<partial name="_Notification" />
 </head>
 
+<partial name="_Notification" />
+
 <body class="hold-transition register-page">
+	<partial name="_Notification" />
 	<div class="register-box w-50">
 		<div class="card card-outline card-primary">
 			<div class="card-header text-center">
@@ -28,7 +33,7 @@
 			</div>
 			<div class="card-body">
 				<p class="login-box-msg">Request a new registration membership</p>
-				<form action="" method="post">
+				<form action="" method="post" enctype="multipart/form-data">
 					<div class="row">
 						<div class="col">
 							<div class="input-group mb-3">
@@ -143,7 +148,7 @@
 						</div>
 					</div>
 				</form>
-				<a href="#" class="text-center">I already have a membership</a>
+				<a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="text-center">I already have a membership</a>
 			</div>
 		</div>
 	</div>

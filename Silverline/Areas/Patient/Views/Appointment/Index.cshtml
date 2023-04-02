@@ -4,33 +4,40 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>View all doctors index</h1>
+<div class="pt-2 ml-4 pl-3">
+    <h1>View all doctors index</h1>
+</div>
+
 <partial name="_Notification" />
-<div class="row pb-3">
-    @foreach (var @item in Model)
-    { 
-        <div class="col-lg-3 col-md-6">
-            <div class="row p-2">
-                <div class="col-12 p-1" style="border: 1px solid black; border-radius: 5px;">
-                    <div class="container-item">
-                        <img id="profilePicture" style="width:300px;height:400px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(@item.ProfileImage))">
-                    </div>
-                    <div>
-                        <div class="p-lg-3">
-                            <p class="card-title h5 text-primary">@item.Name</p>
-                            <p class="card-title text-dark">@item.HighestMedicalDegree</p>
+
+<div class="container-fluid" style="width: 95%">
+    <div class="row pb-3">
+        @foreach (var @item in Model)
+        { 
+            <div class="col-lg-3 col-md-6">
+                <div class="row p-2">
+                    <div class="col-12 p-1" style="border: 1px solid black; border-radius: 5px;">
+                        <div class="container-item">
+                            <img id="profilePicture" style="width:275px;height:400px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(@item.ProfileImage))">
                         </div>
-                        <div class="ps-3">
-                            <p>Department: <b>@item.Specialty</b></p>
+                        <div>
+                            <div class="p-lg-2">
+                                <p class="card-title h5 text-primary">@item.Name</p>
+                            </div>
+                            <div class="p-lg-2">
+                                <p>Department: <b>@item.Specialty</b></p>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <a asp-action="Book" class="btn btn-primary form-control" asp-route-id="@item.DoctorId">
-                            Book Appointment
-                        </a>
+                        <div>
+                            <a asp-action="Book" class="btn btn-primary form-control" asp-route-id="@item.DoctorId">
+                                Book Appointment
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
+
+

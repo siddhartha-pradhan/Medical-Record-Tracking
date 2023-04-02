@@ -23,6 +23,7 @@ public class Appointment
 
     public float FeeAmount { get; set; } = 0;
 
+    [Display(Name = "Appointment Request")]
     public string AppointmentRequest { get; set; }
 
     public DateTime StartTime { get; set; }

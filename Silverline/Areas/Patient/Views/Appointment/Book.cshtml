@@ -4,73 +4,77 @@
     ViewData["Title"] = "Appointment Booking";
 }
 
-<h1>Book an Appointment</h1>
+<div class="pt-2 ml-4 pl-3 mb-4">
+    <h1>Book an Appointment</h1>
+</div>
 
-<form method="post">
+<div class="container-fluid" style="width: 95%">
+    <form method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
-    <div class="row">
-        <div class="col-md-8">
-            <div class="form-group row">
-                <input asp-for="Appointment.DoctorId" class="form-control" hidden/>
-                <input asp-for="Appointment.PatientId" class="form-control" hidden/>
-                <div class="col-4">
-                    <label asp-for="PatientName"></label>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group row">
+                    <input asp-for="Appointment.DoctorId" class="form-control" hidden/>
+                    <input asp-for="Appointment.PatientId" class="form-control" hidden/>
+                    <div class="col-4">
+                        <label asp-for="PatientName"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="PatientName" class="form-control" disabled/>
+                    </div>
                 </div>
-                <div class="col-8 mb-4">
-                    <input asp-for="PatientName" class="form-control" disabled/>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Age"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="Age" class="form-control" disabled/>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Age"></label>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Appointment.AppointmentRequest"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <textarea asp-for="Appointment.AppointmentRequest" class="form-control"></textarea>
+                        <span asp-validation-for="Appointment.AppointmentRequest" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="col-8 mb-4">
-                    <input asp-for="Age" class="form-control" disabled/>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Appointment.DateOfAppointment" class="form-label mt-4"></label>
+                    </div>
+                    <div class="col-8 mb-4">
+                        <input asp-for="Appointment.DateOfAppointment" class="form-control mb-2" autocomplete="username" aria-required="true"/>
+                        <span asp-validation-for="Appointment.DateOfAppointment" class="text-danger mt-3"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Appointment.AppointmentRequest"></label>
+                <div class="form-group row">
+                    <div class="col-4">
+                    </div>
+                    <div class="col-8 mb-4">
+                        <button type="submit" class="btn btn-primary form-control">Book</button>
+                    </div>
                 </div>
-                <div class="col-8 mb-4">
-                    <textarea asp-for="Appointment.AppointmentRequest" class="form-control"></textarea>
-                    <span asp-validation-for="Appointment.AppointmentRequest" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Appointment.DateOfAppointment" class="form-label mt-4"></label>
-                </div>
-                <div class="col-8 mb-4">
-                    <input asp-for="Appointment.DateOfAppointment" class="form-control mb-2" autocomplete="username" aria-required="true"/>
-                    <span asp-validation-for="Appointment.DateOfAppointment" class="text-danger mt-3"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                </div>
-                <div class="col-8 mb-4">
-                    <button type="submit" class="btn btn-primary form-control">Book</button>
-                </div>
-            </div>
 
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="data:image/*;base64,@(Convert.ToBase64String(Model.DoctorProfileImage))">
+                </div>
+                <div class="row justify-content-center">
+                    <p class="text-center  h4 text-primary">@Model.DoctorName</p>
+                </div>
+                <div class="row justify-content-center">
+                    <p class="text-center justify-content-center h5 text-dark">@Model.DoctorSpecialty</p>
+                </div>
+                <div class="row justify-content-center">
+                    <p class="text-center justify-content-center h5 text-dark">@Model.HighestMedicalDegree</p>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-            <div class="row">
-                <img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="data:image/*;base64,@(Convert.ToBase64String(Model.DoctorProfileImage))">
-            </div>
-            <div class="row">
-                <p class="text-center h4 text-primary">@Model.DoctorName</p>
-            </div>
-            <div class="row">
-                <p class="text-center h5 text-dark">@Model.DoctorSpecialty</p>
-            </div>
-            <div class="row">
-                <p class="text-center h5 text-dark">@Model.HighestMedicalDegree</p>
-            </div>
-        </div>
-    </div>
-</form>
+    </form>
+</div>
 
 @section Scripts{
         <script>

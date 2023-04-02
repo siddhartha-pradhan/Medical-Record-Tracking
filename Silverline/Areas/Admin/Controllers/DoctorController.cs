@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Silverline.Application.Interfaces.Repositories;
 using Silverline.Application.Interfaces.Services;
 using Silverline.Core.Constants;
+using Silverline.Core.ViewModels;
 using System.Data;
 
 namespace Silverline.Areas.Admin.Controllers;
@@ -36,17 +37,55 @@ public class DoctorController : Controller
                       on user.Id equals doctor.UserId
                       join specialty in specialties
                       on doctor.DepartmentId equals specialty.Id
-                      select new
+                      select new DoctorViewModels
                       {
+                          UserId = user.Id,
+                          DoctorId = doctor.Id.ToString(),
+                          Image = user.ProfileImage,
+                          ProfileImage = user.ImageURL,
                           Name = user.FullName,
                           PhoneNumber = user.PhoneNumber,
                           Email = user.Email,
                           Speciality = specialty.Name,
                           CertificationNumber = doctor.CertificationNumber,
-                          HighestMedicalDegree = doctor.HighestMedicalDegree
+                          HighestDegree = doctor.HighestMedicalDegree,
+                          Certification = doctor.CertificationURL,
+                          Resume = doctor.ResumeURL,
+                          IsLocked = user.LockoutEnd > DateTime.Now ? true : false,
                       }).ToList();
 
         return View(result);
     }
-    #endregion
+
+	public IActionResult Detail(string id)
+	{
+		var doctors = _doctorService.GetAllDoctors().ToList();
+		var specialties = _specialtyService.GetAllSpecialties().ToList();
+		var users = _appUserService.GetAllUsers().Where(x => x.Id == id).ToList();
+
+		var result = (from user in users
+					  join doctor in doctors
+					  on user.Id equals doctor.UserId
+					  join specialty in specialties
+					  on doctor.DepartmentId equals specialty.Id
+					  select new DoctorViewModels
+					  {
+						  UserId = user.Id,
+						  DoctorId = doctor.Id.ToString(),
+						  Image = user.ProfileImage,
+						  ProfileImage = user.ImageURL,
+						  Name = user.FullName,
+						  PhoneNumber = user.PhoneNumber,
+						  Email = user.Email,
+						  Speciality = specialty.Name,
+						  CertificationNumber = doctor.CertificationNumber,
+						  HighestDegree = doctor.HighestMedicalDegree,
+						  Certification = doctor.CertificationURL,
+						  Resume = doctor.ResumeURL,
+						  IsLocked = user.LockoutEnd > DateTime.Now ? true : false,
+					  }).FirstOrDefault();
+
+		return View(result);
+	}
+	#endregion
 }

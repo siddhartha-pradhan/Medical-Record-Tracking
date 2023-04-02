@@ -10,6 +10,10 @@ public interface IPatientService
 
     void AddPatient(Patient patient);
 
-    void AddCredits(Guid id);
+    void AddCredits(Guid id, int point);
+
+    void UpdatePatient(Patient patient);
+
+    int GetCredits(string email);
 
 }

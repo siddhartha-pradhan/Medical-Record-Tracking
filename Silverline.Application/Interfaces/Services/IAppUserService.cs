@@ -11,4 +11,10 @@ public interface IAppUserService
 	AppUser GetUser(string Id);
 
 	List<AppUser> GetAllUsers();
+
+	void LockUser(string Id);
+
+    void UnlockUser(string Id);
+
+
 }

@@ -3,7 +3,9 @@
 @using Silverline.Application.Interfaces.Services;
 
 @inject IAppUserService UserService
+@inject IPatientService PatientService
 @inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,9 +35,14 @@
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
 					<a class="nav-link" href="#" role="button">
-						@if (User.IsInRole(Constants.Patient))
+						@if (SignInManager.IsSignedIn(User))
 						{
-							<p href="#" class="d-block">50 Credits &nbsp; <i class="fas fa-coins"></i></p>
+							@if (User.IsInRole(Constants.Patient))
+							{
+								var user = UserManager.GetUserAsync(User).Result.UserName;
+								var credits = PatientService.GetCredits(user);
+								<p href="#" class="d-block">@credits Credits &nbsp; <i class="fas fa-coins"></i></p>
+							}
 						}
 					</a>
 				</li>
@@ -70,6 +77,11 @@
 						<i class="fas fa-th-large"></i>
 					</a>
 				</li>
+				<li class="nav-item">
+					<form id="logoutForm" class="form-inline text-white" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+						<button id="logout" type="submit" class="nav-link btn btn-link text-dark">Log Out</button>
+					</form>
+				</li>
 			</ul>
 		</nav>
 
@@ -90,7 +102,6 @@
 						<img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(image))">
 					</div>
 					<div class="info">
-						
 						<a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="d-block">@name</a>
 					</div>
 				</div>

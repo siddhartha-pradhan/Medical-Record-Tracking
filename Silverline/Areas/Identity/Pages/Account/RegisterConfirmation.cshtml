@@ -1,23 +1,53 @@
 ﻿@page
 @model RegisterConfirmationModel
+
 @{
-    ViewData["Title"] = "Register confirmation";
+	ViewData["Title"] = "Register Confirmation";
+	Layout = null;
 }
 
-<h1>@ViewData["Title"]</h1>
-@{
-    if (@Model.DisplayConfirmAccountLink)
-    {
-<p>
-    This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
-    Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
-</p>
-    }
-    else
-    {
-<p>
-        Please check your email to confirm your account.
-</p>
-    }
-}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Sign In</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+	<link rel="stylesheet" href="~/css/all.min.css">
+	<link rel="stylesheet" href="~/css/icheck-bootstrap.min.css">
+	<link rel="stylesheet" href="~/css/adminlte.min.css">
+	<link rel="stylesheet" href="~/css/daterangepicker.css">
+	<link rel="stylesheet" href="~/css//tempusdominus-bootstrap-4.min.css">
+	<link rel="shortcut icon" href="~/favicon.png" />
+</head>
+
+<partial name="_Notification" />
+
+<body class="hold-transition register-page">
+	<div class="register-box w-75">
+		<div class="card card-outline card-primary">
+			<div class="card-header text-center">
+				<a href="#" class="h1">@ViewData["Title"]</a>
+			</div>
+			<div class="card-body text-center">
+					Please check your email to confirm your account.
+			</div>
+		</div>
+	</div>
+
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/adminlte.min.js"></script>
+	<script src="~/js/bs-custom-file-input.min.js"></script>
+	<script src="~/js/inputmask.min.js"></script>
+	<script src="~/js/jquery.inputmask.min.js"></script>
+	<script src="https://kit.fontawesome.com/1c1a57d0d0.js"></script>
+	<script>
+		$(function () {
+			$('[data-mask]').inputmask()
+		});
+	</script>
+</body>
+</html>
 

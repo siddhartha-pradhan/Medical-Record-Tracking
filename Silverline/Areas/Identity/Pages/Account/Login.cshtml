@@ -18,6 +18,7 @@
 	<link rel="stylesheet" href="~/css/adminlte.min.css">
 	<link rel="stylesheet" href="~/css/daterangepicker.css">
 	<link rel="stylesheet" href="~/css//tempusdominus-bootstrap-4.min.css">
+	<link rel="shortcut icon" href="~/favicon.png" />
 </head>
 
 <body class="hold-transition register-page">
@@ -59,11 +60,14 @@
 						</div>
 					</div>
 				</form>
-				<p class="mb-1 mt-2">
+				<p class="mb-1 mt-4">
 					<a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
 				</p>
 				<p class="mb-1">
-					<a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+					<a asp-page="./SignIn" asp-route-returnUrl="@Model.ReturnUrl">Register as a patient</a>
+				</p>
+				<p class="mb-1">
+					<a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Request your registrations</a>
 				</p>
 				<p class="mb-0">
 					<a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>

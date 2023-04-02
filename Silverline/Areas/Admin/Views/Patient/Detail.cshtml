@@ -1,0 +1,93 @@
+﻿@model Silverline.Core.ViewModels.PatientViewModel
+
+<div class="pt-2 ml-4 pl-3">
+    <h1>Patient Details</h1>
+</div>
+
+<div class="container-fluid" style="width:95%">
+    <form method="post">
+        <div class="row">
+            <div class="col-auto">
+                @if (Model.ProfileImage != null)
+                {
+                    <img id="profilePicture" style="width:250px;height:300px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Image))">
+                }
+            </div>
+            <div class="col-5 ml-2 mt-4">
+                <input asp-for="PatientId" class="form-control" hidden/>
+                <input asp-for="UserId" class="form-control" hidden/>
+                <div class="form-group row mb-5">
+                    <div class="col-4 mt-2">
+                        <label asp-for="Name"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Name" class="form-control" disabled/>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-5">
+                    <div class="col-4 mt-2">
+                        <label asp-for="PhoneNumber"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="PhoneNumber" class="form-control" disabled/>
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-5">
+                    <div class="col-4 mt-2">
+                        <label asp-for="Email"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Email" class="form-control" disabled/>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 ml-3 mt-4">
+                <div class="form-group row mb-5">
+                    <div class="col-4 mt-2">
+                        <label asp-for="Address"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Address" class="form-control" disabled/>
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-5">
+                    <div class="col-4 mt-2">
+                        <label asp-for="DateOfBirth"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="DateOfBirth" class="form-control" disabled/>
+                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <div class="col-4 mt-2">
+                        <label asp-for="CreditPoints"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="CreditPoints" class="form-control" />
+                        <span asp-validation-for="CreditPoints" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-5">
+                    <div class="col-4">
+                        <label hidden></label>
+                    </div>
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-primary form-control">Save</button>
+                            </div>
+                            <div class="col-6">
+                                <a asp-action="Index" class="btn btn-primary form-control">Back to List</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

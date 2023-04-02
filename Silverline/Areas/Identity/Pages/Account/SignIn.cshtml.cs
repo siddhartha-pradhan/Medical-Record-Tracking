@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -100,7 +101,7 @@ namespace Silverline.Areas.Identity.Pages.Account
 
             [Required]
             [Display(Name = "Date Of Birth")]
-            public DateTime DateOfBirth { get; set; }
+            public string DateOfBirth { get; set; }
 
             [Required]
             [Display(Name = "Profile Image")]
@@ -118,6 +119,7 @@ namespace Silverline.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
         {
+           
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -186,7 +188,7 @@ namespace Silverline.Areas.Identity.Pages.Account
                         UserId = userId,
                         Address = Input.Address,
                         Street = Input.Street,
-                        DateOfBirth = Input.DateOfBirth
+                        DateOfBirth = DateTime.ParseExact(Input.DateOfBirth, "dd/MM/yyyy", CultureInfo.InvariantCulture)
                     };
 
                     _patientService.AddPatient(test);
@@ -206,7 +208,8 @@ namespace Silverline.Areas.Identity.Pages.Account
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+						TempData["Success"] = "Patient Registered Successfully";
+						return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
                     }
                     else
                     {
