@@ -5,7 +5,7 @@
 }
 
 <div class="pt-2 ml-4 pl-3">
-    <h1>View all doctors index</h1>
+    <h1>Doctors Index</h1>
 </div>
 
 <partial name="_Notification" />
@@ -20,16 +20,16 @@
                         <div class="container-item">
                             <img id="profilePicture" style="width:275px;height:400px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(@item.ProfileImage))">
                         </div>
-                        <div>
-                            <div class="p-lg-2">
-                                <p class="card-title h5 text-primary">@item.Name</p>
+                        <div class="col">
+                            <div class="row p-lg-2">
+                                <p class="card-title h4 text-dark">@item.Name</p>
                             </div>
-                            <div class="p-lg-2">
-                                <p>Department: <b>@item.Specialty</b></p>
+                            <div class="row p-lg-2">
+                                <small><b>@item.Specialty</b></small>
                             </div>
                         </div>
                         <div>
-                            <a asp-action="Book" class="btn btn-primary form-control" asp-route-id="@item.DoctorId">
+                            <a asp-action="Book" class="btn btn-dark form-control" asp-route-id="@item.DoctorId">
                                 Book Appointment
                             </a>
                         </div>

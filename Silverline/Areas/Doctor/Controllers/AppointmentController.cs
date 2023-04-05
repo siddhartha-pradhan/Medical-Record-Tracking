@@ -59,15 +59,20 @@ public class AppointmentController : Controller
         foreach(var appointment in appointments)
         {
             var userId = _patientService.GetPatient(appointment.PatientId).UserId;
+
             var user = _userService.GetUser(userId);
+
+            var patient = _patientService.GetAllPatients().Where(x => x.UserId == userId).FirstOrDefault();
 
             appoint.Add(new AppointmentsViewModel()
             {
                 AppointmentId = appointment.Id,
+                PatientId = patient.Id,
+                PatientAge = DateTime.Today.Year - patient.DateOfBirth.Year,
                 PatientImage = user.ProfileImage,
                 PatientName = user.FullName,
                 PatientRequest = appointment.AppointmentRequest
-            }); ; 
+            });; ; 
         }
 
         return View(appoint);
@@ -90,7 +95,6 @@ public class AppointmentController : Controller
 				Text = x.Title,
 				Value = x.Id.ToString()
 			});
-
 
 		var appointmentVM = new AppointmentDetailViewModel()
         {
@@ -145,16 +149,18 @@ public class AppointmentController : Controller
             medicines.Add(meds);
         }
 
-        _medicalRecordService.AddMedicalRecord(new Core.Entities.MedicalRecord
-        {
-            PatientId = patient.Id,
-            DoctorId = doctor.Id,
-            Specialty = specialty.Name,
-            DoctorName = docUser.FullName,
-            Title = appointmentVm.Appointment.AppointmentTitle,
-            Description = appointmentVm.Appointment.AppointmentDescription,
-            Medicines = string.Join(", ", medicines)
-        }); 
+        var medicalRecords = new Core.Entities.MedicalRecord
+		{
+			PatientId = patient.Id,
+			DoctorId = doctor.Id,
+			Specialty = specialty.Name,
+			DoctorName = docUser.FullName,
+			Title = appointmentVm.Appointment.AppointmentTitle,
+			Description = appointmentVm.Appointment.AppointmentDescription,
+			Medicines = string.Join(", ", medicines)
+		};
+
+		_medicalRecordService.AddMedicalRecord(medicalRecords); 
 
         return RedirectToAction("Index");
     }

@@ -2,3 +2,17 @@
 .vs/
 **/obj
 **/bin
+*.pdf 
+*.doc   
+*.DOC   
+*.docx  
+*.DOCX  
+*.dot   
+*.DOT   
+*.pdf   
+*.PDF   
+*.rtf   
+*.RTF
+*.jpg
+*.png
+*.gif

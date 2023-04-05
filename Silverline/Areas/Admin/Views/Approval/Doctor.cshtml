@@ -5,7 +5,7 @@
 }
 
 
-<div class="pt-2 ml-4 pl-3">
+<div class="pt-2 ml-4 pl-3 mb-4">
     <h1>Approval for Doctor Registrations</h1>
 </div>
 
@@ -20,37 +20,54 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col">
-                            <img id="profilePicture" style="width:285px;height:200px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(@item.ProfileImage))">
+                        <div class="col-3">
+                            <img id="profilePicture" style="width:285px;height:300px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(@item.ProfileImage))">
                         </div>
-                        <div class="col">
-                            <div class="row">
-                                Name: @item.FullName
+                        <div class="col-4 ml-4">
+                            <h3 class="row ml-2">
+                                Doctor Name
+                            </h3>
+                            <div class="row mb-4 ml-2">
+                                @item.FullName
                             </div>
-                            <div class="row">
-                                Email: @item.EmailAddress
+                            <h3 class="row ml-2">
+                                Email Address
+                            </h3>
+                            <div class="row mb-4 ml-2">
+                                @item.EmailAddress
                             </div>
-                            <div class="row">
-                                Specialty: @item.Department
+                            <h3 class="row ml-2">
+                                Speciality
+                            </h3>
+                            <div class="row ml-2">
+                                @item.Department
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="row">
-                                Medical Degree: @item.HighestMedicalDegree
+                        <div class="col-4">
+                            <h3 class="row mr-2 ml-2">
+                                Medical Degree
+                            </h3>
+                            <div class="row mr-2 mb-4 ml-2">
+                                @item.HighestMedicalDegree
                             </div>
-                            <div class="row">
-                                Certification: @item.CertificationNumber
+                            <h3 class="row mr-2 ml-2">
+                                Certification Number
+                            </h3>
+                            <div class="row mb-4 mr-2 ml-2">
+                                @item.CertificationNumber
                             </div>
-                        </div>
-                        <div class="col">
-                            <div class="row">
-                                <a class="btn btn-outline-primary mb-2 w-50" href="@item.ResumeURL" target="_blank">Resume</a>
+                            <div class="row mb-2 ml-1">
+                                <div class="col-5">
+                                    <a class="btn btn-outline-primary mb-2 w-100" href="@item.CertificationURL" target="_blank">Certification</a>
+                                </div>
+                                <div class="col-4">
+                                    <a class="btn btn-outline-primary mb-2 w-100" href="@item.ResumeURL" target="_blank">Resume</a>
+                                </div>
                             </div>
-                            <div class="row">
-                                <a class="btn btn-outline-primary mb-2 w-50" href="@item.CertificationURL" target="_blank">Certification</a>
-                            </div>
-                            <div class="row">
-                                <button class="btn btn-dark mb-2 w-50" asp-route-id="@item.UserId" asp-route-staffId="@item.StaffId">Approve</button>
+                            <div class="row mb-2 ml-1">
+                                <div class="col">
+                                    <button class="btn btn-dark mb-2 w-75" asp-route-id="@item.UserId" asp-route-staffId="@item.StaffId">Approve</button>
+                                </div>
                             </div>
                         </div>
                     </div>

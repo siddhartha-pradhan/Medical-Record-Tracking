@@ -61,7 +61,11 @@ public class PharmacistController : Controller
 					  on user.Id equals pharmacist.UserId
 					  select new PharmacistViewModel
 					  {
-						  Name = user.FullName,
+						  UserId = user.Id,
+                          PharmacistId = pharmacist.Id.ToString(),
+                          Image = user.ProfileImage,
+                          ProfileImage = user.ImageURL,
+                          Name = user.FullName,
 						  PhoneNumber = user.PhoneNumber,
 						  Email = user.Email,
 						  CertificationNumber = pharmacist.CertificateNumber,

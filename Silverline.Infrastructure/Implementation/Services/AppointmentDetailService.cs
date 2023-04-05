@@ -17,7 +17,9 @@ public class AppointmentDetailService : IAppointmentDetailService
     public void FinalizeAppointment(AppointmentDetail appointment)
     {
         _unitOfWork.AppointmentDetail.Add(appointment);
-        appointment.Appointment.AppointmentStatus = Constants.Completed;
+
+		_unitOfWork.Appointment.GetFirstOrDefault(x => x.Id == appointment.AppointmentId).AppointmentStatus = Constants.Completed;
+        
         _unitOfWork.Save();
     }
 

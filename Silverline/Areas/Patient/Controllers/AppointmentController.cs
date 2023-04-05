@@ -67,6 +67,15 @@ public class AppointmentController : Controller
         var patient = _patientService.GetAllPatients().Where(x => x.UserId == claim.Value).FirstOrDefault();
         var patientUser = _appUserService.GetUser(patient.UserId);
 
+        var appointmentHistory = _appointmentService.GetAllAppointments(doctor.Id)
+            .Where(x => x.PatientId == patient.Id && x.DoctorId == doctor.Id && x.AppointmentStatus == Constants.Booked).FirstOrDefault();
+
+        if(appointmentHistory != null)
+        {
+            TempData["Delete"] = "You already have an appointment booked with the doctor, check your history.";
+            return RedirectToAction("Index");
+        }
+
         var appointment = new AppointmentViewModel()
         {
             Appointment = new Appointment()

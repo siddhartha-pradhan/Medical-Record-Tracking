@@ -15,7 +15,9 @@ public class TestController : Controller
     private readonly ITestCartService _testCartService;
     private readonly IPatientService _patientService;
 
-    public TestController(ITestService testService, ITestCartService testCartService, IPatientService patientService)
+    public TestController(ITestService testService, 
+        ITestCartService testCartService, 
+        IPatientService patientService)
     {
         _testService = testService;
         _testCartService = testCartService;
