@@ -5,6 +5,7 @@ using Silverline.Core.Constants;
 using Silverline.Core.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Silverline.Application.Interfaces.Services;
+using Silverline.Application.Interfaces.Repositories;
 
 namespace Silverline.Areas.Patient.Controllers;
 
@@ -17,19 +18,34 @@ public class AppointmentController : Controller
     private readonly ISpecialtyService _specialtyService;
     private readonly IPatientService _patientService;
     private readonly IAppointmentService _appointmentService;
+    private readonly IAppointmentDetailService _appointmentDetailService;
+    private readonly IMedicalTreatmentService _medicalTreatmentService;
+    private readonly ILabDiagnosisService _labDiagnosisService;
+    private readonly IMedicineService _medicineService;
+    private readonly ITestService _testService;
 
-    public AppointmentController(IAppUserService appUserService, 
+	public AppointmentController(IAppUserService appUserService, 
         IDoctorService doctorService, 
         ISpecialtyService specialtyService, 
         IPatientService patientService, 
-        IAppointmentService appointmentService)
+        IAppointmentService appointmentService,
+		IMedicalTreatmentService medicalTreatmentService,
+		ILabDiagnosisService labDiagnosisService,
+		IAppointmentDetailService appointmentDetailService,
+		IMedicineService medicineService,
+		ITestService testService)
     {
         _appUserService = appUserService;
         _doctorService = doctorService;
         _specialtyService = specialtyService;
         _patientService = patientService;
         _appointmentService = appointmentService;
-    }
+        _appointmentDetailService = appointmentDetailService;
+        _medicalTreatmentService = medicalTreatmentService;
+        _labDiagnosisService = labDiagnosisService;
+        _testService = testService;
+        _medicineService = medicineService;
+	}
 
     #region Razor Pages
     public IActionResult Index()
@@ -54,6 +70,88 @@ public class AppointmentController : Controller
                       }).ToList();
 
         return View(result);
+    }
+
+    public IActionResult Booking()
+    {
+		var claimsIdentity = (ClaimsIdentity)User.Identity;
+		var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+		var patient = _patientService.GetAllPatients().Where(x => x.UserId == claim.Value).FirstOrDefault();
+
+		var bookedAppointments = _appointmentService.GetAllBookedAppointments()
+								 .Where(x => x.PatientId == patient.Id).ToList()
+								 .Select(x => new BookedAppointmentViewModel()
+								 {
+									 DoctorId = x.DoctorId,
+									 DoctorName = GetUser(x.DoctorId).FullName,
+									 DoctorImage = GetUser(x.DoctorId).ProfileImage,
+									 Title = x.AppointmentRequest,
+									 Specialty = GetSpecialty(x.DoctorId).Name,
+									 DateOfAppointment = x.DateOfAppointment.ToString("dddd, dd MMMM yyyy HH:mm:ss"),
+									 BookedDate = x.BookedDate.ToString("dddd, dd MMMM yyyy HH:mm:ss"),
+									 HighestMedicalDegree = _doctorService.GetDoctor(x.DoctorId).HighestMedicalDegree,
+								 }).ToList();
+
+        return View(bookedAppointments);
+	}
+
+    public IActionResult History()
+    {
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+        var patient = _patientService.GetAllPatients().Where(x => x.UserId == claim.Value).FirstOrDefault();
+
+        var finalizedAppointments = _appointmentService.GetAllFinalizedAppointments()
+                                    .Where(x => x.PatientId == patient.Id).ToList()
+                                    .Select(x => new FinalizedAppointmentViewModel()
+                                    {
+                                        DoctorId = x.DoctorId,
+                                        DoctorName = GetUser(x.DoctorId).FullName,
+                                        DoctorImage = GetUser(x.DoctorId).ProfileImage,
+                                        Specialty = GetSpecialty(x.DoctorId).Name,
+                                        HighestMedicalDegree = _doctorService.GetDoctor(x.DoctorId).HighestMedicalDegree,
+                                        FinalizedAppointments = GetFinalizedAppointments(x.DoctorId, x.PatientId)
+                                    }).DistinctBy(x => x.DoctorId).ToList();
+
+        return View(finalizedAppointments);
+    }
+
+    private AppUser GetUser(Guid doctorId)
+    {
+        var doctor = _doctorService.GetDoctor(doctorId);
+        var user = _appUserService.GetUser(doctor.UserId);
+        return user;
+    }
+
+    private List<AppointmentFinalizedViewModel> GetFinalizedAppointments(Guid doctorId, Guid patientId)
+    {
+        var appointments = _appointmentService.GetAllFinalizedAppointments().Where(x => x.DoctorId == doctorId && x.PatientId == patientId).ToList();  
+        
+        var details = new List<AppointmentFinalizedViewModel>();
+
+        foreach(var appointment in appointments)
+        {
+            var result = _appointmentDetailService.GetAllAppointments().Where(x => x.AppointmentId == appointment.Id).FirstOrDefault();
+
+            details.Add(new AppointmentFinalizedViewModel()
+            {
+                AppointmentId = appointment.Id,
+                DiagnosticTitle = result.AppointmentTitle,
+                DiagnosticDescription = result.AppointmentDescription,
+                RequestTitle = appointment.AppointmentRequest,
+                BookedDate = appointment.BookedDate.ToString("dddd, dd MMMM yyyy HH:mm:ss"),
+                AppointedDate = appointment.FinalizedTime.ToString("dddd, dd MMMM yyyy HH:mm:ss"),
+            });
+        }
+        
+        return details;
+    }
+
+    private Specialty GetSpecialty(Guid doctorId)
+    {
+        var doctor = _doctorService.GetDoctor(doctorId);
+        var specialty = _specialtyService.GetSpecialty(doctor.DepartmentId);
+        return specialty;
     }
 
     public IActionResult Book(Guid Id)
@@ -95,10 +193,68 @@ public class AppointmentController : Controller
         return View(appointment);
     }
 
+    public IActionResult AppointmentDetails(Guid id)
+    {
+        var appointment = _appointmentService.GetAppointment(id);
+
+        var appointmentDetails = _appointmentDetailService.GetAllAppointments().Where(x => x.AppointmentId == appointment.Id).FirstOrDefault();
+
+        var doctor = _doctorService.GetDoctor(appointment.DoctorId);
+
+        var user = _appUserService.GetUser(doctor.UserId);
+
+        var specialty = _specialtyService.GetSpecialty(doctor.DepartmentId);
+
+		var medicationTreatments = _medicalTreatmentService.GetMedicationTreatments().Where(x => x.ReferralId == appointmentDetails.Id)
+                                   .Select(y => new MedicationTreatmentViewModel()
+                                   {
+                                       Id = y.Id,
+                                       ReferralId = y.ReferralId,
+                                       MedicineId = y.MedicineId,
+                                       MedicineName = _medicineService.GetMedicine(y.MedicineId).Name,
+                                       DoctorRemarks = y.DoctorRemarks,
+                                       Dose = y.Dose,
+                                       TimeFormat = y.TimeFormat,
+                                       TimePeriod = y.TimePeriod,
+                                   }).ToList();
+
+        var laboratoryDiagnosis = _labDiagnosisService.GetAllLabDiagnosis().Where(x => x.ReferralId == appointmentDetails.Id)
+                                  .Select(y => new LaboratoryDiagnosisViewModel()
+                                  {
+                                      Id = y.Id,
+                                      ReferralId = y.ReferralId,
+                                      TestId = y.TestId,
+                                      TestName = _testService.GetDiagnosticTest(y.TestId).Title,
+                                      DoctorRemarks = y.DoctorRemarks
+                                  }).ToList();
+
+
+		var result = new AppointmentDetailsViewModel()
+        {
+            AppointmentId = id,
+            DoctorImage = user.ProfileImage,
+            DoctorName = user.FullName,
+            HighestMedicalDegree = doctor.HighestMedicalDegree,
+            Specialty = specialty.Name,
+			BookedDate = appointment.BookedDate.ToString("dddd, dd MMMM yyyy HH:mm:ss"),
+            AppointedDate = appointment.DateOfAppointment.ToString("dddd, dd MMMM yyyy HH:mm:ss"),
+            FinalizedDate = appointment.FinalizedTime.ToString("dddd, dd MMMM yyyy HH:mm:ss"),
+            Request = appointment.AppointmentRequest,
+            Title = appointmentDetails.AppointmentTitle,
+            Description = appointmentDetails.AppointmentDescription,
+            MedicationTreatments = medicationTreatments,
+			LaboratoryDiagnosis = laboratoryDiagnosis,
+        };
+
+        return View(result);
+
+    }
+
     public IActionResult MedicalRecords()
     {
         return View();
     }
+
 	#endregion
 
 	#region API Calls

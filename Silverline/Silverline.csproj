@@ -121,7 +121,10 @@
     <None Include="Areas\Doctor\Views\Patient\Index.cshtml" />
     <None Include="Areas\LabTechnician\Views\Diagnosis\Index.cshtml" />
     <None Include="Areas\LabTechnician\Views\Home\Index.cshtml" />
+    <None Include="Areas\Patient\Views\Appointment\AppointmentDetails.cshtml" />
     <None Include="Areas\Patient\Views\Appointment\Book.cshtml" />
+    <None Include="Areas\Patient\Views\Appointment\Booking.cshtml" />
+    <None Include="Areas\Patient\Views\Appointment\History.cshtml" />
     <None Include="Areas\Patient\Views\Appointment\Index.cshtml" />
     <None Include="Areas\Patient\Views\Cart\Index.cshtml" />
     <None Include="Areas\Patient\Views\Home\Index.cshtml" />

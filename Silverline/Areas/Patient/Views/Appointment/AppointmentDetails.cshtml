@@ -1,0 +1,157 @@
+﻿@model Silverline.Core.ViewModels.AppointmentDetailsViewModel
+
+@{
+    ViewData["Title"] = "Appointment Detail";
+}
+
+<div class="pt-2 ml-4 pl-3 mb-4">
+	<h1>Appointment Details</h1>
+</div>
+
+<div class="container-fluid" style="width: 95%">
+	<div class="card">
+		<div class="card-body">
+			<div class="row">
+				<div class="col-4">
+					<div class="row mb-2">
+						<img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="data:image/*;base64,@(Convert.ToBase64String(@Model.DoctorImage))">
+					</div>
+					<div class="row justify-content-center">
+						<p class="text-center  h4 text-dark">@Model.DoctorName</p>
+					</div>
+					<div class="row justify-content-center">
+						<p class="text-center justify-content-center h5 text-dark">@Model.Specialty</p>
+					</div>
+					<div class="row justify-content-center">
+						<p class="text-center justify-content-center h5 text-dark">@Model.HighestMedicalDegree</p>
+					</div>
+				</div>
+				<div class="col-8">
+					<div class="row">
+						<div class="col-auto">
+							<h3 class="row mr-2 ml-3">
+								Booked Date
+							</h3>
+							<div class="row mr-2 mb-5 ml-3">
+								@Model.BookedDate
+							</div>
+						</div>
+						<div class="col-auto">
+							<h3 class="row mr-2 ml-3">
+								Appointment Date
+							</h3>
+							<div class="row mr-2 mb-5 ml-3">
+								@Model.AppointedDate
+							</div>
+						</div>
+						<div class="col-auto">
+							<h3 class="row mr-2 ml-3">
+								Finalized Date
+							</h3>
+							<div class="row mr-2 mb-5 ml-3">
+								@Model.FinalizedDate
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-auto">
+							<h3 class="row mr-2 ml-3">
+								Diagnostic Title
+							</h3>
+							<div class="row mr-2 mb-5 ml-3">
+								<input asp-for="Title" class="form-control"/>
+							</div>
+						</div>
+						<div class="col-auto">
+							<h3 class="row mr-2 ml-3">
+								Appointment Request
+							</h3>
+							<div class="row mr-2 mb-5 ml-3">
+								@Html.TextBoxFor(x => Model.Request, new { @class = "form-control" } )
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<h3 class="row mr-2 ml-3">
+								Diagnostic Description
+							</h3>
+							<div class="row mr-2 mb-5 ml-3">
+								@Html.TextBoxFor(x => Model.Description, new { @class = "form-control" } )
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<h3 class="row mb-3 mt-4 ml-4">
+					Medicinal Prescriptions
+				</h3>
+				<div class="row ml-3" style="width: 98%">
+					<table id="medicationTable" class="table table-striped">
+						<thead>
+							<tr>
+								<th>Medicine</th>
+								<th>Dose</th>
+								<th>Time Period</th>
+								<th>Time Format</th>
+								<th>Remarks</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach(var item in Model.MedicationTreatments)
+							{
+								<tr>
+									<td>
+										@item.MedicineName
+									</td>
+									<td>
+										@item.Dose
+									</td>
+									<td>
+										@item.TimePeriod
+									</td>
+									<td>
+										@item.TimeFormat
+									</td>
+									<td>
+										@item.DoctorRemarks
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<h3 class="row mb-3 mt-4 ml-4">
+					Laboratory Diagnosis 
+				</h3>
+				<div class="row ml-3" style="width: 98%">
+					<table id="medicationTable" class="table table-striped">
+						<thead>
+							<tr>
+								<th>Diagnosis</th>
+								<th>Remarks</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model.LaboratoryDiagnosis)
+							{
+								<tr>
+									<td>
+										@item.TestName
+									</td>
+									<td>
+										@item.DoctorRemarks
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

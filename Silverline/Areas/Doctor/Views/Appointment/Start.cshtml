@@ -62,19 +62,19 @@
 							{
 								<tr>
 									<td>
-										@Html.DropDownListFor(x => x.Appointment.MedicalTreatments[i].MedicineId, Model.MedicineList, "Select a medicine", new { @class = "form-control", @id = "medicine_" + @i })
+										@Html.DropDownListFor(x => x.Appointment.MedicalTreatments[i].MedicineId, Model.MedicineList, "Select a medicine", new { @class = "form-control" })
 									</td>
 									<td>
-										@Html.TextBoxFor(x => x.Appointment.MedicalTreatments[i].Dose, new { @class = "form-control", @id = "dose_" + @i } )
+										@Html.TextBoxFor(x => x.Appointment.MedicalTreatments[i].Dose, new { @class = "form-control" } )
 									</td>
 									<td>
-										@Html.TextBoxFor(x => x.Appointment.MedicalTreatments[i].TimePeriod, new { @class = "form-control", @id = "period_" + @i } )
+										@Html.TextBoxFor(x => x.Appointment.MedicalTreatments[i].TimePeriod, new { @class = "form-control" } )
 									</td>
 									<td>
-										@Html.TextBoxFor(x => x.Appointment.MedicalTreatments[i].TimeFormat, new { @class = "form-control", @id = "format_" + @i } )
+										@Html.TextBoxFor(x => x.Appointment.MedicalTreatments[i].TimeFormat, new { @class = "form-control" } )
 									</td>
 									<td>
-										@Html.TextBoxFor(x => x.Appointment.MedicalTreatments[i].DoctorRemarks, new { @class = "form-control", @id = "medicineRemarks_" + @i } )
+										@Html.TextBoxFor(x => x.Appointment.MedicalTreatments[i].DoctorRemarks, new { @class = "form-control" } )
 									</td>
 									<td>
 										<button id="btnadd-@i" type="button" class="btn btn-dark visible" onclick="addMedicine(this)" style="position: absolute;">
@@ -162,6 +162,11 @@
 			rowOuterHTML = rowOuterHTML.replaceAll('_' + lastrowIndex, '_' + nextrowIndex);
 			rowOuterHTML = rowOuterHTML.replaceAll('[' + lastrowIndex + ']', '[' + nextrowIndex + ']');
 			rowOuterHTML = rowOuterHTML.replaceAll('-' + lastrowIndex, '-' + nextrowIndex);
+
+			console.log(rowOuterHTML);
+			console.log(lastrowIndex);
+			console.log(nextrowIndex);
+
 
 			var newRow = table.insertRow();
 			newRow.innerHTML = rowOuterHTML;

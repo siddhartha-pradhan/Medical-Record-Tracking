@@ -35,6 +35,21 @@ namespace Silverline.Infrastructure.Implementation.Services
             return _unitOfWork.Appointment.GetAll().Where(x => x.DoctorId == Id && x.AppointmentStatus == Constants.Booked).ToList();
         }
 
+        public List<Appointment> GetAllBookedAppointments()
+        {
+            return _unitOfWork.Appointment.GetAll().Where(x => x.AppointmentStatus == Constants.Booked).ToList();
+        }
+
+        public List<Appointment> GetAllFinalizedAppointments()
+        {
+            return _unitOfWork.Appointment.GetAll().Where(x => x.AppointmentStatus == Constants.Completed).ToList();
+        }
+
+        public List<Appointment> GetAllFinalizedAppointmentsList()
+        {
+            return _unitOfWork.Appointment.GetAll().Where(x => x.AppointmentStatus == Constants.Completed).ToList();
+        }
+
         public Appointment GetAppointment(Guid Id)
         {
             return _unitOfWork.Appointment.GetFirstOrDefault(x => x.Id == Id);  

@@ -15,8 +15,10 @@ public interface IUnitOfWork
     IDoctorRepository Doctor { get; set; }
 
     ILabTechnicianRepository LabTechnician { get; set; }
-    
-    IPharmacistRepository Pharmacist { get; set; }
+
+	ILabDiagnosisRepository LabDiagnosis { get; set; }
+
+	IPharmacistRepository Pharmacist { get; set; }
 
     ICategoryRepository Category { get; set; }
 
@@ -24,7 +26,9 @@ public interface IUnitOfWork
 
     IMedicalRecordRepository MedicalRecord { get; set; }
 
-    IMedicineRepository Medicine { get; set; }
+	IMedicalTreatmentRepository MedicalTreatment { get; set; }
+
+	IMedicineRepository Medicine { get; set; }
 
     ISpecialtyRepository Specialty { get; set; }
 

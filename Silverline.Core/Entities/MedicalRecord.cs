@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Silverline.Core.Entities;
 
@@ -11,11 +12,9 @@ public class MedicalRecord
 
     public Guid PatientId { get; set; } 
 
-    public Guid DoctorId { get; set; }
-
     public string DoctorName { get; set; }  
 
-    public string DateOfAppointment { get; set; } = DateTime.Now.ToString("dd/MMM/YYYY");
+    public string DateOfAppointment { get; set; }
 
     public string Title { get; set; }   
 
@@ -23,5 +22,8 @@ public class MedicalRecord
 
     public string Medicines { get; set; }
 
-    public string LaboratoryTests { get; set; } 
+    public string LaboratoryTests { get; set; }
+
+    [ForeignKey("PatientId")]
+    public Patient Patient { get; set; }
 }

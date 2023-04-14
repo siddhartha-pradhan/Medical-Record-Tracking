@@ -54,7 +54,9 @@ public static class DependencyInjection
         services.AddTransient<ITestService, TestService>();
         services.AddTransient<ITestTypeService, TestTypeService>();
         services.AddTransient<ITestCartService, TestCartService>();
+        services.AddTransient<IMedicalTreatmentService, MedicalTreatmentService>();
+        services.AddTransient<ILabDiagnosisService, LabDiagnosisService>();
 
-        return services;
+		return services;
     }
 }

@@ -58,7 +58,12 @@ public class Repository<T> : IRepository<T> where T : class
         _dbSet.Add(entity);
     }
 
-    public virtual void Remove(T entity)
+	public void AddRange(List<T> entity)
+	{
+		_dbSet.AddRange(entity);
+	}
+
+	public virtual void Remove(T entity)
     {
         _dbSet.Remove(entity);
     }

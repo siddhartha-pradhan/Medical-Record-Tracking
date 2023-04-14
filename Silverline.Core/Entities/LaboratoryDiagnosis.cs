@@ -18,11 +18,11 @@ public class LaboratoryDiagnosis
 
 	public string? TechnicianRemarks { get; set; }
 
-    public string? Status { get; set; } 
+    public string? Status { get; set; } = Constants.Constants.Ongoing;
 
-    public string? ActionStatus { get; set; }
+	public string? ActionStatus { get; set; } = Constants.Constants.Pending;
 
-    public Guid? TechnicianId { get; set; }
+	public Guid? TechnicianId { get; set; }
 
     [ForeignKey("TechnicianId")]
     public virtual LabTechnician? LabTechnician { get; set; }

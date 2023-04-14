@@ -88,7 +88,7 @@
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<a asp-controller="Home" asp-action="Index" class="brand-link">
 				<img src="~/favicon.png" alt="Silverline" class="brand-image img-circle elevation-3" style="opacity: .8">
-				<span class="brand-text font-weight-light">Silverlines</span>
+				<span class="brand-text font-weight-light">Silverline</span>
 			</a>
 
 			<div class="sidebar">
@@ -266,14 +266,42 @@
 									</p>
 								</a>
 							</li>
-							<li class="nav-item">
-								<a asp-area="Patient" asp-controller="Appointment" asp-action="Index" class="nav-link">
+							<li class="nav-item menu-close">
+								<a href="#" class="nav-link">
 									&nbsp; <i class="fas fa-calendar-check"></i>
 									<p>
 										&nbsp; &nbsp; Appointments
+										<i class="right fas fa-angle-left"></i>
 									</p>
 								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a asp-area="Patient" asp-controller="Appointment" asp-action="Index" class="nav-link">
+											<p>
+												<i class="far fa-circle nav-icon"></i>
+												&nbsp; New 
+											</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a asp-area="Patient" asp-controller="Appointment" asp-action="Booking" class="nav-link">
+											<p>
+												<i class="far fa-circle nav-icon"></i>
+												&nbsp; Bookings
+											</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a asp-area="Patient" asp-controller="Appointment" asp-action="History" class="nav-link">
+											<p>
+												<i class="far fa-circle nav-icon"></i>
+												&nbsp; History
+											</p>
+										</a>
+									</li>
+								</ul>
 							</li>
+							
 							<li class="nav-item">
 								<a asp-area="Patient" asp-controller="Appointment" asp-action="MedicalRecords" class="nav-link">
 									&nbsp; <i class="fas fa-file-medical"></i>

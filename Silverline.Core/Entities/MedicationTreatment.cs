@@ -26,7 +26,7 @@ public class MedicationTreatment
 
 	public string? PharmacistRemarks { get; set; }
 
-	public string? ActionStatus { get; set; }
+	public string? ActionStatus { get; set; } = Constants.Constants.Pending;
 
 	public Guid? PharmacistId { get; set; }
 

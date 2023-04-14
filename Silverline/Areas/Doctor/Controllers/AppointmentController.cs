@@ -5,6 +5,8 @@ using Silverline.Core.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Silverline.Application.Interfaces.Services;
+using Silverline.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace Silverline.Areas.Doctor.Controllers;
 
@@ -21,6 +23,7 @@ public class AppointmentController : Controller
     private readonly IMedicineService _medicineService;
     private readonly IMedicalRecordService _medicalRecordService;
     private readonly ITestService _testService;
+    private readonly ApplicationDbContext _dbContext;
 
     public AppointmentController(
         IAppointmentService appointmentService, 
@@ -30,7 +33,8 @@ public class AppointmentController : Controller
         ISpecialtyService specialtyService,
         IPatientService patientService, 
         IMedicineService medicineService,
-        ITestService testService)
+        ITestService testService,
+		ApplicationDbContext dbContext)
     {
         _userService = userService;
         _appointmentService = appointmentService;
@@ -40,6 +44,7 @@ public class AppointmentController : Controller
         _medicineService = medicineService;
         _specialtyService = specialtyService;
         _testService = testService;
+        _dbContext = dbContext;
 
 	}
 
@@ -83,6 +88,7 @@ public class AppointmentController : Controller
         var appointment = _appointmentService.GetAppointment(Id);
         var patient = _patientService.GetPatient(appointment.PatientId);
         var user = _userService.GetUser(patient.UserId);
+
         var medicines = _medicineService.GetAllMedicines()
             .Select(x => new SelectListItem()
             {
@@ -110,8 +116,9 @@ public class AppointmentController : Controller
             PatientName = user.FullName,
         };
 
-        appointmentVM.Appointment.MedicalTreatments.Add(new() { });
-        appointmentVM.Appointment.LaboratoryDiagnosis.Add(new() { });
+        appointment.StartTime = DateTime.Now;
+        appointmentVM.Appointment.MedicalTreatments.Add(new() { Id = Guid.NewGuid() });
+        appointmentVM.Appointment.LaboratoryDiagnosis.Add(new() { Id = Guid.NewGuid() });
 
 		return View(appointmentVM);
     }
@@ -139,9 +146,13 @@ public class AppointmentController : Controller
 
         var medicines = new List<string>();
 
-        var medicalTreatments = appointmentVm.Appointment.MedicalTreatments;
+		var laboratorytests = new List<string>();
 
-        for (int i = 0; i < medicalTreatments.Count(); i++)
+		var medicalTreatments = appointmentVm.Appointment.MedicalTreatments;
+
+		var laboratoryDiagnosis = appointmentVm.Appointment.LaboratoryDiagnosis;
+
+		for (int i = 0; i < medicalTreatments.Count(); i++)
         {
             var medicine = medicalTreatments[i].MedicineId;
             var result = _medicineService.GetMedicine(medicine);
@@ -149,20 +160,33 @@ public class AppointmentController : Controller
             medicines.Add(meds);
         }
 
-        var medicalRecords = new Core.Entities.MedicalRecord
+		for (int i = 0; i < laboratoryDiagnosis.Count(); i++)
 		{
+			var tests = laboratoryDiagnosis[i].TestId;
+			var result = _testService.GetDiagnosticTest(tests);
+			var test = $"{result.Title}";
+			laboratorytests.Add(test);
+		}
+
+		var medicalRecords = new Core.Entities.MedicalRecord
+		{
+            DateOfAppointment = DateTime.Now.ToString("dd/MMM/yyyy"),
 			PatientId = patient.Id,
-			DoctorId = doctor.Id,
 			Specialty = specialty.Name,
 			DoctorName = docUser.FullName,
 			Title = appointmentVm.Appointment.AppointmentTitle,
 			Description = appointmentVm.Appointment.AppointmentDescription,
-			Medicines = string.Join(", ", medicines)
+			Medicines = string.Join(", ", medicines),
+            LaboratoryTests = string.Join(", ", laboratorytests)
 		};
 
-		_medicalRecordService.AddMedicalRecord(medicalRecords); 
+        _dbContext.MedicalRecords.Add(medicalRecords);
 
-        return RedirectToAction("Index");
+        _dbContext.SaveChanges();
+
+		TempData["Success"] = "Appointment Finalized Successfully";
+
+		return RedirectToAction("Index");
     }
 	#endregion
 }

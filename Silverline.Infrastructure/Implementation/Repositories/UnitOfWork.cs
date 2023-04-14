@@ -26,7 +26,10 @@ public class UnitOfWork : IUnitOfWork
         Pharmacist = new PharmacistRepository(_dbContext);
         LabTechnician = new LabTechnicianRepository(_dbContext);
         TestCart = new TestCartRepository(_dbContext);
-    }
+		LabDiagnosis = new LabDiagnosisRepository(_dbContext);
+        MedicalTreatment = new MedicalTreatmentRepository(_dbContext);
+
+	}
 
     public IAppUserRepository AppUser { get; set; }
 
@@ -40,9 +43,13 @@ public class UnitOfWork : IUnitOfWork
     
     public ILabTechnicianRepository LabTechnician { get; set; }
 
-    public IMedicalRecordRepository MedicalRecord { get; set; }
-    
-    public IPharmacistRepository Pharmacist { get; set; }
+	public ILabDiagnosisRepository LabDiagnosis { get; set; }
+
+	public IMedicalRecordRepository MedicalRecord { get; set; }
+
+	public IMedicalTreatmentRepository MedicalTreatment { get; set; }
+
+	public IPharmacistRepository Pharmacist { get; set; }
 
     public ICategoryRepository Category { get; set; }
     
