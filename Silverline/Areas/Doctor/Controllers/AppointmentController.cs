@@ -170,7 +170,7 @@ public class AppointmentController : Controller
 
 		var medicalRecords = new Core.Entities.MedicalRecord
 		{
-            DateOfAppointment = DateTime.Now.ToString("dd/MMM/yyyy"),
+            DateOfAppointment = DateTime.Now.ToString("dddd, dd MMMM yyyy"),
 			PatientId = patient.Id,
 			Specialty = specialty.Name,
 			DoctorName = docUser.FullName,

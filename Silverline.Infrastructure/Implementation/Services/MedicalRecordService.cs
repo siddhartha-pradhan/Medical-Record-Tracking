@@ -16,5 +16,14 @@ public class MedicalRecordService : IMedicalRecordService
     public void AddMedicalRecord(MedicalRecord medicalRecord)
     {
         _unitOfWork.MedicalRecord.Add(medicalRecord);
+
+        _unitOfWork.Save();
     }
+
+	public List<MedicalRecord> GetAllMedicalRecords(Guid patientId)
+	{
+		var result = _unitOfWork.MedicalRecord.GetAll().Where(x => x.PatientId == patientId).ToList();  
+        
+        return result;
+	}
 }

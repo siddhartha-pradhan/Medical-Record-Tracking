@@ -37,6 +37,7 @@
     <Compile Include="Areas\Patient\Controllers\CartController.cs" />
     <Compile Include="Areas\Patient\Controllers\HomeController.cs" />
     <Compile Include="Areas\Patient\Controllers\LabTestController.cs" />
+    <Compile Include="Areas\Patient\Controllers\MedicalRecordController.cs" />
     <Compile Include="Areas\Patient\Controllers\TestController.cs" />
     <Compile Include="Areas\Pharmacist\Controllers\HomeController.cs" />
     <Compile Include="Areas\Pharmacist\Controllers\PrescriptionController.cs" />
@@ -110,6 +111,7 @@
     <Folder Include="wwwroot\images\users\doctors\" />
     <Folder Include="wwwroot\images\users\staffs\" />
     <Folder Include="wwwroot\images\users\patients\" />
+    <Folder Include="wwwroot\excel\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -126,9 +128,11 @@
     <None Include="Areas\Patient\Views\Appointment\Booking.cshtml" />
     <None Include="Areas\Patient\Views\Appointment\History.cshtml" />
     <None Include="Areas\Patient\Views\Appointment\Index.cshtml" />
+    <None Include="Areas\Patient\Views\Appointment\MedicalRecords.cshtml" />
     <None Include="Areas\Patient\Views\Cart\Index.cshtml" />
     <None Include="Areas\Patient\Views\Home\Index.cshtml" />
     <None Include="Areas\Patient\Views\LabTest\Index.cshtml" />
+    <None Include="Areas\Patient\Views\MedicalRecord\Index.cshtml" />
     <None Include="Areas\Pharmacist\Views\Home\Index.cshtml" />
     <None Include="Areas\Pharmacist\Views\Prescription\Index.cshtml" />
     <None Include="wwwroot\js\tinymce\CHANGELOG.md" />

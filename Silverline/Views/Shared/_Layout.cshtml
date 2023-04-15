@@ -266,6 +266,7 @@
 									</p>
 								</a>
 							</li>
+
 							<li class="nav-item menu-close">
 								<a href="#" class="nav-link">
 									&nbsp; <i class="fas fa-calendar-check"></i>
@@ -310,6 +311,35 @@
 									</p>
 								</a>
 							</li>
+
+							<li class="nav-item menu-close">
+								<a href="#" class="nav-link">
+										&nbsp; <i class="fa-solid fa-notes-medical"></i>
+									<p>
+										&nbsp; &nbsp; Treatments
+										<i class="right fas fa-angle-left"></i>
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a asp-area="Patient" asp-controller="Appointment" asp-action="Index" class="nav-link">
+											<p>
+												<i class="far fa-circle nav-icon"></i>
+												&nbsp; Medications 
+											</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a asp-area="Patient" asp-controller="Appointment" asp-action="Booking" class="nav-link">
+											<p>
+												<i class="far fa-circle nav-icon"></i>
+												&nbsp; Laboratory Diagnosis
+											</p>
+										</a>
+									</li>
+								</ul>
+							</li>
+
 							<li class="nav-item">
 								<a asp-area="Patient" asp-controller="LabTest" asp-action="Index" class="nav-link">
 									&nbsp; <i class="fas fa-vial"></i>
@@ -318,6 +348,7 @@
 									</p>
 								</a>
 							</li>
+
 							<li class="nav-item">
 								<a asp-area="Patient" asp-controller="Cart" asp-action="Index" class="nav-link">
 									&nbsp; <i class="fas fa-cart-plus"></i>
@@ -380,13 +411,41 @@
 									</p>
 								</a>
 							</li>
-							<li class="nav-item">
-								<a asp-area="LabTechnician" asp-controller="Diagnosis" asp-action="Index" class="nav-link">
-									&nbsp; <i class="fas fa-vials"></i>
+
+							<li class="nav-item menu-close">
+								<a href="#" class="nav-link">
+										&nbsp; <i class="fas fa-vials"></i>
 									<p>
 										&nbsp; &nbsp; Diagnosis
+										<i class="right fas fa-angle-left"></i>
 									</p>
 								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a asp-area="LabTechnician" asp-controller="Diagnosis" asp-action="Diagnosis" class="nav-link">
+											<p>
+												<i class="far fa-circle nav-icon"></i>
+												&nbsp; Appointed 
+											</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a asp-area="LabTechnician" asp-controller="Diagnosis" asp-action="Requested" class="nav-link">
+											<p>
+												<i class="far fa-circle nav-icon"></i>
+													&nbsp; Requested 
+											</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a asp-area="Pharmacist" asp-controller="Diagnosis" asp-action="History" class="nav-link">
+											<p>
+												<i class="far fa-circle nav-icon"></i>
+												&nbsp; History
+											</p>
+										</a>
+									</li>
+								</ul>
 							</li>
 						}
 						@if(User.IsInRole(Constants.Pharmacist))
@@ -399,13 +458,33 @@
 									</p>
 								</a>
 							</li>
-							<li class="nav-item">
-								<a asp-area="Pharmacist" asp-controller="Prescription" asp-action="Index" class="nav-link">
+
+							<li class="nav-item menu-close">
+								<a href="#" class="nav-link">
 									&nbsp; <i class="fas fa-pills"></i>
 									<p>
 										&nbsp; &nbsp; Prescriptions
+										<i class="right fas fa-angle-left"></i>
 									</p>
 								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+											<a asp-area="Pharmacist" asp-controller="Prescription" asp-action="Diagnosis" class="nav-link">
+											<p>
+												<i class="far fa-circle nav-icon"></i>
+												&nbsp; Appointed 
+											</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a asp-area="Pharmacist" asp-controller="Prescription" asp-action="History" class="nav-link">
+											<p>
+												<i class="far fa-circle nav-icon"></i>
+												&nbsp; History
+											</p>
+										</a>
+									</li>
+								</ul>
 							</li>
 						}
 					</ul>
@@ -441,6 +520,7 @@
 	<script src="https://kit.fontawesome.com/1c1a57d0d0.js"></script>
 	<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 	<script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	<script lang="javascript" src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 	<script src="https://cdn.tiny.cloud/1/gt87d8xmi9qqycaz7hv57wuyzd7nlsjusj1zcf8hu8hyve0q/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>

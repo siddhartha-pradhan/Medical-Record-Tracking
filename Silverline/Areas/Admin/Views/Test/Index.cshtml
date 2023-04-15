@@ -13,10 +13,10 @@
 <div class="container-fluid" style="width: 95%">
     <div class="row mb-3">
         <div class="col-6">
-            <h2 class="text-primary">List of Diagnostic Tests</h2>
+            <h2 class="text-dark">List of Diagnostic Tests</h2>
         </div>
         <div class="col-6 text-right">
-            <a class="btn btn-primary" asp-action="Upsert"><i class="fa-solid fa-plus"></i> &nbsp; Create A New Diagnostic Test</a>
+            <a class="btn btn-dark" asp-action="Upsert"><i class="fa-solid fa-plus"></i> &nbsp; Create A New Diagnostic Test</a>
         </div>
     </div>
 
@@ -44,7 +44,7 @@
                         <td>@item.UnitPrice</td>
                         <td>@item.TestType?.Name</td>
                         <td>
-                            <a href="@Url.Action("Upsert", "Test", new { id=item.Id })" class="btn btn-primary btn-sm"><i class="fa fa-cogs"></i></a>
+                            <a href="@Url.Action("Upsert", "Test", new { id=item.Id })" class="btn btn-dark btn-sm"><i class="fa fa-cogs"></i></a>
                             <a href="@Url.Action("Delete", "Test", new { id=item.Id })" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a> 
                         </td>
                     </tr>

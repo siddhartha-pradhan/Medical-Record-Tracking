@@ -8,7 +8,12 @@ namespace Silverline.Areas.Pharmacist.Controllers;
 [Authorize(Roles = Constants.Pharmacist)]
 public class PrescriptionController : Controller
 {
-	public IActionResult Index()
+	public IActionResult Diagnosis()
+	{
+		return View();
+	}
+
+	public IActionResult History()
 	{
 		return View();
 	}

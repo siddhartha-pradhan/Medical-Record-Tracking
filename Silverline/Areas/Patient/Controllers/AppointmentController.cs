@@ -23,6 +23,7 @@ public class AppointmentController : Controller
     private readonly ILabDiagnosisService _labDiagnosisService;
     private readonly IMedicineService _medicineService;
     private readonly ITestService _testService;
+    private readonly IMedicalRecordService _medicalRecordService;
 
 	public AppointmentController(IAppUserService appUserService, 
         IDoctorService doctorService, 
@@ -33,7 +34,8 @@ public class AppointmentController : Controller
 		ILabDiagnosisService labDiagnosisService,
 		IAppointmentDetailService appointmentDetailService,
 		IMedicineService medicineService,
-		ITestService testService)
+		ITestService testService,
+		IMedicalRecordService medicalRecordService)
     {
         _appUserService = appUserService;
         _doctorService = doctorService;
@@ -45,6 +47,7 @@ public class AppointmentController : Controller
         _labDiagnosisService = labDiagnosisService;
         _testService = testService;
         _medicineService = medicineService;
+        _medicalRecordService = medicalRecordService;
 	}
 
     #region Razor Pages
@@ -119,7 +122,9 @@ public class AppointmentController : Controller
     private AppUser GetUser(Guid doctorId)
     {
         var doctor = _doctorService.GetDoctor(doctorId);
+
         var user = _appUserService.GetUser(doctor.UserId);
+        
         return user;
     }
 
@@ -150,7 +155,9 @@ public class AppointmentController : Controller
     private Specialty GetSpecialty(Guid doctorId)
     {
         var doctor = _doctorService.GetDoctor(doctorId);
+
         var specialty = _specialtyService.GetSpecialty(doctor.DepartmentId);
+        
         return specialty;
     }
 
@@ -252,7 +259,19 @@ public class AppointmentController : Controller
 
     public IActionResult MedicalRecords()
     {
-        return View();
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+        var patient = _patientService.GetAllPatients().Where(x => x.UserId == claim.Value).FirstOrDefault();
+
+        var result = (from record in _medicalRecordService.GetAllMedicalRecords(patient.Id).ToList()
+                     group record by record.Specialty into specialty
+                     select new MedicalRecordViewModel()
+                     {
+                         Specialty = specialty.Key,
+                         MedicalRecords = specialty.ToList(),
+                     }).ToList();
+
+        return View(result);
     }
 
 	#endregion

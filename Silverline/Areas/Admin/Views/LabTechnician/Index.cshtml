@@ -12,7 +12,7 @@
 			<h2 class="text-primary">List of Lab Technicians</h2>
 		</div>
 		<div class="col-6 text-right">
-			<a class="btn btn-primary" asp-action="Upsert"><i class="fa-solid fa-plus"></i> &nbsp; Add a new Lab Technician</a>
+			<a class="btn btn-dark" asp-action="Upsert"><i class="fa-solid fa-plus"></i> &nbsp; Add a new Lab Technician</a>
 		</div>
 	</div>
 
@@ -38,17 +38,15 @@
 						<td>@item.CertificationNumber</td>
 						<td>@item.HighestDegree</td>
 						<td>
-						<a href="@Url.Action("Detail", "LabTechnician", new { id = @item.UserId })" class="btn btn-primary btn-sm"><i class="fas fa-user-check"></i></a>
-						@if (item.IsLocked)
-						{
-							<input type="button" value="Unlock" class="btn btn-success btn-sm" onclick="location.href='@Url.Action("Unlock", "LabTechnician", new { id = @item.UserId })'"/>
-							@*<a href="@Url.Action("Unlock", "Patient", new { id = @item.UserId })" class="btn btn-success btn-sm"><i class="fas fa-user-unlock"></i></a>*@
-						}
-						else
-						{
-							<input type="button" value="Lock" class="btn btn-success btn-sm" onclick="location.href='@Url.Action("Lock", "LabTechnician", new { id = @item.UserId })'"/>
-							@*<a href="@Url.Action("Lock", "Patient", new { id = @item.UserId })" class="btn btn-danger btn-sm"><i class="fas fa-user-lock"></i></a>*@
-						}
+							<a href="@Url.Action("Detail", "LabTechnician", new { id = @item.UserId })" class="btn btn-dark btn-sm"><i class="fas fa-user-check"></i></a>
+							@if (item.IsLocked)
+							{
+								<input type="button" value="Unlock" class="btn btn-success btn-sm" onclick="location.href='@Url.Action("Unlock", "LabTechnician", new { id = @item.UserId })'"/>
+							}
+							else
+							{
+								<input type="button" value="Lock" class="btn btn-success btn-sm" onclick="location.href='@Url.Action("Lock", "LabTechnician", new { id = @item.UserId })'"/>
+							}
 						</td>
 					</tr>
 				}

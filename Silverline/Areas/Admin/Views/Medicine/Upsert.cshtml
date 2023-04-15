@@ -46,19 +46,19 @@
                                     @if (Model.Medicine.Id != Guid.Empty)
                                     {
                                         <div class="col-6">
-                                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary form-control">Update</button>
+                                                <button type="submit" onclick="return ValidateInput()" class="btn btn-dark form-control">Update</button>
                                         </div>
                                         <div class="col-6">
-                                            <a asp-action="Index" class="btn btn-primary form-control">Back to List</a>
+                                            <a asp-action="Index" class="btn btn-dark form-control">Back to List</a>
                                         </div>
                                     }
                                     else
                                     {
                                         <div class="col-6">
-                                            <button type="submit" onclick="return ValidateInput()" class="btn btn-primary form-control">Create</button>
+                                            <button type="submit" onclick="return ValidateInput()" class="btn btn-dark form-control">Create</button>
                                         </div>
                                         <div class="col-6">
-                                            <a asp-action="Index" class="btn btn-primary form-control">Back to List</a>
+                                            <a asp-action="Index" class="btn btn-dark form-control">Back to List</a>
                                         </div>
                                     }
                                 </div> 

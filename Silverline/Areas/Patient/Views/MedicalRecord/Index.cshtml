@@ -1,0 +1,51 @@
+﻿@model Silverline.Core.Entities.MedicalRecord;
+
+@{
+    ViewData["Title"] = "Medical Record";
+}
+
+<div class="pt-4 ml-4 pl-3 mb-4">
+	<h1>Import of Medical Records</h1>
+</div>
+
+<form asp-controller="MedicalRecord" method="get">
+    <div class="container-fluid" style="width: 95%">
+        <div class="row">
+            <div class="col-md-4 ml-2 p-0 me-2">
+                <input type="file" id="excelFile" name="files" style="height:auto" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+            </div>
+            <div class="col-md-1 mt-1 ml-4">
+                <input type="button" name="Upload" value="Upload" id="btnUpload" onclick="addData();" class="btn btn-dark" />
+            </div>
+            <div class="col-md-1 mt-1">
+                <input type="submit" name="Export" value="Sample Sheet" id="btnExport" class="btn btn-dark" asp-action="Export" />
+            </div>
+        </div>
+        <div class="clearfix">&nbsp;</div>
+        <table class="table table-bordered table-hover mt-2">
+            <thead>
+                <tr>
+                    <th>Specialty</th>
+                    <th>Date of Appointment</th>
+                    <th>Doctor Name</th>
+                    <th>Diagnosis Title</th>
+                    <th>Description</th>
+                    <th>Prescriptions</th>
+                    <th>Diagnosis</th>
+                </tr>
+            </thead>
+            <tbody id="dataOutput"></tbody>
+        </table>
+        <div class="mt-3 btn btn-dark" style="display: none; width: 10%; height: auto" id="push" onclick="importEmployees()">Push Data</div>
+    </div>
+</form>
+
+
+
+
+<script src="~/excel/dist/xls.core.min.js"></script>
+<script src="~/excel/dist/xlsx.core.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/records.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>

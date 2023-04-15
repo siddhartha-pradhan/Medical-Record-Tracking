@@ -8,7 +8,17 @@ namespace Silverline.Areas.LabTechnician.Controllers;
 [Authorize(Roles = Constants.LabTechnician)]
 public class DiagnosisController : Controller
 {
-	public IActionResult Index()
+	public IActionResult Diagnosis()
+	{
+		return View();
+	}
+
+	public IActionResult History()
+	{
+		return View();
+	}
+
+	public IActionResult Requested()
 	{
 		return View();
 	}
