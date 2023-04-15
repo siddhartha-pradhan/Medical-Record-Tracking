@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Silverline.Application.Interfaces.Services;
 using Silverline.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Silverline.Application.Interfaces.Repositories;
+using Silverline.Infrastructure.Implementation.Repositories;
+using Silverline.Infrastructure.Implementation.Services;
 
 namespace Silverline.Areas.Doctor.Controllers;
 
@@ -21,8 +24,8 @@ public class AppointmentController : Controller
     private readonly ISpecialtyService _specialtyService;
     private readonly IPatientService _patientService;
     private readonly IMedicineService _medicineService;
-    private readonly IMedicalRecordService _medicalRecordService;
     private readonly ITestService _testService;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly ApplicationDbContext _dbContext;
 
     public AppointmentController(
@@ -31,9 +34,10 @@ public class AppointmentController : Controller
         IAppUserService userService, 
         IDoctorService doctorService,
         ISpecialtyService specialtyService,
-        IPatientService patientService, 
-        IMedicineService medicineService,
-        ITestService testService,
+        IPatientService patientService,
+		IMedicineService medicineService,
+		ITestService testService,
+		IUnitOfWork unitOfWork,
 		ApplicationDbContext dbContext)
     {
         _userService = userService;
@@ -41,10 +45,11 @@ public class AppointmentController : Controller
         _appointmentDetailService = appointmentDetailService;
         _doctorService = doctorService;
         _patientService = patientService;
-        _medicineService = medicineService;
         _specialtyService = specialtyService;
-        _testService = testService;
-        _dbContext = dbContext;
+        _medicineService = medicineService;
+		_testService = testService;
+		_unitOfWork = unitOfWork;
+		_dbContext = dbContext;
 
 	}
 
@@ -119,6 +124,8 @@ public class AppointmentController : Controller
         appointment.StartTime = DateTime.Now;
         appointmentVM.Appointment.MedicalTreatments.Add(new() { Id = Guid.NewGuid() });
         appointmentVM.Appointment.LaboratoryDiagnosis.Add(new() { Id = Guid.NewGuid() });
+
+        _unitOfWork.Save();
 
 		return View(appointmentVM);
     }

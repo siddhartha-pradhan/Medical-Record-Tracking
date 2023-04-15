@@ -28,6 +28,8 @@ public class MedicationTreatment
 
 	public string? ActionStatus { get; set; } = Constants.Constants.Pending;
 
+	public DateTime? FinalizedDate { get; set; }
+
 	public Guid? PharmacistId { get; set; }
 
     [ForeignKey("PharmacistId")]

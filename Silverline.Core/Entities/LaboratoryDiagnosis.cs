@@ -14,13 +14,17 @@ public class LaboratoryDiagnosis
 
     public float? Value { get; set; }
 
+    [Display(Name = "Doctor Remarks")]
 	public string DoctorRemarks { get; set; }
 
+    [Display(Name = "Technician Remarks")]
 	public string? TechnicianRemarks { get; set; }
 
     public string? Status { get; set; } = Constants.Constants.Ongoing;
 
 	public string? ActionStatus { get; set; } = Constants.Constants.Pending;
+
+    public DateTime? FinalizedDate { get; set; }
 
 	public Guid? TechnicianId { get; set; }
 

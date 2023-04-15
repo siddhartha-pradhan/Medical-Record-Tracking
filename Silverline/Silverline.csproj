@@ -121,7 +121,10 @@
     <None Include="Areas\Doctor\Views\LabTest\Index.cshtml" />
     <None Include="Areas\Doctor\Views\Medicine\Index.cshtml" />
     <None Include="Areas\Doctor\Views\Patient\Index.cshtml" />
-    <None Include="Areas\LabTechnician\Views\Diagnosis\Index.cshtml" />
+    <None Include="Areas\LabTechnician\Views\Diagnosis\Details.cshtml" />
+    <None Include="Areas\LabTechnician\Views\Diagnosis\Diagnosis.cshtml" />
+    <None Include="Areas\LabTechnician\Views\Diagnosis\History.cshtml" />
+    <None Include="Areas\LabTechnician\Views\Diagnosis\Requested.cshtml" />
     <None Include="Areas\LabTechnician\Views\Home\Index.cshtml" />
     <None Include="Areas\Patient\Views\Appointment\AppointmentDetails.cshtml" />
     <None Include="Areas\Patient\Views\Appointment\Book.cshtml" />
@@ -134,7 +137,8 @@
     <None Include="Areas\Patient\Views\LabTest\Index.cshtml" />
     <None Include="Areas\Patient\Views\MedicalRecord\Index.cshtml" />
     <None Include="Areas\Pharmacist\Views\Home\Index.cshtml" />
-    <None Include="Areas\Pharmacist\Views\Prescription\Index.cshtml" />
+    <None Include="Areas\Pharmacist\Views\Prescription\History.cshtml" />
+    <None Include="Areas\Pharmacist\Views\Prescription\Diagnosis.cshtml" />
     <None Include="wwwroot\js\tinymce\CHANGELOG.md" />
     <None Include="wwwroot\js\tinymce\js\tinymce\icons\default\icons.min.js" />
     <None Include="wwwroot\js\tinymce\js\tinymce\langs\README.md" />

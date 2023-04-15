@@ -58,8 +58,9 @@ public class AppointmentDetailService : IAppointmentDetailService
 			_dbContext.Database.ExecuteSqlRaw(sql);
 
 			_dbContext.SaveChanges();
-
 		}
+
+		_unitOfWork.Appointment.GetFirstOrDefault(x => x.Id == appointment.AppointmentId).PaymentStatus = Constants.Completed;
 
 		_unitOfWork.Appointment.GetFirstOrDefault(x => x.Id == appointment.AppointmentId).AppointmentStatus = Constants.Completed;
 
