@@ -5,4 +5,6 @@ namespace Silverline.Application.Interfaces.Services;
 public interface IMedicalTreatmentService
 {
 	List<MedicationTreatment> GetMedicationTreatments();
+
+	void UpdatePrescriptions(MedicationTreatment treatment);
 }

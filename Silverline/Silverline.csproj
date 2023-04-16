@@ -137,6 +137,7 @@
     <None Include="Areas\Patient\Views\LabTest\Index.cshtml" />
     <None Include="Areas\Patient\Views\MedicalRecord\Index.cshtml" />
     <None Include="Areas\Pharmacist\Views\Home\Index.cshtml" />
+    <None Include="Areas\Pharmacist\Views\Prescription\Details.cshtml" />
     <None Include="Areas\Pharmacist\Views\Prescription\History.cshtml" />
     <None Include="Areas\Pharmacist\Views\Prescription\Diagnosis.cshtml" />
     <None Include="wwwroot\js\tinymce\CHANGELOG.md" />

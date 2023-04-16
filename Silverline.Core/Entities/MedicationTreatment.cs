@@ -18,12 +18,16 @@ public class MedicationTreatment
 
     public bool IsCompleted { get; set; } = false;
 
+    [Display(Name = "Time Period")]
     public string TimePeriod { get; set; }  // Period refering for how long the medication is to be taken or intervals
     
+    [Display(Name = "Time Format")]
     public string TimeFormat { get; set; }  // Format refering for when the medication is to be taken
 
+    [Display(Name = "Doctor Remarks")]
 	public string DoctorRemarks { get; set; }
 
+    [Display(Name = "Pharmacist Remarks")]
 	public string? PharmacistRemarks { get; set; }
 
 	public string? ActionStatus { get; set; } = Constants.Constants.Pending;
