@@ -204,12 +204,12 @@ namespace Silverline.Areas.Identity.Pages.Account
                         protocol: Request.Scheme);
 
                     await _emailSender.SendEmailAsync(Input.Email, "Email Confirmation",
-                        $"Hi there, You have been registered to our system as a patient. To confirm your email address, please continue by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                        $"Dear {user.FullName},<br><br>You have been registered to our system as a patient. <br>To confirm your email address, please continue by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.<br><br>Regards,<br>Silverline Hospital");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
 						TempData["Success"] = "Patient Registered Successfully";
-						return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+						return RedirectToPage("RegisterConfirmation", new { email = Input.Email, role = "User", returnUrl = returnUrl });
                     }
                     else
                     {

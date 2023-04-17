@@ -1,3 +1,5 @@
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using Silverline.Infrastructure.Dependency;
 using Silverline.Infrastructure.Persistence.Seed;
 
@@ -10,6 +12,13 @@ var configurations = builder.Configuration;
 services.AddInfrastructure(configurations);
 
 services.AddControllersWithViews();
+
+services.AddNotyf(config =>
+{
+	config.DurationInSeconds = 10; 
+	config.IsDismissable = true; 
+	config.Position = NotyfPosition.TopRight;
+});
 
 services.AddRazorPages().AddRazorRuntimeCompilation();
 
@@ -27,6 +36,8 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+
+app.UseNotyf();
 
 app.UseHttpsRedirection();
 

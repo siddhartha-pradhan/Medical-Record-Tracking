@@ -4,20 +4,26 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authentication;
 using System.ComponentModel.DataAnnotations;
+using AspNetCoreHero.ToastNotification.Abstractions;
+using Silverline.Application.Interfaces.Services;
 
 namespace Silverline.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
+		private readonly INotyfService _notyf;
         private readonly ILogger<LoginModel> _logger;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
 
-		public LoginModel(SignInManager<IdentityUser> signInManager, 
+		public LoginModel(SignInManager<IdentityUser> signInManager,
+            IPatientService patientService,
             ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager,
+			INotyfService notyf)
         {
-            _logger = logger;
+            _notyf = notyf;
+			_logger = logger;
             _signInManager = signInManager;
 			_userManager = userManager;
 		}
@@ -46,9 +52,25 @@ namespace Silverline.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync(string? state, string? message, string returnUrl = null)
         {
-            if (!string.IsNullOrEmpty(ErrorMessage))
+            if(state != null)
+            {
+				switch (state)
+				{
+					case "Error":
+						_notyf.Error("Your account has been locked due to suspicious actions.");
+						break;
+					case "Invalid":
+						_notyf.Error("Invalid email address or password, try again.");
+						break;
+					case "Warning":
+						_notyf.Warning("Your account has not been confirmed yet.");
+						break;
+				}
+			}
+
+			if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
@@ -79,9 +101,12 @@ namespace Silverline.Areas.Identity.Pages.Account
 
 				if (result.IsLockedOut)
 				{
-					_logger.LogWarning("User account locked out.");
+					return RedirectToPage("Login", new { state = "Error", returnUrl = returnUrl });
+				}
 
-					return RedirectToPage("./Lockout");
+				if (result.IsNotAllowed)
+                {
+					return RedirectToPage("Login", new { state = "Warning", returnUrl = returnUrl });
 				}
 
 				if (result.Succeeded)
@@ -98,31 +123,28 @@ namespace Silverline.Areas.Identity.Pages.Account
                     }
 					if (roles.Contains(Constants.Patient))
 					{
-
+						return RedirectToAction("Index", "Home", new { area = "Patient" });
 					}
 					if (roles.Contains(Constants.Doctor))
 					{
-
+						return RedirectToAction("Index", "Home", new { area = "Doctor" });
 					}
 					if (roles.Contains(Constants.Pharmacist))
 					{
-
+						return RedirectToAction("Index", "Home", new { area = "Pharmacist" });
 					}
 					if (roles.Contains(Constants.LabTechnician))
 					{
-
+						return RedirectToAction("Index", "Home", new { area = "LabTechnician" });
 					}
 
 					return LocalRedirect(returnUrl);
                 }
                 
-                
-                
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Page();
-                }
+					return RedirectToPage("Login", new { state = "Invalid", returnUrl = returnUrl });
+				}
             }
 
             return Page();

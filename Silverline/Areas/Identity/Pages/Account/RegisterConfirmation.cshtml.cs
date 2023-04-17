@@ -5,12 +5,14 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using NToastNotify;
 
 namespace Silverline.Areas.Identity.Pages.Account
 {
@@ -18,13 +20,14 @@ namespace Silverline.Areas.Identity.Pages.Account
     public class RegisterConfirmationModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IEmailSender _sender;
+		private readonly IToastifyService _toastify;
 
-        public RegisterConfirmationModel(UserManager<IdentityUser> userManager, IEmailSender sender)
+		public RegisterConfirmationModel(UserManager<IdentityUser> userManager, IToastifyService toastify)
         {
             _userManager = userManager;
-            _sender = sender;
-        }
+			_toastify = toastify;
+
+		}
 
         public string Email { get; set; }
 
@@ -32,21 +35,29 @@ namespace Silverline.Areas.Identity.Pages.Account
 
         public string EmailConfirmationUrl { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string email, string returnUrl = null)
+        public string User { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(string email, string role, string returnUrl = null)
         {
-            if (email == null)
+			_toastify.Success("Success Notification");
+
+			if (email == null)
             {
                 return RedirectToPage("/Index");
             }
+
             returnUrl = returnUrl ?? Url.Content("~/");
 
             var user = await _userManager.FindByEmailAsync(email);
+
             if (user == null)
             {
                 return NotFound($"Unable to load user with email '{email}'.");
             }
 
             Email = email;
+
+			User = role;
 
             return Page();
         }

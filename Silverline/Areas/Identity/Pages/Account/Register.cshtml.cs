@@ -285,15 +285,7 @@ public class RegisterModel : PageModel
                         break;
                 }
 
-                var callbackUrl = Url.Page(
-                    "/Account/ConfirmEmail",
-                    pageHandler: null,
-                    values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                    protocol: Request.Scheme);
-
-                TempData["Success"] = "Registration requested successfully";
-
-                return RedirectToPage("./Register");
+				return RedirectToPage("RegisterConfirmation", new { email = Input.Email, role = "Staff", returnUrl = returnUrl });
             }
             foreach (var error in result.Errors)
             {

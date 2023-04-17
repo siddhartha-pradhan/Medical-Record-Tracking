@@ -2,8 +2,22 @@
 @model RegisterConfirmationModel
 
 @{
-	ViewData["Title"] = "Register Confirmation";
 	Layout = null;
+
+	var title = "";
+	var action = "";
+
+	if(Model.User == "User")
+	{
+		ViewData["Title"] = "Register Confirmation";
+		title = "Please check your email to confirm your account";
+	}
+	else
+	{
+		ViewData["Title"] = "Request Confirmation";
+		title = "Your request has been notified to the system.";
+		action = "Please wait for a few business days for your confirmation.";
+	}
 }
 
 <!DOCTYPE html>
@@ -12,7 +26,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Sign In</title>
+	<title>@ViewData["Title"]</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 	<link rel="stylesheet" href="~/css/all.min.css">
 	<link rel="stylesheet" href="~/css/icheck-bootstrap.min.css">
@@ -31,7 +45,8 @@
 				<a href="#" class="h1">@ViewData["Title"]</a>
 			</div>
 			<div class="card-body text-center">
-					Please check your email to confirm your account.
+				@title
+				@action
 			</div>
 		</div>
 	</div>

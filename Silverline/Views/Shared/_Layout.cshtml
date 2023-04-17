@@ -524,6 +524,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	<script lang="javascript" src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 	<script src="https://cdn.tiny.cloud/1/gt87d8xmi9qqycaz7hv57wuyzd7nlsjusj1zcf8hu8hyve0q/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+	@await Component.InvokeAsync("Notyf") 
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
