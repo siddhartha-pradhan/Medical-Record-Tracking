@@ -12,7 +12,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Silverline</title>
+	<title>@ViewData["Title"]</title>
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/Silverline.styles.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/adminlte.min.css">
@@ -84,7 +84,6 @@
 				</li>
 			</ul>
 		</nav>
-
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<a asp-controller="Home" asp-action="Index" class="brand-link">
 				<img src="~/favicon.png" alt="Silverline" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -256,7 +255,7 @@
 								</ul>
 							</li>
 						}
-						@if(User.IsInRole(Constants.Patient))
+						@if (User.IsInRole(Constants.Patient))
 						{
 							<li class="nav-item">
 								<a asp-area="Patient" asp-controller="Home" asp-action="Index" class="nav-link">
@@ -302,7 +301,7 @@
 									</li>
 								</ul>
 							</li>
-							
+
 							<li class="nav-item">
 								<a asp-area="Patient" asp-controller="Appointment" asp-action="MedicalRecords" class="nav-link">
 									&nbsp; <i class="fas fa-file-medical"></i>
@@ -322,7 +321,7 @@
 								</a>
 								<ul class="nav nav-treeview">
 									<li class="nav-item">
-										<a asp-area="Patient" asp-controller="Appointment" asp-action="Index" class="nav-link">
+										<a asp-area="Patient" asp-controller="Treatment" asp-action="Medications" class="nav-link">
 											<p>
 												<i class="far fa-circle nav-icon"></i>
 												&nbsp; Medications 
@@ -330,7 +329,7 @@
 										</a>
 									</li>
 									<li class="nav-item">
-										<a asp-area="Patient" asp-controller="Appointment" asp-action="Booking" class="nav-link">
+												<a asp-area="Patient" asp-controller="Treatment" asp-action="LabDiagnosis" class="nav-link">
 											<p>
 												<i class="far fa-circle nav-icon"></i>
 												&nbsp; Laboratory Diagnosis

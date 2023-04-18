@@ -129,7 +129,7 @@ public class ApprovalController : Controller
             TempData["Success"] = "Doctor Approved Successfully";
 
             _emailSender.SendEmailAsync(user.Email, "Successful Registration",
-                        $"Hi there, You have been registered to our system as a doctor. The password is Silverline@123.");
+                        $"Dear {user.FullName}, <br><br>Your request has been accepted and you have been registered to our system as a doctor. <br>Please use your registered email and password as <b>\"Silverline@123\"</b> as the login credential for the system.<br>Regards,<br>Silverline Hospital");
 
             return RedirectToAction("Doctor");
         }
@@ -148,10 +148,10 @@ public class ApprovalController : Controller
             _labTechnicianService.ApproveLabTechnician(labTechnician);
             TempData["Success"] = "Lab Technician Approved Successfully";
 
-            _emailSender.SendEmailAsync(user.Email, "Successful Registration",
-                        $"Hi there, You have been registered to our system as a lab technician. The password is Silverline@123.");
+			_emailSender.SendEmailAsync(user.Email, "Successful Registration",
+						$"Dear {user.FullName}, <br><br>Your request has been accepted and you have been registered to our system as a lab technician. <br>Please use your registered email and password as <b>\"Silverline@123\"</b> as the login credential for the system.<br>Regards,<br>Silverline Hospital");
 
-            return RedirectToAction("LabTechnician");
+			return RedirectToAction("LabTechnician");
         }
 
         return View(user);
@@ -168,10 +168,10 @@ public class ApprovalController : Controller
             _pharmacistService.ApprovePharmacist(pharmacist);
             TempData["Success"] = "Pharmacist Approved Successfully";
 
-            _emailSender.SendEmailAsync(user.Email, "Successful Registration",
-                        $"Hi there, You have been registered to our system as a Pharmacist. The password is Silverline@123.");
+			_emailSender.SendEmailAsync(user.Email, "Successful Registration",
+						$"Dear {user.FullName}, <br><br>Your request has been accepted and you have been registered to our system as a pharmacist. <br>Please use your registered email and password as <b>\"Silverline@123\"</b> as the login credential for the system.<br>Regards,<br>Silverline Hospital");
 
-            return RedirectToAction("Pharmacist");
+			return RedirectToAction("Pharmacist");
         }
 
         return View(user);

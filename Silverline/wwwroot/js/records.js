@@ -63,7 +63,6 @@ function addData() {
 
 function populateData(jsonData) {
     var html = '';
-
     for (var i = 0; i < jsonData.length; i++) {
         html += '<tr>';
         html += '<td>' + jsonData[i]["Specialty"] + '</td>';
@@ -75,19 +74,14 @@ function populateData(jsonData) {
         html += '<td>' + jsonData[i]["Laboratory Diagnosis"] + '</td>';
         html += '</tr>';
     }
-
     $('#dataOutput').html(html);
-
     var pushButton = $("#push")[0];
-
     pushButton.style.display = "block";
 }
 
 function importEmployees() {
     var data = excelJson;
-
     var records = [];
-
     for (var i = 0; i < data.length; i++) {
         records.push(
             {
@@ -101,9 +95,7 @@ function importEmployees() {
             }
         );
     }
-
     console.log(records);
-
     $.ajax({
         url: "MedicalRecord/AddRecords",
         method: "POST",

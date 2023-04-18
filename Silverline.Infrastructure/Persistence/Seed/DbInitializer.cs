@@ -46,12 +46,12 @@ public class DbInitializer : IDbInitializer
 
         var user = new AppUser
         {
-            FullName = "Anuj Pradhan",
-            Email = "anuj.pradhan.ix+admin@gmail.com",
-            NormalizedEmail = "ANUJ.PRADHAN.IX@GMAIL.COM",
-            UserName = "anuj.pradhan.ix+admin@gmail.com",
-            NormalizedUserName = "ANUJ.PRADHAN.IX@GMAIL.COM",
-            PhoneNumber = "9861592574",
+            FullName = "Siddhartha Pradhan",
+            Email = "siddhartha.pradhan.ix+admin@gmail.com",
+            NormalizedEmail = "SIDDHARTHA.PRADHAN.IX@GMAIL.COM",
+            UserName = "siddhartha.pradhan.ix+admin@gmail.com",
+            NormalizedUserName = "SIDDHARTHA.PRADHAN.IX@GMAIL.COM",
+            PhoneNumber = "9803364638",
             EmailConfirmed = true,
             PhoneNumberConfirmed = true,
             SecurityStamp = Guid.NewGuid().ToString("D")
@@ -59,7 +59,7 @@ public class DbInitializer : IDbInitializer
 
 		var userManager = _userManager.CreateAsync(user, "@ff!N1ty").GetAwaiter().GetResult();
 
-		var result = _dbContext.Users.FirstOrDefault(u => u.Email == "anuj.pradhan.ix+admin@gmail.com");
+		var result = _dbContext.Users.FirstOrDefault(u => u.Email == "siddhartha.pradhan.ix+admin@gmail.com");
 
 		_userManager.AddToRoleAsync(user, Constants.Admin).GetAwaiter().GetResult();
 

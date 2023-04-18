@@ -1,1 +1,54 @@
-﻿
+﻿@model List<Silverline.Core.ViewModels.DiagnosisViewModel>
+
+@{
+	ViewData["Title"] = "Requested Diagnosis";
+}
+
+<div class="pt-2 ml-4 pl-3 mb-4">
+	<h1>Requested Diagnosis</h1>
+</div>
+
+<partial name="_Notification" />
+
+<div class="container-fluid" style="width: 95%">
+	<div class="row">
+		@foreach (var @item in Model)
+		{ 
+			<div class="col-lg-3 col-md-6">
+				<div class="row p-2">
+					<div class="col-12 p-1" style="border: 1px solid black; border-radius: 5px;">
+						<div class="container-item">
+							<img id="profilePicture" style="width:275px;height:400px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(@item.PatientImage))">
+						</div>
+						<div class="col">
+							<div class="row pl-2 pt-2">
+								<p class="card-title h4 text-dark">@item.PatientName</p>
+							</div>
+							@foreach (var result in item.LaboratoryDiagnosis)
+							{
+								<div class="row">
+									<div class="col-12">
+										<h4 class="row ml-5">
+											Diagnostic Test
+										</h4>
+										<div class="row mb-4 ml-5">
+											@result.TestName
+										</div>
+									</div>
+									<div class="col">
+										<div class="row mb-4 ml-4 w-75">
+											<a asp-action="Details" class="btn btn-dark form-control" asp-route-id="@result.Id">
+												Details
+											</a>
+										</div>
+									</div>
+									<hr>
+								</div>
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+</div>

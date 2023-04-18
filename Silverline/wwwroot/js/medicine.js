@@ -14,7 +14,7 @@ function loadDataTable() {
             { "data": "unitPrice", "width": "10%" },
             { "data": "type", "width": "10%" },
             { "data": "category", "width": "10%" },
-            { "data": "manufacturer", "width": "10%" },
+            { "data": "manufacturer", "width": "20%" },
             {
                 "data": "id",
                 "render": function (data) {
@@ -28,7 +28,7 @@ function loadDataTable() {
                             </a>
                         </div>
                     `;
-                }, "width": "20%"
+                }, "width": "10%"
             }
         ]
     });

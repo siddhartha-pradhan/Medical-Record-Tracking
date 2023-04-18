@@ -20,13 +20,10 @@ namespace Silverline.Areas.Identity.Pages.Account
     public class RegisterConfirmationModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
-		private readonly IToastifyService _toastify;
 
-		public RegisterConfirmationModel(UserManager<IdentityUser> userManager, IToastifyService toastify)
+		public RegisterConfirmationModel(UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
-			_toastify = toastify;
-
 		}
 
         public string Email { get; set; }
@@ -39,8 +36,6 @@ namespace Silverline.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnGetAsync(string email, string role, string returnUrl = null)
         {
-			_toastify.Success("Success Notification");
-
 			if (email == null)
             {
                 return RedirectToPage("/Index");

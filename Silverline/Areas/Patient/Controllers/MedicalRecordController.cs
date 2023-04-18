@@ -15,12 +15,14 @@ public class MedicalRecordController : Controller
     private readonly IWebHostEnvironment _webHostEnvironment;
     private readonly IPatientService _patientService;
     private readonly IMedicalRecordService _medicalRecordService;
+    private readonly IAppUserService _appUserService;
 
-    public MedicalRecordController(IMedicalRecordService medicalRecordService, IPatientService patientService, IWebHostEnvironment webHostEnvironment)
+    public MedicalRecordController(IMedicalRecordService medicalRecordService, IPatientService patientService, IAppUserService appUserService, IWebHostEnvironment webHostEnvironment)
     {
         _medicalRecordService = medicalRecordService;
         _webHostEnvironment = webHostEnvironment;
         _patientService = patientService;
+        _appUserService = appUserService;
     }
 
     public IActionResult Index()

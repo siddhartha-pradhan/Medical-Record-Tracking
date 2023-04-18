@@ -70,7 +70,7 @@ public class AppointmentController : Controller
                           HighestMedicalDegree = doctor.HighestMedicalDegree,
                           Specialty = specialty.Name,
                           ProfileImage = appUser.ProfileImage
-                      }).ToList();
+                      }).OrderBy(x => x.Name).ToList();
 
         return View(result);
     }
@@ -131,13 +131,10 @@ public class AppointmentController : Controller
     private List<AppointmentFinalizedViewModel> GetFinalizedAppointments(Guid doctorId, Guid patientId)
     {
         var appointments = _appointmentService.GetAllFinalizedAppointments().Where(x => x.DoctorId == doctorId && x.PatientId == patientId).ToList();  
-        
         var details = new List<AppointmentFinalizedViewModel>();
-
         foreach(var appointment in appointments)
         {
             var result = _appointmentDetailService.GetAllAppointments().Where(x => x.AppointmentId == appointment.Id).FirstOrDefault();
-
             details.Add(new AppointmentFinalizedViewModel()
             {
                 AppointmentId = appointment.Id,
@@ -148,17 +145,7 @@ public class AppointmentController : Controller
                 AppointedDate = appointment.FinalizedTime.ToString("dddd, dd MMMM yyyy HH:mm:ss"),
             });
         }
-        
         return details;
-    }
-
-    private Specialty GetSpecialty(Guid doctorId)
-    {
-        var doctor = _doctorService.GetDoctor(doctorId);
-
-        var specialty = _specialtyService.GetSpecialty(doctor.DepartmentId);
-        
-        return specialty;
     }
 
     public IActionResult Book(Guid Id)
@@ -200,7 +187,16 @@ public class AppointmentController : Controller
         return View(appointment);
     }
 
-    public IActionResult AppointmentDetails(Guid id)
+	private Specialty GetSpecialty(Guid doctorId)
+	{
+		var doctor = _doctorService.GetDoctor(doctorId);
+
+		var specialty = _specialtyService.GetSpecialty(doctor.DepartmentId);
+
+		return specialty;
+	}
+
+	public IActionResult AppointmentDetails(Guid id)
     {
         var appointment = _appointmentService.GetAppointment(id);
 

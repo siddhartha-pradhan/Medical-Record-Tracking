@@ -16,17 +16,14 @@ public class CartController : Controller
     private readonly IPatientService _patientService;
     private readonly ITestCartService _testCartService;
     private readonly ITestService _testService;
-    private readonly IEmailSender _emailSender;
 
     public CartController(ITestCartService testCartService,
         IPatientService patientService,
-        ITestService testService,
-        IEmailSender emailSender)
+        ITestService testService)
     {
         _testCartService = testCartService;
         _patientService = patientService;
         _testService = testService;
-        _emailSender = emailSender;
     }
 
     #region Razor Pages

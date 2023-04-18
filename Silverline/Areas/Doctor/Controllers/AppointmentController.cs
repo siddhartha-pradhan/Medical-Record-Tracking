@@ -62,7 +62,7 @@ public class AppointmentController : Controller
 
         var doctor = _doctorService.GetAllDoctors().Where(x => x.UserId == claim.Value).FirstOrDefault();
 
-        var appointments = _appointmentService.GetAllBookedAppointment(doctor.Id);
+        var appointments = _appointmentService.GetAllBookedAppointment(doctor.Id).OrderByDescending(x => x.BookedDate);
 
         var appoint = new List<AppointmentsViewModel>();
 
@@ -82,7 +82,7 @@ public class AppointmentController : Controller
                 PatientImage = user.ProfileImage,
                 PatientName = user.FullName,
                 PatientRequest = appointment.AppointmentRequest
-            });; ; 
+            });
         }
 
         return View(appoint);
@@ -120,11 +120,9 @@ public class AppointmentController : Controller
             PatientAge = DateTime.Today.Year - patient.DateOfBirth.Year,
             PatientName = user.FullName,
         };
-
         appointment.StartTime = DateTime.Now;
         appointmentVM.Appointment.MedicalTreatments.Add(new() { Id = Guid.NewGuid() });
         appointmentVM.Appointment.LaboratoryDiagnosis.Add(new() { Id = Guid.NewGuid() });
-
         _unitOfWork.Save();
 
 		return View(appointmentVM);

@@ -7,6 +7,7 @@ using Silverline.Infrastructure.Implementation.Services;
 using Silverline.Core.ViewModels;
 using Microsoft.CodeAnalysis;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Silverline.Areas.Pharmacist.Controllers;
 
@@ -23,7 +24,7 @@ public class PrescriptionController : Controller
 	private readonly IAppUserService _appUserService;
 	private readonly IPharmacistService _pharmacistService;
 
-	public PrescriptionController(IMedicineService medicineService,
+    public PrescriptionController(IMedicineService medicineService,
 		IPatientService patientService,
 		IDoctorService doctorService,
 		IAppointmentDetailService appointmentDetailService,
@@ -40,11 +41,9 @@ public class PrescriptionController : Controller
 		_appUserService = appUserService;
 		_medicalTreatmentService = medicalTreatmentService;
 		_pharmacistService = pharmacistService;
+    }
 
-
-	}
-
-	private Appointment Appointment(Guid Id)
+    private Appointment Appointment(Guid Id)
 	{
 		var appointmentDetail = _appointmentDetailService.GetAppointmentDetail(Id);
 

@@ -22,6 +22,7 @@ public class DiagnosisController : Controller
 	private readonly ILabDiagnosisService _labDiagnosisService;
 	private readonly IAppUserService _appUserService;
 	private readonly ILabTechnicianService _technicianService;
+	private readonly ITestCartService _testCartService;
 
 	public DiagnosisController(ITestService testService, 
 		IPatientService patientService, 
@@ -30,7 +31,8 @@ public class DiagnosisController : Controller
 		IAppointmentService appointmentService,
         ILabDiagnosisService labDiagnosisService,
         IAppUserService appUserService,
-		ILabTechnicianService technicianService)
+		ILabTechnicianService technicianService,
+        ITestCartService testCartService)
 	{
 		_testService = testService;
 		_patientService = patientService;
@@ -40,9 +42,8 @@ public class DiagnosisController : Controller
         _appUserService = appUserService;
 		_labDiagnosisService = labDiagnosisService;
 		_technicianService = technicianService;
-
-
-	}
+		_testCartService = testCartService;
+    }
 
 	private Appointment Appointment(Guid Id)
 	{
@@ -53,7 +54,7 @@ public class DiagnosisController : Controller
 		return appointment;
 	}
 
-	private AppUser AppUser(string Id)
+    private AppUser AppUser(string Id)
 	{
 		var user = _appUserService.GetUser(Id);
 
@@ -167,8 +168,32 @@ public class DiagnosisController : Controller
 
 	public IActionResult Requested()
 	{
-		return View();
-	}
+		var diagnosis = _testCartService.GetAllTestCarts().Select(x => new LabDiagnosisViewModel
+						{
+							Id = x.Id,
+							TestId = x.TestId,
+							PatientId = x.PatientId,
+							PatientImage = AppUser(_patientService.GetPatient(x.PatientId).UserId).ProfileImage,
+							TestName = _testService.GetDiagnosticTest(x.TestId).Title,
+							TestRange = $"{_testService.GetDiagnosticTest(x.TestId).InitialRange} - {_testService.GetDiagnosticTest(x.TestId).FinalRange}",
+							Unit = _testService.GetDiagnosticTest(x.TestId).Unit,
+						}).OrderByDescending(x => x.FinalizedDate).ToList();
+
+        var detail = (from record in diagnosis
+                      group record by new
+                      {
+                          record.PatientName,
+                          record.PatientImage,
+                      } into patient
+                      select new DiagnosisViewModel()
+                      {
+                          PatientName = patient.Key.PatientName,
+                          PatientImage = patient.Key.PatientImage,
+                          LaboratoryDiagnosis = patient.ToList(),
+                      }).ToList();
+
+		return View(detail);
+    }
 
 	#region API Calls
 	[HttpPost]	

@@ -1,7 +1,7 @@
 ﻿@model List<Silverline.Core.ViewModels.DoctorViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Doctors Index";
 }
 
 <div class="pt-2 ml-4 pl-3">
@@ -26,6 +26,9 @@
                             </div>
                             <div class="row p-lg-2">
                                 <b>@item.Specialty</b>
+                            </div>
+                            <div class="row p-lg-2">
+                                <i>@item.HighestMedicalDegree</i>
                             </div>
                         </div>
                         <div>

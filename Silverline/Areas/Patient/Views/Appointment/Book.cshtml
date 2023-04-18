@@ -53,7 +53,7 @@
                     <div class="col-4">
                     </div>
                     <div class="col-8 mb-4">
-                        <button type="submit" class="btn btn-dark form-control">Book</button>
+                        <button class="btn btn-dark form-control">Book</button>
                     </div>
                 </div>
 
@@ -78,13 +78,23 @@
 
 @section Scripts{
     <script>
-            ClassicEditor
-                .create( document.querySelector( '#editor' ) )
-                .then( editor => {
-                        console.log( editor );
-                } )
-                .catch( error => {
-                        console.error( error );
-                } );
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .then( editor => {
+                    console.log( editor );
+            } )
+            .catch( error => {
+                    console.error( error );
+            } );
+
+            function ValidateInput() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid Date',
+                    text: 'Please choose a date and time greater than today.'
+                });
+                return false;
+                   
+            }
     </script>
 }

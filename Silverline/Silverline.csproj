@@ -39,6 +39,7 @@
     <Compile Include="Areas\Patient\Controllers\LabTestController.cs" />
     <Compile Include="Areas\Patient\Controllers\MedicalRecordController.cs" />
     <Compile Include="Areas\Patient\Controllers\TestController.cs" />
+    <Compile Include="Areas\Patient\Controllers\TreatmentController.cs" />
     <Compile Include="Areas\Pharmacist\Controllers\HomeController.cs" />
     <Compile Include="Areas\Pharmacist\Controllers\PrescriptionController.cs" />
   </ItemGroup>
@@ -138,6 +139,8 @@
     <None Include="Areas\Patient\Views\Home\Index.cshtml" />
     <None Include="Areas\Patient\Views\LabTest\Index.cshtml" />
     <None Include="Areas\Patient\Views\MedicalRecord\Index.cshtml" />
+    <None Include="Areas\Patient\Views\Treatment\LabDiagnosis.cshtml" />
+    <None Include="Areas\Patient\Views\Treatment\Medications.cshtml" />
     <None Include="Areas\Pharmacist\Views\Home\Index.cshtml" />
     <None Include="Areas\Pharmacist\Views\Prescription\Details.cshtml" />
     <None Include="Areas\Pharmacist\Views\Prescription\History.cshtml" />

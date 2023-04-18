@@ -1,15 +1,18 @@
 ﻿@model IEnumerable<Silverline.Core.ViewModels.DoctorViewModels>
 
+@{
+	ViewData["Title"] = "List of Doctors";
+}
 <partial name="_Notification" />
 
 <div class="pt-2 ml-4 pl-3">
-	<h1>Patients Index</h1>
+	<h1>Doctors Index</h1>
 </div>
 
 <div class="container-fluid" style="width: 95%">
 	<div class="row mb-3">
 		<div class="col-6">
-			<h2 class="text-primary">List of Lab Technicians</h2>
+			<h2 class="text-primary">List of Doctors</h2>
 		</div>
 		<div class="col-6 text-right">
 			<a class="btn btn-dark" asp-action="Upsert"><i class="fa-solid fa-plus"></i> &nbsp; Add a new Lab Technician</a>
