@@ -170,7 +170,7 @@ public class PrescriptionController : Controller
 		return View(detail);
 	}
 
-	#region API Calls
+    #region API Calls
 	[HttpPost]
 	public IActionResult Details(PrescriptionDetailViewModel detailViewModel)
 	{

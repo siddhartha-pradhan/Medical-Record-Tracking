@@ -37,4 +37,6 @@ public class LabDiagnosisViewModel
 	public string DoctorRemarks { get; set; }
 
 	public DateTime? FinalizedDate { get; set; }
+
+	public DateTime AppointmentDate { get; set; }
 }

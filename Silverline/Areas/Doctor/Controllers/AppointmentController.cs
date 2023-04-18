@@ -62,7 +62,7 @@ public class AppointmentController : Controller
 
         var doctor = _doctorService.GetAllDoctors().Where(x => x.UserId == claim.Value).FirstOrDefault();
 
-        var appointments = _appointmentService.GetAllBookedAppointment(doctor.Id).OrderByDescending(x => x.BookedDate);
+        var appointments = _appointmentService.GetAllBookedAppointment(doctor.Id).OrderBy(x => x.BookedDate);
 
         var appoint = new List<AppointmentsViewModel>();
 

@@ -102,7 +102,11 @@ function importEmployees() {
         dataType: "text",
         data: { medicalRecords: records },
         success: function (result) {
-            alert("Values successfully added.");
+            Swal.fire({
+                icon: 'success',
+                title: 'Import Completed',
+                text: 'Your medical records have been successfully entered to the system.'
+            })
         },
         error: function (errorMessage) {
             alert(errorMessage.responseText);

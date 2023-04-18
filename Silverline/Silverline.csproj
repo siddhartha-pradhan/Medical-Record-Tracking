@@ -103,6 +103,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Silverline.Application\Silverline.Application.csproj" />
+    <ProjectReference Include="..\Silverline.Core\Silverline.Core.csproj" />
     <ProjectReference Include="..\Silverline.Infrastructure\Silverline.Infrastructure.csproj" />
   </ItemGroup>
 

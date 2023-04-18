@@ -73,12 +73,14 @@ public class DiagnosisController : Controller
 							TestRange = $"{_testService.GetDiagnosticTest(x.TestId).InitialRange} - {_testService.GetDiagnosticTest(x.TestId).FinalRange}",
 							Unit = _testService.GetDiagnosticTest(x.TestId).Unit,
 							DoctorId = (_doctorService.GetDoctor(Appointment(x.ReferralId).DoctorId)).Id,
+							FinalizedDate = x.FinalizedDate,
 							DoctorName = AppUser(_doctorService.GetDoctor(Appointment(x.ReferralId).DoctorId).UserId).FullName,
 							DoctorRemarks = x.DoctorRemarks,
 							PatientImage = AppUser(_patientService.GetPatient(Appointment(x.ReferralId).PatientId).UserId).ProfileImage,
                             PatientId = _patientService.GetPatient(Appointment(x.ReferralId).PatientId).Id,
-							PatientName = AppUser(_patientService.GetPatient(Appointment(x.ReferralId).PatientId).UserId).FullName
-						}).ToList();
+							PatientName = AppUser(_patientService.GetPatient(Appointment(x.ReferralId).PatientId).UserId).FullName,
+							AppointmentDate = Appointment(x.ReferralId).FinalizedTime
+                        }).OrderBy(x => x.AppointmentDate).ToList();
 
 		var detail = (from record in diagnosis
                       group record by new
@@ -195,8 +197,17 @@ public class DiagnosisController : Controller
 		return View(detail);
     }
 
-	#region API Calls
-	[HttpPost]	
+    #region API Calls
+    public IActionResult Download()
+    {
+        var fileName = "[Siddhartha (Patient 1)] - Laboratory Diagnosis.pdf";
+        var filePath = string.Format("{0}/{1}", "wwwroot/excel", fileName);
+        var excelFile = $"[Siddhartha (Patient 1)] - Laboratory Diagnosis.pdf";
+        var streamFile = System.IO.File.OpenRead(filePath);
+        return new FileStreamResult(streamFile, "application/vnd.ms-excel") { FileDownloadName = excelFile };
+    }
+
+    [HttpPost]	
 	public IActionResult Details(DiagnosisDetailViewModel detailViewModel)
 	{
 		var result = detailViewModel.LaboratoryDiagnosis;
