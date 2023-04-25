@@ -7,6 +7,8 @@ using Silverline.Core.Entities;
 using Silverline.Application.Interfaces.Repositories;
 using Silverline.Infrastructure.Implementation.Services;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Hosting;
+//using Microsoft.Reporting.WebForms;
 
 namespace Silverline.Areas.LabTechnician.Controllers;
 
@@ -23,8 +25,9 @@ public class DiagnosisController : Controller
 	private readonly IAppUserService _appUserService;
 	private readonly ILabTechnicianService _technicianService;
 	private readonly ITestCartService _testCartService;
+    private readonly IWebHostEnvironment _webHostEnvironment;
 
-	public DiagnosisController(ITestService testService, 
+    public DiagnosisController(ITestService testService, 
 		IPatientService patientService, 
 		IDoctorService doctorService, 
 		IAppointmentDetailService appointmentDetailService, 
@@ -32,7 +35,8 @@ public class DiagnosisController : Controller
         ILabDiagnosisService labDiagnosisService,
         IAppUserService appUserService,
 		ILabTechnicianService technicianService,
-        ITestCartService testCartService)
+        ITestCartService testCartService,
+        IWebHostEnvironment webHostEnvironment)
 	{
 		_testService = testService;
 		_patientService = patientService;
@@ -43,6 +47,7 @@ public class DiagnosisController : Controller
 		_labDiagnosisService = labDiagnosisService;
 		_technicianService = technicianService;
 		_testCartService = testCartService;
+		_webHostEnvironment = webHostEnvironment;
     }
 
 	private Appointment Appointment(Guid Id)
@@ -198,14 +203,6 @@ public class DiagnosisController : Controller
     }
 
     #region API Calls
-    public IActionResult Download()
-    {
-        var fileName = "[Siddhartha (Patient 1)] - Laboratory Diagnosis.pdf";
-        var filePath = string.Format("{0}/{1}", "wwwroot/excel", fileName);
-        var excelFile = $"[Siddhartha (Patient 1)] - Laboratory Diagnosis.pdf";
-        var streamFile = System.IO.File.OpenRead(filePath);
-        return new FileStreamResult(streamFile, "application/vnd.ms-excel") { FileDownloadName = excelFile };
-    }
 
     [HttpPost]	
 	public IActionResult Details(DiagnosisDetailViewModel detailViewModel)

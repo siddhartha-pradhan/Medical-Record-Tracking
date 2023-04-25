@@ -30,15 +30,6 @@ public class MedicalRecordController : Controller
         return View();
     }
 
-    public IActionResult Download()
-    {
-        var fileName = ExcelTemplate();
-        var filePath = string.Format("{0}/{1}", _webHostEnvironment.WebRootPath, fileName);
-        var excelFile = $"[Siddhartha (Patient 1)] - Medical Records.xlsx";
-        var streamFile = System.IO.File.OpenRead(filePath);
-        return new FileStreamResult(streamFile, "application/vnd.ms-excel") { FileDownloadName = excelFile };
-    }
-
     public IActionResult Export()
     {
         var fileName = ExcelTemplate();
