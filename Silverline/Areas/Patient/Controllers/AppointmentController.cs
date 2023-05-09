@@ -6,6 +6,7 @@ using Silverline.Core.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Silverline.Application.Interfaces.Services;
 using Silverline.Application.Interfaces.Repositories;
+using Microsoft.AspNetCore.Identity;
 
 namespace Silverline.Areas.Patient.Controllers;
 
@@ -24,7 +25,7 @@ public class AppointmentController : Controller
     private readonly IMedicineService _medicineService;
     private readonly ITestService _testService;
     private readonly IMedicalRecordService _medicalRecordService;
-
+    private readonly UserManager<IdentityUser> _userManager;
 	public AppointmentController(IAppUserService appUserService, 
         IDoctorService doctorService, 
         ISpecialtyService specialtyService, 
@@ -257,6 +258,7 @@ public class AppointmentController : Controller
     {
         var claimsIdentity = (ClaimsIdentity)User.Identity;
         var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
         var patient = _patientService.GetAllPatients().Where(x => x.UserId == claim.Value).FirstOrDefault();
 
         var result = (from record in _medicalRecordService.GetAllMedicalRecords(patient.Id).ToList()

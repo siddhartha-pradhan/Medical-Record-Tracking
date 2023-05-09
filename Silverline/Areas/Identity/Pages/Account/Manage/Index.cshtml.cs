@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Silverline.Application.Interfaces.Repositories;
 using Silverline.Application.Interfaces.Services;
 using Silverline.Infrastructure.Implementation.Services;
-using static NuGet.Packaging.PackagingConstants;
 
 namespace Silverline.Areas.Identity.Pages.Account.Manage
 {

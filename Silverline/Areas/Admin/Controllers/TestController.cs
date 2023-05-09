@@ -55,8 +55,6 @@ public class TestController : Controller
 	{
 		var test = new DiagnosticTest();
 
-		var tests = _testService.GetAllDiagnosticTests().AsQueryable().Include(x => x.TestType).ToList();
-
         if (id == null)
 		{
 			ViewBag.ClassId = new SelectList(_testTypeService.GetAllTestTypes(), "Id", "Name");
