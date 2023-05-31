@@ -35,27 +35,13 @@ public class ApplicationDbContext : IdentityDbContext
 
     public DbSet<Medicine> Medicines { get; set; }
 
-    public DbSet<MedicineCart> MedicineCarts { get; set; }
-
-    public DbSet<OrderDetail> OrderDetails { get; set; }
-
-    public DbSet<OrderHeader> OrderHeader { get; set; }
-
     public DbSet<Patient> Patients { get; set; }
 
     public DbSet<Pharmacist> Pharmacists { get; set; }
 
-    public DbSet<RecordDetail> RecordDetails { get; set; }
-
-    public DbSet<RecordHeader> RecordHeaders { get; set; }
-
     public DbSet<Specialty> Specialties { get; set; }
 
     public DbSet<TestCart> TestCarts { get; set; }
-
-    public DbSet<TestDetail> TestDetails { get; set; }
-
-    public DbSet<TestHeader> TestHeaders { get; set; }
 
     public DbSet<TestType> TestTypes { get; set; }
 

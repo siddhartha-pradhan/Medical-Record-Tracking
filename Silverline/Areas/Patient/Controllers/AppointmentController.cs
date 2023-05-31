@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Silverline.Application.Interfaces.Services;
 using Silverline.Application.Interfaces.Repositories;
 using Microsoft.AspNetCore.Identity;
+using System.Globalization;
+using Microsoft.AspNetCore.Http;
 
 namespace Silverline.Areas.Patient.Controllers;
 
@@ -310,4 +312,20 @@ public class AppointmentController : Controller
         return RedirectToAction("Booking");
     }
     #endregion
+
+    public JsonResult AppointmentDate(string appointmentDate, Guid doctorId)
+    {
+		CultureInfo provider = CultureInfo.InvariantCulture;
+
+        var date = DateTime.ParseExact(appointmentDate, "MM/dd/yyyy", provider);
+
+        var x = _appointmentService.GetAllBookedAppointments().Where(x => x.BookedDate.Date == date.Date);
+
+        var appointments = _appointmentService.GetAllBookedAppointments()
+            .Where(x => x.BookedDate.Date == date.Date && x.DoctorId == doctorId)
+            .Select(x => x.BookedDate)
+            .ToList();
+
+		return Json(appointments);
+    }
 }

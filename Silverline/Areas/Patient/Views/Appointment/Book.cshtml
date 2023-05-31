@@ -14,12 +14,12 @@
 		<div class="row">
 			<div class="col-md-8">
 				<div class="form-group row">
-					<input asp-for="Appointment.DoctorId" class="form-control" hidden/>
+					<input asp-for="Appointment.DoctorId" id="doctorId" class="form-control" hidden/>
 					<input asp-for="Appointment.PatientId" class="form-control" hidden/>
 					<div class="col-4">
 						<label asp-for="PatientName"></label>
 					</div>
-					<div class="col-8 mb-4">
+					<div class="col-8 mb-2">
 						<input asp-for="PatientName" class="form-control" disabled/>
 					</div>
 				</div>
@@ -27,24 +27,24 @@
 					<div class="col-4">
 						<label asp-for="Age"></label>
 					</div>
-					<div class="col-8 mb-4">
+					<div class="col-8 mb-2">
 						<input asp-for="Age" class="form-control" disabled/>
 					</div>
 				</div>
-				<div class="form-group row">
+				<div class="form-group row mb-4">
 					<div class="col-4">
 						<label asp-for="Appointment.AppointmentRequest"></label>
 					</div>
-					<div class="col-8 mb-4">
+					<div class="col-8">
 						<textarea asp-for="Appointment.AppointmentRequest" class="form-control" id="editor"></textarea>
 						<span asp-validation-for="Appointment.AppointmentRequest" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<div class="col-4">
-						<label asp-for="PaymentStatus" class="form-label mt-4"></label>
+						<label asp-for="PaymentStatus" class="form-label"></label>
 					</div>
-					<div class="col-8 mt-3 mb-4">
+					<div class="col-8 mb-2">
 						<select asp-for="PaymentStatus" class="form-control">
 							<option disabled selected>Choose your option</option>
 							<option value="Yes">Yes</option>
@@ -56,9 +56,22 @@
 					<div class="col-4">
 						<label asp-for="Appointment.DateOfAppointment" class="form-label mt-4"></label>
 					</div>
-					<div class="col-8 mt-3 mb-4">
-						<input asp-for="Appointment.DateOfAppointment" class="form-control mb-2" type="datetime-local" id="myDateTime" aria-required="true" />
+					<div class="col-8">
+						<input asp-for="Appointment.DateOfAppointment" onchange="SetAppointmentDate()" class="form-control mb-2" type="datetime-local" id="myDateTime" aria-required="true" />
 						<span asp-validation-for="Appointment.DateOfAppointment" class="text-danger mt-3"></span>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-12">
+						<label class="form-label text-danger"><i>Note: Please select a favourable period to avoid collisions</i></label>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-4">
+						<label class="form-label mt-4">Booked Time Period</label>
+					</div>
+					<div class="col-8 mt-3 mb-4">
+						<input type="text" class="form-control" id="setAvailability" disabled>
 					</div>
 				</div>
 				<div class="form-group row">
@@ -90,6 +103,13 @@
 
 @section Scripts{
 	<script>
+		var time = 0;
+		var blockDates = [];
+
+		$( document ).ready(function() {
+			$("#setAvailability").val('Select a date first');
+		});
+
 		ClassicEditor
 			.create( document.querySelector( '#editor' ) )
 			.then( editor => {
@@ -100,15 +120,6 @@
 			} );
 
 		function ValidateInput() {
-			//Swal.fire({
-			//	icon: 'error',
-			//	title: 'Invalid Date',
-			//	text: 'Please choose a date and time greater than today.'
-			//});
-			//return false;
-			//console.log($("#formattedDate").val());
-			//return false;
-
 			var now = new Date();
 			var year = now.getFullYear().toString().padStart(4, '0');
 			var month = (now.getMonth() + 1).toString().padStart(2, '0');
@@ -117,6 +128,11 @@
 			var minutes = now.getMinutes().toString().padStart(2, '0');
 			var formattedDate = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
 			var appointedDate = $("#myDateTime").val();
+			var dateBooking = new Date(appointedDate);
+			var hourBooking = dateBooking.getHours();
+			var minuteBooking = dateBooking.getMinutes();
+
+			var totalMinsBooking = hourBooking * 60 + minuteBooking
 
 			if(appointedDate < formattedDate){
 				Swal.fire({
@@ -124,11 +140,71 @@
 					title: 'Invalid Appointment Date',
 					text: 'Please choose a date and time greater than today.'
 				});
-
 				return false;
 			}
-			return true;
+			else if(totalMinsBooking < 600 || totalMinsBooking > 1020){
+				Swal.fire({
+					icon: 'error',
+					title: 'Invalid Appointment Time',
+					text: 'Please choose a time between 8AM and 5PM.'
+				});
+				return false;
+			}
+			else {
+				console.log(blockDates);
+				for(let i = 0; i < blockDates.length; i++){
+					console.log(totalMinsBooking);
+					if(totalMinsBooking >= blockDates[i] && totalMinsBooking <= blockDates[i] + 15){
+						Swal.fire({
+							icon: 'error',
+							title: 'Time Collision',
+							text: 'Please choose a time that does not collide with other appointments.'
+						});
+						return false;
+					} 
+				}
+			}
+			
+			return false;
 
+		}
+
+		function SetAppointmentDate(){
+			var doctorId = $("#doctorId").val();
+			var appointmentDate = $("#myDateTime").val();
+			var date = appointmentDate.split('T')[0];
+			var parts = date.split("-");
+			var formattedDate = parts[1] + "/" + parts[2] + "/" + parts[0];
+
+			$.ajax({
+				type: 'GET',
+				dataType: 'JSON',
+				url: '/Patient/Appointment/AppointmentDate',
+				data: { appointmentDate: formattedDate, doctorId: doctorId },
+				success: function (data) {
+					if(data.length > 0){
+						const datePeriods = []
+						for (let i = 0; i < data.length; i++) {
+							var dateObj = new Date(data[i])
+							var hour = dateObj.getHours();
+							var minute = dateObj.getMinutes();
+							var timeString = "".concat(hour, ":", minute);
+							datePeriods[i] = timeString
+							blockDates[i] = hour * 60 + minute;
+						}
+						console.log(blockDates);
+						console.log("Hello Worlding");
+						var timeString = datePeriods.join(', ');
+						$("#setAvailability").val(timeString);
+					}
+					else {
+						$("#setAvailability").val('No appointment collisions during the working hours.');
+					}
+				},
+				error: function (responce) {
+					console.log("Hello World")
+				}
+			});
 		}
 
 		$(document ).ready(function() {

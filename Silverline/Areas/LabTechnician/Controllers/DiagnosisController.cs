@@ -236,7 +236,7 @@ public class DiagnosisController : Controller
 							Id = x.Id,
 							TestId = x.TestId,
 							TestName = _testService.GetDiagnosticTest(x.TestId).Title,
-							TestRange = $"{_testService.GetDiagnosticTest(x.TestId).InitialRange} - {_testService.GetDiagnosticTest(x.TestId).FinalRange}",
+							TestRange = $"{_testService.GetDiagnosticTest(x.TestId).FinalRange} - {_testService.GetDiagnosticTest(x.TestId).InitialRange}",
 							Unit = _testService.GetDiagnosticTest(x.TestId).Unit,
 							Value = x.Value,
 							TechnicianRemarks = x.TechnicianRemarks,
@@ -304,5 +304,64 @@ public class DiagnosisController : Controller
 		return RedirectToAction("Requested");
 
     }
-	#endregion
+
+	public IActionResult Export(Guid patientId)
+	{
+        var tests = _testService.GetAllDiagnosticTests();
+        var patient = _patientService.GetPatient(patientId);
+        var user = _appUserService.GetAllUsers().Where(x => x.Id == patient.UserId).FirstOrDefault();
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+        var technician = _technicianService.GetAllLabTechnicians().Where(x => x.UserId == claim.Value).FirstOrDefault();
+        var appointments = _appointmentService.GetAllFinalizedAppointments().Where(x => x.PatientId == patientId).ToList();
+        var appointmentDetails = _appointmentDetailService.GetAllAppointments();
+        var labDiagnosis = _labDiagnosisService.GetAllLabDiagnosis().Where(x => x.TechnicianId == technician.Id);
+
+        var result = (from appointment in appointments
+					 join appointmentDetail in appointmentDetails
+						on appointment.Id equals appointmentDetail.AppointmentId
+					 join diagnosis in labDiagnosis
+						on appointmentDetail.Id equals diagnosis.ReferralId
+					 select new ReportViewModel
+					 {
+						 Name = user.FullName,
+						 DateOfBirth = patient.DateOfBirth.ToString("dd/MM/yyyy"),
+						 Test = _testService.GetDiagnosticTest(diagnosis.TestId).Title,
+						 Range = $"{_testService.GetDiagnosticTest(diagnosis.TestId).FinalRange} - {_testService.GetDiagnosticTest(diagnosis.TestId).InitialRange} {_testService.GetDiagnosticTest(diagnosis.TestId).Unit}"
+						 Result = $"{diagnosis.Value} {_testService.GetDiagnosticTest(diagnosis.TestId).Unit}",
+						 Remarks = diagnosis.TechnicianRemarks,
+						 FinalizedDate = diagnosis.FinalizedDate?.ToString("dd/MM/yyyy"),
+						 StaffName = _appUserService.GetAllUsers().Where(x => x.Id == technician.UserId).FirstOrDefault().FullName
+                     }).ToList();
+
+        return View();
+	}
+
+    public IActionResult Download(Guid patientId)
+    {
+        var tests = _testService.GetAllDiagnosticTests();
+        var patient = _patientService.GetPatient(patientId);
+        var user = _appUserService.GetAllUsers().Where(x => x.Id == patient.UserId).FirstOrDefault();
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+        var technician = _technicianService.GetAllLabTechnicians().Where(x => x.UserId == claim.Value).FirstOrDefault();
+		var carts = _testCartService.GetAllTestCarts().Where(x => x.ActionStatus == Constants.Completed);
+        
+        var result = (from cart in carts
+                      join test in tests
+                         on cart.TestId equals test.Id
+                      select new ReportViewModel
+                      {
+                          Name = user.FullName,
+                          DateOfBirth = patient.DateOfBirth.ToString("dd/MM/yyyy"),
+                          Test = _testService.GetDiagnosticTest(cart.TestId).Title,
+                          Range = $"{_testService.GetDiagnosticTest(cart.TestId).FinalRange} - {_testService.GetDiagnosticTest(cart.TestId).InitialRange} {_testService.GetDiagnosticTest(diagnosis.TestId).Unit}"
+                          Result = $"{cart.Value} {_testService.GetDiagnosticTest(cart.TestId).Unit}",
+                          Remarks = cart.TechnicianRemarks,
+                          FinalizedDate = cart.FinalizedDate.ToString("dd/MM/yyyy")
+                      }).ToList();
+
+        return View();
+    }
+    #endregion
 }
