@@ -6,7 +6,9 @@ public interface IAppointmentService
 {
     List<Appointment> GetAllFinalizedAppointmentsList();
 
-    List<Appointment> GetAllBookedAppointments();
+	List<Appointment> GetAllListAppointments();
+
+	List<Appointment> GetAllBookedAppointments();
 
     List<Appointment> GetAllFinalizedAppointments();
 
@@ -18,4 +20,7 @@ public interface IAppointmentService
 
     void BookAppointment(Appointment appointment);
 
+    void CancelAppointment(Guid Id);
+
+	void AddEmergencyAppointment(Appointment appointment);
 }

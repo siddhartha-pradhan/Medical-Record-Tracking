@@ -1,0 +1,102 @@
+﻿@model AddPatientViewModel
+
+@{
+    ViewData["Title"] = "Add a new Patient";
+}
+
+<div class="pt-2 ml-4 pl-3">
+	<h1>Addition of Patient</h1>
+</div>
+
+<div class="container-fluid" style="width:95%">
+	<form method="post" enctype="multipart/form-data">
+		<div class="row mt-4">
+			<div class="col-6">
+				<div class="form-group row mb-4">
+					<div class="col-5 mt-2">
+						<label asp-for="Name"></label>
+					</div>
+					<div class="col-7">
+						<input asp-for="Name" class="form-control"/>
+						<span asp-validation-for="Name" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-group row mb-4">
+					<div class="col-5 mt-2">
+						<label asp-for="PhoneNumber"></label>
+					</div>
+					<div class="col-7">
+						<input asp-for="PhoneNumber" class="form-control"/>
+						<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-group row mb-4">
+					<div class="col-5 mt-2">
+						<label asp-for="EmailAddress"></label>
+					</div>
+					<div class="col-7">
+						<input asp-for="EmailAddress" class="form-control"/>
+						<span asp-validation-for="EmailAddress" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-group row mb-4">
+					<div class="col-5 mt-2">
+						<label>Profile Image</label>
+					</div>
+					<div class="col-7">
+						<input type="file" name="image"  placeholder="Profile Image" class="custom-file-input" id="exampleInputFile" accept=".png,.jpg,.jpeg,.gif,.tif">
+						<label class="custom-file-label">Choose your Profile Image</label>
+					</div>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="form-group row mb-4">
+					<div class="col-5 mt-2">
+						<label asp-for="DateBirth"></label>
+					</div>
+					<div class="col-7 p-0">
+						<input asp-for="DateBirth" type="date" value="2002-07-12" class="form-control">
+						<span asp-validation-for="DateBirth" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-group row mb-4">
+					<div class="col-5 mt-2">
+						<label asp-for="Address"></label>
+					</div>
+					<div class="col-7">
+						<input asp-for="Address" class="form-control"/>
+						<span asp-validation-for="Address" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-group row mb-4">
+					<div class="col-5 mt-2">
+						<label asp-for="Street"></label>
+					</div>
+					<div class="col-7">
+						<input asp-for="Street" class="form-control"/>
+						<span asp-validation-for="Street" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-group row mb-5">
+					<div class="col-5">
+						<label hidden></label>
+					</div>
+					<div class="col-7">
+						<div class="row">
+							<div class="col-12">
+								<button type="submit" class="btn btn-dark form-control">Register</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/adminlte.min.js"></script>
+<script src="~/js/bs-custom-file-input.min.js"></script>
+<script src="~/js/inputmask.min.js"></script>
+<script src="~/js/jquery.inputmask.min.js"></script>

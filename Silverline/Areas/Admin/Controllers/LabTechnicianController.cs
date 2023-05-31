@@ -35,7 +35,7 @@ public class LabTechnicianController : Controller
                       {
 						  UserId = user.Id,
 						  LabTechnicianId = labTechnician.Id.ToString(),
-						  Image = user.ProfileImage,
+						  Image = user.ImageURL,
 						  ProfileImage = user.ImageURL,
 						  Name = user.FullName,
 						  PhoneNumber = user.PhoneNumber,
@@ -62,7 +62,7 @@ public class LabTechnicianController : Controller
 					  {
 						  UserId = user.Id,
 						  LabTechnicianId = labTechnician.Id.ToString(),
-						  Image = user.ProfileImage,
+						  Image = user.ImageURL,
 						  ProfileImage = user.ImageURL,
 						  Name = user.FullName,
 						  PhoneNumber = user.PhoneNumber,
@@ -75,6 +75,29 @@ public class LabTechnicianController : Controller
 					  }).FirstOrDefault();
 
 		return View(result);
+	}
+
+	public IActionResult Lock(string id)
+	{
+		var user = _appUserService.GetUser(id);
+
+		_appUserService.LockUser(id);
+
+		TempData["Delete"] = $"{user.FullName} has been locked for 5 days.";
+
+		return RedirectToAction("Index");
+	}
+
+	public IActionResult Unlock(string id)
+	{
+		var user = _appUserService.GetUser(id);
+
+		_appUserService.UnlockUser(id);
+
+		TempData["Success"] = $"{user.FullName} has been unlocked and is now accessible to the system.";
+
+		return RedirectToAction("Index");
+
 	}
 	#endregion
 }

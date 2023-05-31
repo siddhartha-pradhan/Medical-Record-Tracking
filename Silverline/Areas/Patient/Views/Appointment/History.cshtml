@@ -18,7 +18,7 @@
 						<div class="row">
 							<div class="col-4">
 								<div class="row mb-2">
-									<img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="data:image/*;base64,@(Convert.ToBase64String(item.DoctorImage))">
+									<img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="@item.DoctorImage">
 								</div>
 								<div class="row justify-content-center">
 									<p class="text-center  h4 text-dark">@item.DoctorName</p>
@@ -33,56 +33,57 @@
 							<div class="col-8">
 								@foreach(var result in item.FinalizedAppointments)
 								{
-									<div class="row mt-2">
-										<div class="row">
-											<div class="col-auto">
-												<h3 class="row ml-3">
-													Appointment Request
-												</h3>
-												<div class="row mb-4 ml-3">
-													@Html.Raw(@result.RequestTitle)
-												</div>
-											</div>
-											<div class="col-auto ml-3">
-												<h3 class="row ml-3">
-													Booked Date
-												</h3>
-												<div class="row mb-4 ml-3">
-													@result.BookedDate
-												</div>
-											</div>
-											<div class="col-auto ml-3">
-												<h3 class="row ml-3">
-													Appointed Date
-												</h3>
-												<div class="row mb-4 ml-3">
-													@result.AppointedDate
-												</div>
+									
+									<div class="row">
+										<div class="col-auto">
+											<h3 class="row ml-3">
+												Appointment Request
+											</h3>
+											<div class="row mb-4 ml-3">
+												@Html.Raw(@result.RequestTitle)
 											</div>
 										</div>
-										<div class="row">
-											<div class="col-auto">
-												<h3 class="row ml-3 mr-5">
-													Diagnostic Title
-												</h3>
-												<div class="row mb-2 ml-3">
-													@result.DiagnosticTitle
-												</div>
+										<div class="col-auto ml-3">
+											<h3 class="row ml-3">
+												Booked Date
+											</h3>
+											<div class="row mb-4 ml-3">
+												@result.BookedDate
 											</div>
-											<div class="col-auto mr-4 ml-4">
-												<h3 class="row ml-4">
-													Description
-												</h3>
-												<div class="row mb-2 ml-lg-4">
-													@Html.Raw(@result.DiagnosticDescription)
-												</div>
+										</div>
+										<div class="col-auto ml-3">
+											<h3 class="row ml-3">
+												Appointed Date
+											</h3>
+											<div class="row mb-4 ml-3">
+												@result.AppointedDate
 											</div>
-											<div class="col-auto ml-5">
-												<div class="row mb-2 ml-lg-5">
-													<a asp-action="AppointmentDetails" class="btn btn-dark form-control" asp-route-id="@result.AppointmentId">
-														Appointment Details
-													</a>
-												</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-auto">
+											<h3 class="row ml-3 mr-5">
+												Diagnostic Title
+											</h3>
+											<div class="row mb-2 ml-3">
+												@result.DiagnosticTitle
+											</div>
+										</div>
+										<div class="col-auto mr-4 ml-4">
+											<h3 class="row ml-4">
+												Description
+											</h3>
+											<div class="row mb-2 ml-lg-4">
+												@Html.Raw(@result.DiagnosticDescription)
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-auto">
+											<div class="row mb-2 ml-lg-3">
+												<a asp-action="AppointmentDetails" class="btn btn-dark form-control" asp-route-id="@result.AppointmentId">
+													Appointment Details
+												</a>
 											</div>
 										</div>
 									</div>

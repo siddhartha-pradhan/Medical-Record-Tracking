@@ -36,6 +36,11 @@ public class AppointmentDetailService : IAppointmentDetailService
 
 		foreach (var item in appointment.MedicalTreatments)
         {
+            if(item.MedicineId == Guid.Empty)
+            {
+                break;
+            }
+
 			var medicationId = Guid.NewGuid();
 
             var medicineId = item.MedicineId.ToString().ToUpper();
@@ -50,6 +55,11 @@ public class AppointmentDetailService : IAppointmentDetailService
 
         foreach (var item in appointment.LaboratoryDiagnosis)
         {
+			if (item.TestId == Guid.Empty)
+			{
+				break;
+			}
+
 			var diagnosisId = Guid.NewGuid();
 			
             var sql = "INSERT INTO LaboratoryDiagnosis (Id, TestId, ReferralId, DoctorRemarks, Status, ActionStatus) " +

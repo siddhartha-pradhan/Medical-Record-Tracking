@@ -28,9 +28,9 @@ public class AppUserService : IAppUserService
 		return _unitOfWork.AppUser.GetAll().Where(x => x.UserName == email).FirstOrDefault().FullName;
 	}
 
-	public byte[] GetImage(string email)
+	public string GetImage(string email)
 	{
-		return _unitOfWork.AppUser.GetAll().Where(x => x.UserName == email).FirstOrDefault().ProfileImage;
+		return _unitOfWork.AppUser.GetAll().Where(x => x.UserName == email).FirstOrDefault().ImageURL;
 	}
 
     public void LockUser(string Id)
@@ -41,6 +41,7 @@ public class AppUserService : IAppUserService
         {
             user.LockoutEnabled = true;
             user.LockoutEnd = DateTime.Now.AddDays(5);
+            _unitOfWork.Save();
         }
     }
 
@@ -52,6 +53,7 @@ public class AppUserService : IAppUserService
         {
             user.LockoutEnabled = false;
             user.LockoutEnd = DateTime.Now;
-        }
-    }
+			_unitOfWork.Save();
+		}
+	}
 }

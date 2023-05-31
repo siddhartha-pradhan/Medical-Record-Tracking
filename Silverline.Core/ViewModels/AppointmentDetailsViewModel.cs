@@ -11,7 +11,7 @@ namespace Silverline.Core.ViewModels
 	{
 		public Guid AppointmentId { get; set; }
 
-		public byte[] DoctorImage { get; set; }
+		public string DoctorImage { get; set; }
 
 		public string DoctorName { get; set; }
 

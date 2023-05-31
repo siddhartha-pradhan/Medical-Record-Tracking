@@ -1,0 +1,163 @@
+﻿@model Silverline.Core.ViewModels.UserViewModel
+
+@{
+	ViewData["Title"] = "Add a new Staff";
+}
+
+<div class="pt-2 ml-4 pl-3">
+	<h1>Addition of Hospital Staff</h1>
+</div>
+
+<div class="container-fluid" style="width:95%">
+	<form method="post" enctype="multipart/form-data">
+		<div class="row mt-4">
+			<div class="col-6">
+				<div class="form-group row mb-4">
+					<div class="col-5 mt-2">
+						<label asp-for="Name"></label>
+					</div>
+					<div class="col-7">
+						<input asp-for="Name" class="form-control"/>
+						<span asp-validation-for="Name" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-group row mb-4">
+					<div class="col-5 mt-2">
+						<label asp-for="PhoneNumber"></label>
+					</div>
+					<div class="col-7">
+						<input asp-for="PhoneNumber" class="form-control"/>
+						<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-group row mb-4">
+					<div class="col-5 mt-2">
+						<label asp-for="Email"></label>
+					</div>
+					<div class="col-7">
+						<input asp-for="Email" class="form-control"/>
+						<span asp-validation-for="Email" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-group row mb-4">
+					<div class="col-5 mt-2">
+						<label asp-for="CertificationNumber"></label>
+					</div>
+					<div class="col-7">
+						<input asp-for="CertificationNumber" class="form-control"/>
+						<span asp-validation-for="CertificationNumber" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-group row mb-3">
+					<div class="col-5 mt-2">
+						<label asp-for="HighestMedicalDegree"></label>
+					</div>
+					<div class="col-7">
+						<select asp-for="HighestMedicalDegree" class="form-control" aria-required="true">
+							<option disabled selected>Medical Course</option>
+							<option value="Bachelor of Medicine, Bachelor of Surgery">Bachelor of Medicine, Bachelor of Surgery</option>
+							<option value="Bachelor of Dental Surgery">Bachelor of Dental Surgery</option>
+							<option value="Bachelor of Ayurveda, Medicine and Surgery">Bachelor of Ayurveda, Medicine and Surgery</option>
+							<option value="Bachelor of Homeopathic Medicine and Surgery">Bachelor of Homeopathic Medicine and Surgery</option>
+							<option value="BSc. Medical Technology">BSc. Medical Technology</option>
+							<option value="BSc. in Applied Health Sciences">BSc. in Applied Health Sciences</option>
+							<option value="Master of Surgery">Master of Surgery</option>
+							<option value="Doctor of Medicine">Doctor of Medicine</option>
+							<!---->
+							<option value="Bachelor of Pharmacy">Bachelor of Pharmacy</option>
+							<option value="Bachleor of Pharmaceutical Chemistry">Bachleor of Pharmaceutical Chemistry</option>
+							<option value="Bachelor of Pharmacy in Pharmacognosy">Bachelor of Pharmacy in Pharmacognosy</option>
+							<option value="Bachelor of Ayurvedic Pharmacy">Bachelor of Ayurvedic Pharmacy</option>
+							<option value="Master of Pharmacy">Master of Pharmacy</option>
+							<option value="Postgraduate on Clinical and Industrial Pharmacy">Postgraduate on Clinical and Industrial Pharmacy</option>
+							<!---->
+							<option value="B.Sc Medical Laboratory Technology">B.Sc Medical Laboratory Technology</option>
+							<option value="Proficiency in Laboratory Technology">Proficiency in Laboratory Technology</option>
+						</select>
+						<span asp-validation-for="HighestMedicalDegree" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-group row mb-4" id="Department" style="display: none">
+					<div class="col-5 mt-2">
+						<label asp-for="Speciality"></label>
+					</div>
+					<div class="col-7">
+						@Html.DropDownList("Speciality", (IEnumerable<SelectListItem>)ViewData["DepartmentId"], "Select a department", htmlAttributes: new { @class = "form-control dropdown" })
+						<span asp-validation-for="Speciality" class="text-danger"></span>
+
+					</div>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="form-group row mb-4">
+					<div class="col-5 mt-2">
+						<label>Staff Role</label>
+					</div>
+					<div class="col-7 p-0">
+						<select asp-for="Role" id="role" class="form-control select2" style="width: 100%;">
+							<option disabled selected="selected">User Role</option>
+							<option value="Doctor">Doctor</option>
+							<option value="LabTechnician">Lab Technician</option>
+							<option value="Pharmacist">Pharmacist</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group row mb-4">
+					<div class="col-5 mt-2">
+						<label>Resume</label>
+					</div>
+					<div class="col-7">
+						<input type="file" name="resume" class="custom-file-input form-control" id="exampleInputFile" onchange="readURL(this);" accept="application/pdf" />
+						<label class="custom-file-label">Choose your Resume</label>
+					</div>
+				</div>
+				<div class="form-group row mb-4">
+					<div class="col-5 mt-2">
+						<label>Certification</label>
+					</div>
+					<div class="col-7">
+						<input type="file" name="certification" class="custom-file-input form-control" id="exampleInputFile" onchange="readURL(this);" accept="application/pdf" />
+						<label class="custom-file-label">Choose your Resume</label>
+					</div>
+				</div>
+				<div class="form-group row mb-4">
+					<div class="col-5 mt-2">
+						<label>Profile Image</label>
+					</div>
+					<div class="col-7">
+						<input type="file" name="image"  placeholder="Profile Image" class="custom-file-input" id="exampleInputFile" accept=".png,.jpg,.jpeg,.gif,.tif">
+						<label class="custom-file-label">Choose your Profile Image</label>
+					</div>
+				</div>
+				<div class="form-group row mb-5">
+					<div class="col-5">
+						<label hidden></label>
+					</div>
+					<div class="col-7">
+						<div class="row">
+							<div class="col-12">
+								<button type="submit" class="btn btn-dark form-control">Register</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+@section Scripts{
+	<script>
+		$(document).ready(function () {
+			$('#role').change(function () {
+				var selection = $('#role Option:Selected').val();
+				console.log(selection);
+				if (selection != 'Doctor') {
+					$('#Department').hide();
+				} else {
+					$('#Department').show();
+				}
+			});
+		})
+	</script>
+}

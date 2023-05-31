@@ -47,9 +47,6 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-widget="navbar-search" href="#" role="button">
-						<i class="fas fa-search"></i>
-					</a>
 					<div class="navbar-search-block">
 						<form class="form-inline">
 							<div class="input-group input-group-sm">
@@ -97,9 +94,11 @@
 						var name = UserService.GetUserName(username);
 						var image = UserService.GetImage(username);
 					}
-					<div class="image">
-						<img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(image))">
-					</div>
+					@if(@image != null){
+						<div class="image">
+							<img style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="@image">
+						</div>
+					}
 					<div class="info">
 						<a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="d-block">@name</a>
 					</div>
@@ -356,6 +355,34 @@
 									</p>
 								</a>
 							</li>
+
+							<li class="nav-item menu-close">
+								<a href="#" class="nav-link">
+									&nbsp; <i class="fas fa-vials"></i>
+									<p>
+										&nbsp; &nbsp; Requested Diagnosis
+										<i class="right fas fa-angle-left"></i>
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a asp-area="Patient" asp-controller="Diagnosis" asp-action="Booked" class="nav-link">
+											<p>
+												<i class="far fa-circle nav-icon"></i>
+												&nbsp; Booked 
+											</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a asp-area="Patient" asp-controller="Diagnosis" asp-action="Record" class="nav-link">
+											<p>
+												<i class="far fa-circle nav-icon"></i>
+													&nbsp; Record
+											</p>
+										</a>
+									</li>
+								</ul>
+							</li>
 						}
 						@if(User.IsInRole(Constants.Doctor))
 						{
@@ -367,13 +394,40 @@
 									</p>
 								</a>
 							</li>
-							<li class="nav-item">
-								<a asp-area="Doctor" asp-controller="Appointment" asp-action="Index" class="nav-link">
+							<li class="nav-item menu-close">
+								<a href="#" class="nav-link">
 									&nbsp; <i class="fas fa-user-md"></i>
 									<p>
 										&nbsp; &nbsp; Appointments
+										<i class="right fas fa-angle-left"></i>
 									</p>
 								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a asp-area="Doctor" asp-controller="Appointment" asp-action="Index" class="nav-link">
+											<p>
+												<i class="far fa-circle nav-icon"></i>
+												&nbsp; Today's 
+											</p>
+										</a>
+									</li>
+									<li class="nav-item">
+											<a asp-area="Doctor" asp-controller="Appointment" asp-action="Tomorrow" class="nav-link">
+											<p>
+												<i class="far fa-circle nav-icon"></i>
+												&nbsp; Tomorrow & So On
+											</p>
+										</a>
+									</li>
+									<li class="nav-item">
+											<a asp-area="Doctor" asp-controller="Appointment" asp-action="Emergency" class="nav-link">
+											<p>
+												<i class="far fa-circle nav-icon"></i>
+												&nbsp; Emergency
+											</p>
+										</a>
+									</li>
+								</ul>
 							</li>
 							<li class="nav-item">
 								<a asp-area="Doctor" asp-controller="Patient" asp-action="Index" class="nav-link">
@@ -429,6 +483,14 @@
 										</a>
 									</li>
 									<li class="nav-item">
+											<a asp-area="LabTechnician" asp-controller="Diagnosis" asp-action="History" class="nav-link">
+											<p>
+												<i class="far fa-circle nav-icon"></i>
+												&nbsp; History
+											</p>
+										</a>
+									</li>
+									<li class="nav-item">
 										<a asp-area="LabTechnician" asp-controller="Diagnosis" asp-action="Requested" class="nav-link">
 											<p>
 												<i class="far fa-circle nav-icon"></i>
@@ -437,11 +499,36 @@
 										</a>
 									</li>
 									<li class="nav-item">
-											<a asp-area="LabTechnician" asp-controller="Diagnosis" asp-action="History" class="nav-link">
+										<a asp-area="LabTechnician" asp-controller="Diagnosis" asp-action="Records" class="nav-link">
 											<p>
 												<i class="far fa-circle nav-icon"></i>
-												&nbsp; History
+													&nbsp; Records 
 											</p>
+										</a>
+									</li>
+									
+								</ul>
+							</li>
+
+							<li class="nav-item menu-close">
+								<a href="#" class="nav-link">
+										&nbsp; <i class="fas fa-vial"></i>
+									<p>
+										&nbsp; &nbsp; Laboratory
+										<i class="right fas fa-angle-left"></i>
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+											<a asp-area="LabTechnician" asp-controller="TestType" asp-action="Index" class="nav-link">
+											<i class="far fa-circle nav-icon"></i>
+											<p>Type</p>
+										</a>
+									</li>
+									<li class="nav-item">
+											<a asp-area="LabTechnician" asp-controller="Test" asp-action="Index" class="nav-link">
+											<i class="far fa-circle nav-icon"></i>
+											<p>Lab Tests</p>
 										</a>
 									</li>
 								</ul>
@@ -485,6 +572,36 @@
 									</li>
 								</ul>
 							</li>
+
+							<li class="nav-item menu-close">
+								<a href="#" class="nav-link">
+										&nbsp; <i class="fas fa-tablets"></i>
+									<p>
+										&nbsp; &nbsp; Pharmacy
+										<i class="right fas fa-angle-left"></i>
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a asp-area="Pharmacist" asp-controller="Manufacturer" asp-action="Index" class="nav-link">
+											<i class="far fa-circle nav-icon"></i>
+											<p>Manufacturer</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a asp-area="Pharmacist" asp-controller="Category" asp-action="Index" class="nav-link">
+											<i class="far fa-circle nav-icon"></i>
+											<p>Category</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a asp-area="Pharmacist" asp-controller="Medicine" asp-action="Index" class="nav-link">
+											<i class="far fa-circle nav-icon"></i>
+											<p>Drugs</p>
+										</a>
+									</li>
+								</ul>
+							</li>
 						}
 					</ul>
 				</nav>
@@ -515,6 +632,7 @@
 	<script src="~/js/adminlte.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
 	<script src="~/js/tinymce/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://kit.fontawesome.com/1c1a57d0d0.js"></script>
 	<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
@@ -523,6 +641,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	<script lang="javascript" src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 	<script src="https://cdn.tiny.cloud/1/gt87d8xmi9qqycaz7hv57wuyzd7nlsjusj1zcf8hu8hyve0q/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.2.1/chartjs-plugin-zoom.min.js" integrity="sha512-klQv6lz2YR+MecyFYMFRuU2eAl8IPRo6zHnsc9n142TJuJHS8CG0ix4Oq9na9ceeg1u5EkBfZsFcV3U7J51iew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	@await Component.InvokeAsync("Notyf") 
 	@await RenderSectionAsync("Scripts", required: false)
 </body>

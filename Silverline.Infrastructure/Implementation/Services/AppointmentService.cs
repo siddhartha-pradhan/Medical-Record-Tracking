@@ -25,6 +25,21 @@ namespace Silverline.Infrastructure.Implementation.Services
             _unitOfWork.Save();
         }
 
+		public void AddEmergencyAppointment(Appointment appointment)
+        {
+			_unitOfWork.Appointment.Add(appointment);
+			_unitOfWork.Save();
+		}
+
+
+		public void CancelAppointment(Guid Id)
+        {
+            var appointment = _unitOfWork.Appointment.Get(Id);
+            
+            _unitOfWork.Appointment.Remove(appointment);
+            _unitOfWork.Save();
+        }
+
         public List<Appointment> GetAllAppointments(Guid Id)
         {
             return _unitOfWork.Appointment.GetAll().Where(x => x.DoctorId == Id).ToList();   
@@ -50,7 +65,12 @@ namespace Silverline.Infrastructure.Implementation.Services
             return _unitOfWork.Appointment.GetAll().Where(x => x.AppointmentStatus == Constants.Completed).ToList();
         }
 
-        public Appointment GetAppointment(Guid Id)
+		public List<Appointment> GetAllListAppointments()
+		{
+			return _unitOfWork.Appointment.GetAll();
+		}
+
+		public Appointment GetAppointment(Guid Id)
         {
             return _unitOfWork.Appointment.GetFirstOrDefault(x => x.Id == Id);  
         }

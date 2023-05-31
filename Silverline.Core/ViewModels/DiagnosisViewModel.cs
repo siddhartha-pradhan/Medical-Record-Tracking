@@ -6,7 +6,9 @@ public class DiagnosisViewModel
 
 	public string PatientName { get; set; }
 
-	public byte[] PatientImage { get; set; }
+	public string PatientImage { get; set; }
+
+	public string PaymentStatus { get; set; }
 
 	public List<LabDiagnosisViewModel> LaboratoryDiagnosis { get; set; }
 }

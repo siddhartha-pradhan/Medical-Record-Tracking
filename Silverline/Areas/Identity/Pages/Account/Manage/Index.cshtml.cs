@@ -50,7 +50,7 @@ namespace Silverline.Areas.Identity.Pages.Account.Manage
             public string PhoneNumber { get; set; }
 
             [Display(Name = "Profile Image")]
-            public byte[] ProfileImage { get; set; }
+            public string ProfileImage { get; set; }
         }
 
         private async Task LoadAsync(IdentityUser user)
@@ -58,7 +58,7 @@ namespace Silverline.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var appUser = _appUserService.GetUser(user.Id);
-            var image = appUser.ProfileImage;
+            var image = appUser.ImageURL;
 
             Username = userName;
 
@@ -109,7 +109,7 @@ namespace Silverline.Areas.Identity.Pages.Account.Manage
 
                 var fileName = $"{Guid.NewGuid().ToString()} - {appUser.FullName} [Updated]";
 
-                var uploads = Path.Combine(wwwRootPath, @$"images\users\{role}\");
+                var uploads = Path.Combine(wwwRootPath, @$"images\users\{role}s\");
 
                 var extension = Path.GetExtension(file.FileName);
 
@@ -124,7 +124,7 @@ namespace Silverline.Areas.Identity.Pages.Account.Manage
                     file.CopyTo(fileStreams);
                 }
 
-                appUser.ImageURL = @$"\images\users\{role}\" + fileName + extension;
+                appUser.ImageURL = @$"\images\users\{role}s\" + fileName + extension;
 
                 await _userManager.UpdateAsync(user);
             }

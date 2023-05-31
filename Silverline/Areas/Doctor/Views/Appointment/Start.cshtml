@@ -53,12 +53,12 @@
 					<table id="medicationTable" class="table table-striped">
 						<thead>
 							<tr>
-								<th>Medicine</th>
-								<th>Dose</th>
-								<th>Time Period</th>
-								<th>Time Format</th>
-								<th>Remarks</th>
-								<th>Options</th>
+								<th width="25%">Medicine</th>
+								<th width="15%">Dose</th>
+								<th width="15%">Time Period</th>
+								<th width="15%">Time Format</th>
+								<th width="20%">Remarks</th>
+								<th width="20%">Options</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -66,7 +66,7 @@
 							{
 								<tr>
 									<td>
-										@Html.DropDownListFor(x => x.Appointment.MedicalTreatments[i].MedicineId, Model.MedicineList, "Select a medicine", new { @class = "form-control" })
+										@Html.DropDownListFor(x => x.Appointment.MedicalTreatments[i].MedicineId, Model.MedicineList, "Select a medicine", new { @class = "form-control", @onchange = "this.options[0].disabled = true;" })
 									</td>
 									<td>
 										@Html.TextBoxFor(x => x.Appointment.MedicalTreatments[i].Dose, new { @class = "form-control" } )
@@ -106,9 +106,9 @@
 					<table id="testTable" class="table table-striped">
 						<thead>
 							<tr>
-								<th>Test Type</th>
-								<th>Remarks</th>
-								<th>Options</th>
+								<th width="40%">Test Type</th>
+								<th width="45%">Remarks</th>
+								<th width="9%">Options</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -116,7 +116,7 @@
 							{
 								<tr>
 									<td>
-										@Html.DropDownListFor(x => x.Appointment.LaboratoryDiagnosis[i].TestId, Model.LaboratoryTestList, "Select a test", new { @class = "form-control", @id = "test_" + @i })
+										@Html.DropDownListFor(x => x.Appointment.LaboratoryDiagnosis[i].TestId, Model.LaboratoryTestList, "Select a test", new { @class = "form-control", @id = "test_" + @i, @onchange = "this.options[0].disabled = true;" })
 									</td>
 									<td>
 										@Html.TextBoxFor(x => x.Appointment.LaboratoryDiagnosis[i].DoctorRemarks, new { @class = "form-control", @id = "testRemarks_" + @i } )
@@ -227,6 +227,7 @@
 
 		tinymce.init({
 			selector: 'textarea',
+			min_width: 50000
 		});
 
 

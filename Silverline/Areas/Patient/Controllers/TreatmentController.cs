@@ -92,7 +92,7 @@ public class TreatmentController : Controller
 
 		var medications = _medicineService.GetAllMedicines();
 
-		var medicalTreatments = _medicalTreatmentService.GetMedicationTreatments().Where(x => x.ActionStatus == Constants.Completed);
+		var medicalTreatments = _medicalTreatmentService.GetMedicationTreatments().Where(x => x.ActionStatus == Constants.Completed).OrderBy(x => x.Status);
 
 		var result = (from appointment in appointments
 					  join appointmentDetail in appointmentDetails
@@ -103,14 +103,23 @@ public class TreatmentController : Controller
 					  on diagnosis.MedicineId equals medicine.Id
 					  select new DiagnosisTreatmentViewModel
 					  {
+						  TreatmentId = diagnosis.Id,
 						  MedicineName = medicine.Name,
 						  Remarks = diagnosis.PharmacistRemarks,
 						  Dose = diagnosis.Dose,
 						  TimeFormat = diagnosis.TimeFormat,
 						  TimePeriod = diagnosis.TimePeriod,
-						  ReferredBy = _appUserService.GetUser(_doctorService.GetDoctor(appointment.DoctorId).UserId).FullName
-					  }).ToList();
+						  ReferredBy = _appUserService.GetUser(_doctorService.GetDoctor(appointment.DoctorId).UserId).FullName,
+						  Status = diagnosis.Status
+					  }).OrderByDescending(x => x.Status).ToList();
 
 		return View(result);
+	}
+
+	public IActionResult Complete(Guid treatmentId)
+	{
+		_medicalTreatmentService.CompleteCourse(treatmentId);
+		TempData["Success"] = "Medicational Course Successfully Completed";
+		return RedirectToAction("Medications");
 	}
 }

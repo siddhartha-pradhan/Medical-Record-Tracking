@@ -14,6 +14,14 @@ public class MedicalTreatmentService : IMedicalTreatmentService
 		_unitOfWork = unitOfWork;
 	}
 
+	public void CompleteCourse(Guid treatmentId)
+	{
+		var treatment = _unitOfWork.MedicalTreatment.Get(treatmentId);
+		treatment.Status = Constants.Completed;
+		treatment.IsCompleted = true;
+		_unitOfWork.Save();
+	}
+
 	public List<MedicationTreatment> GetMedicationTreatments()
 	{
 		var result = _unitOfWork.MedicalTreatment.GetAll();
@@ -31,7 +39,6 @@ public class MedicalTreatmentService : IMedicalTreatmentService
 			result.PharmacistId = treatment.PharmacistId;
 			result.FinalizedDate = DateTime.Now;
 			result.ActionStatus = Constants.Completed;
-			result.Status = Constants.Completed;
 		}
 
 		_unitOfWork.Save();

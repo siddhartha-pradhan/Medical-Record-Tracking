@@ -7,34 +7,40 @@ namespace Silverline.Infrastructure.Implementation.Services;
 
 public class LabDiagnosisService : ILabDiagnosisService
 {
-	private readonly IUnitOfWork _unitOfWork;
+    private readonly IUnitOfWork _unitOfWork;
 
-	public LabDiagnosisService(IUnitOfWork unitOfWork)
-	{
-		_unitOfWork = unitOfWork;
-	}
+    public LabDiagnosisService(IUnitOfWork unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+    }
 
-	public List<LaboratoryDiagnosis> GetAllLabDiagnosis()
-	{
-		var result = _unitOfWork.LabDiagnosis.GetAll();
+    public List<LaboratoryDiagnosis> GetAllLabDiagnosis()
+    {
+        var result = _unitOfWork.LabDiagnosis.GetAll();
 
-		return result;
-	}
+        return result;
+    }
+
+    public void AddLabDiagnosis(LaboratoryDiagnosis diagnosis)
+    {
+        _unitOfWork.LabDiagnosis.Add(diagnosis);
+        _unitOfWork.Save();
+    }
 
     public void UpdateLabDiagnosis(LaboratoryDiagnosis diagnosis)
     {
-		var result = _unitOfWork.LabDiagnosis.GetAll().Where(x => x.Id == diagnosis.Id).FirstOrDefault();
+        var result = _unitOfWork.LabDiagnosis.GetAll().Where(x => x.Id == diagnosis.Id).FirstOrDefault();
 
-		if(result != null)
-		{
-			result.Value = diagnosis.Value;
-			result.TechnicianRemarks = diagnosis.TechnicianRemarks;
-			result.TechnicianId = diagnosis.TechnicianId;
-			result.FinalizedDate = DateTime.Now;
-			result.ActionStatus = Constants.Completed;
-			result.Status = Constants.Completed;
-		}
+        if (result != null)
+        {
+            result.Value = diagnosis.Value;
+            result.TechnicianRemarks = diagnosis.TechnicianRemarks;
+            result.TechnicianId = diagnosis.TechnicianId;
+            result.FinalizedDate = DateTime.Now;
+            result.ActionStatus = Constants.Completed;
+            result.Status = Constants.Completed;
+        }
 
-		_unitOfWork.Save();
+        _unitOfWork.Save();
     }
 }

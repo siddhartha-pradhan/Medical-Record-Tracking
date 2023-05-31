@@ -12,7 +12,7 @@ public class ApprovalViewModel
 
     public string PhoneNumber { get; set; }
 
-    public byte[] ProfileImage { get; set; }
+    public string ProfileImage { get; set; }
 
     public string? Department { get; set; }
 

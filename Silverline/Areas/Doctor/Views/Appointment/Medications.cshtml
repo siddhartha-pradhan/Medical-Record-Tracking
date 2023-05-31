@@ -1,0 +1,79 @@
+﻿@model List<DiagnosisTreatmentViewModel>
+
+@{
+	ViewData["Title"] = "Medication Treatment";
+}
+
+<div class="pt-2 ml-4 pl-3 mb-4">
+	<h1>Medication Treatment</h1>
+</div>
+
+<div class="container-fluid" style="width: 95%">
+	<div class="row">
+		<div class="col-md-12">
+			@foreach (var item in Model)
+			{
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col">
+								<div class="row">
+									<div class="col-4">
+										<h3 class="row ml-3">
+											Medicine Name
+										</h3>
+										<div class="row mb-4 ml-3">
+												@item.MedicineName
+										</div>
+									</div>
+									<div class="col-4">
+										<h3 class="row ml-3">
+											Time Format
+										</h3>
+										<div class="row mb-4 ml-3">
+											@item.TimeFormat
+										</div>
+									</div>
+									<div class="col-4">
+										<h3 class="row ml-3">
+											Doctor Referral
+										</h3>
+										<div class="row mb-4 ml-3">
+											@item.ReferredBy
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-4">
+										<h3 class="row ml-3">
+											Dose 
+										</h3>
+										<div class="row mb-4 ml-3">
+											@item.Dose
+										</div>
+									</div>
+									<div class="col-4">
+										<h3 class="row ml-3">
+											Time Period
+										</h3>
+										<div class="row mb-4 ml-3">
+											@item.TimePeriod
+										</div>
+									</div>
+									<div class="col-4">
+										<h3 class="row ml-3">
+											Pharmacist Remarks
+										</h3>
+										<div class="row mb-4 ml-3">
+											@item.Remarks
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+		</div>			
+	</div>			
+</div>

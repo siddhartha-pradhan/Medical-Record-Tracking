@@ -15,9 +15,6 @@
 		<div class="col-6">
 			<h2 class="text-dark">List of Patients</h2>
 		</div>
-		<div class="col-6 text-right">
-			<a class="btn btn-dark" asp-action="Upsert"><i class="fa-solid fa-plus"></i> &nbsp; Add a new Patient</a>
-		</div>
 	</div>
 
 	<div class="p-2 border rounded">
@@ -29,7 +26,7 @@
 					<th class="text-center">Email Address</th>
 					<th class="text-center">State Address</th>
 					<th class="text-center">Date of Birth</th>
-					<th class="text-center">Credit Points</th>
+					<th class="text-center">Credit</th>
 					<th class="text-center">Options</th>
 				</tr>
 			</thead>
@@ -49,8 +46,9 @@
 							{
 								<input type="button" value="Unlock" class="btn btn-success btn-sm" onclick="location.href='@Url.Action("Unlock", "Patient", new { id = @item.UserId })'"/>
 							}
-							else {
-								<input type="button" value="Lock" class="btn btn-success btn-sm" onclick="location.href='@Url.Action("Lock", "Patient", new { id = @item.UserId })'"/>
+							else 
+							{
+								<input type="button" value="Lock" class="btn btn-danger btn-sm" onclick="location.href='@Url.Action("Lock", "Patient", new { id = @item.UserId })'"/>
 							}
 						</td>
 					</tr>

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Silverline.Application.Interfaces.Repositories;
 using Silverline.Application.Interfaces.Services;
 using Silverline.Core.Constants;
 using Silverline.Core.ViewModels;
@@ -41,7 +40,7 @@ public class DoctorController : Controller
                       {
                           UserId = user.Id,
                           DoctorId = doctor.Id.ToString(),
-                          Image = user.ProfileImage,
+                          Image = user.ImageURL,
                           ProfileImage = user.ImageURL,
                           Name = user.FullName,
                           PhoneNumber = user.PhoneNumber,
@@ -72,7 +71,7 @@ public class DoctorController : Controller
 					  {
 						  UserId = user.Id,
 						  DoctorId = doctor.Id.ToString(),
-						  Image = user.ProfileImage,
+						  Image = user.ImageURL,
 						  ProfileImage = user.ImageURL,
 						  Name = user.FullName,
 						  PhoneNumber = user.PhoneNumber,
@@ -87,5 +86,29 @@ public class DoctorController : Controller
 
 		return View(result);
 	}
+
+	public IActionResult Lock(string id)
+	{
+		var user = _appUserService.GetUser(id);
+
+		_appUserService.LockUser(id);
+
+		TempData["Delete"] = $"{user.FullName} has been locked for 5 days.";
+
+		return RedirectToAction("Index");
+	}
+
+	public IActionResult Unlock(string id)
+	{
+		var user = _appUserService.GetUser(id);
+
+		_appUserService.UnlockUser(id);
+
+		TempData["Success"] = $"{user.FullName} has been unlocked and is now accessible to the system.";
+
+		return RedirectToAction("Index");
+
+	}
+
 	#endregion
 }

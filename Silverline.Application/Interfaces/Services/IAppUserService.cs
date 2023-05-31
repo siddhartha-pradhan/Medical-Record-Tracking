@@ -6,7 +6,7 @@ public interface IAppUserService
 {
 	string GetUserName(string email);
 
-	byte[] GetImage (string email);
+	string GetImage (string email);
 
 	AppUser GetUser(string Id);
 

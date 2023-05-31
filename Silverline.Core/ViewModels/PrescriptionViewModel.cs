@@ -6,7 +6,7 @@ public class PrescriptionViewModel
 
 	public string PatientName { get; set; }
 
-	public byte[] PatientImage { get; set; }
+	public string PatientImage { get; set; }
 
 	public List<PrescriptionDiagnosisViewModel> PrescriptionDiagnosis { get; set; }
 }

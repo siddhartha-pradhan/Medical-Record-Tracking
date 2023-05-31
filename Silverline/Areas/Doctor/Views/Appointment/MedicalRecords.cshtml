@@ -1,0 +1,77 @@
+﻿@model Silverline.Core.ViewModels.MedicalRecordsViewModel
+
+@{
+    ViewData["Title"] = "Medical Records";
+}
+
+
+<div class="container-fluid" style="width:95%">
+    <div class="row pt-4 mb-4">
+        <div class="col-8">
+            <h2 class="text-dark">Medical Records of @Model.Name</h2>
+        </div>
+        <div class="col-4 text-right">
+            <a class="btn btn-dark" asp-controller="Appointment" asp-action="LabDiagnosis" asp-route-userId="@Model.UserId"><i class="fas fa-stethoscope"></i> &nbsp; Current Medications</a>
+            <a class="btn btn-dark" asp-controller="Appointment" asp-action="Medications" asp-route-userId="@Model.UserId"><i class="fas fa-vials"></i> &nbsp; Laboratory Diagnosis</a>
+        </div>
+    </div>
+    @foreach(var result in Model.MedicalRecords)
+    {
+        <div class="row pb-4" >
+            <div class="card ml-2" style="width:99%">
+                <div class="card-header">
+                    <h3 class="row mt-2 pl-3 ml-4">
+                        @result.Specialty
+                    </h3>
+                </div>
+                <div class="container" style="width: 95%">
+                    @foreach (var item in result.MedicalRecords)
+                    {
+                        <div class="card-header mt-4">
+                            <div class="row">
+                                <div class="col-3">
+                                    <h3 class="row ml-2">
+                                        @item.DateOfAppointment
+                                    </h3>
+                                    <div class="row mb-4 ml-2">
+                                        @item.DoctorName
+                                    </div>
+                                    <div class="vr"></div>
+                                </div>
+                                <div class="col">
+                                    <h3 class="row ml-2">
+                                        Title
+                                    </h3>
+                                    <div class="row mb-4 ml-2">
+                                        @item.Title
+                                    </div>
+                                    <h3 class="row ml-2">
+                                        Description
+                                    </h3>
+                                    <div class="row mb-4 ml-2">
+                                    @Html.Raw(@item.Description)
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <h3 class="row ml-2">
+                                        Prescriptions
+                                    </h3>
+                                    <div class="row mb-4 ml-2">
+                                    @item.Medicines
+                                    </div>
+                                        <h3 class="row ml-2">
+                                        Diagnostics
+                                    </h3>
+                                    <div class="row mb-4 ml-2">
+                                    @item.LaboratoryTests
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    
+</div>

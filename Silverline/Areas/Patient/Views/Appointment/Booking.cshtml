@@ -1,8 +1,13 @@
-﻿@model List<BookedAppointmentViewModel>
+﻿@using Silverline.Core.Constants;
+@using Silverline.Core.ViewModels;
+
+@model List<BookedAppointmentViewModel>
 
 @{
 	ViewData["Title"] = "Booked Appointments";
 }
+
+<partial name="_Notification" />
 
 <div class="pt-2 ml-4 pl-3 mb-4">
 	<h1>Booked Appointments</h1>
@@ -17,7 +22,7 @@
 					<div class="card-body">
 						<div class="row">
 							<div class="col-3">
-								<img id="profilePicture" style="width:285px;height:300px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(@item.DoctorImage))">
+								<img id="profilePicture" style="width:285px;height:300px; object-fit:cover" src="@item.DoctorImage">
 							</div>
 							<div class="col-4 ml-4">
 								<h3 class="row ml-3">
@@ -30,33 +35,45 @@
 									Doctor Specialty
 								</h3>
 								<div class="row mb-4 ml-3">
-								@item.Specialty
+									@item.Specialty
 								</div>
-								<h3 class="row ml-3">
-									Highest Medical Degree
-								</h3>
-								<div class="row mb-4 ml-3">
-								@item.HighestMedicalDegree
-								</div>
-							</div>
-							<div class="col-4">
 								<h3 class="row ml-3">
 									Appointment Request
 								</h3>
 								<div class="row mb-2 ml-3">
-								@Html.Raw(@item.Title)
+									@Html.Raw(@item.Title)
 								</div>
+							</div>
+							<div class="col-4">
 								<h3 class="row ml-3">
 									Booked Date
 								</h3>
 								<div class="row mb-4 ml-3">
-								@item.BookedDate
+									@item.BookedDate
 								</div>
 								<h3 class="row ml-3">
 									Appointment Date
 								</h3>
 								<div class="row mb-4 ml-3">
-								@item.DateOfAppointment
+									@item.DateOfAppointment
+								</div>
+								<div class="row">
+									<div class="col-auto">
+										<a class="btn btn-dark ml-3" asp-controller="Appointment" asp-action="Cancel" asp-route-appointmentId="@item.AppointmentId"><i class="fas fa-times-circle"></i> &nbsp; Cancel</a>
+									</div>
+									@if(item.PaymentStatus == Constants.Completed)
+									{
+										<div class="col-auto">
+											<a class="btn btn-outline-success ml-3" href="#"><i class="fas fa-coins"></i> &nbsp; Paid</a>
+										</div>
+									}
+									else
+									{
+										<div class="col">
+											<a class="btn btn-outline-secondary ml-3" href="#"><i class="fas fa-times-square"></i>&nbsp; Unpaid</a>
+										</div>
+									}
+
 								</div>
 							</div>
 						</div>

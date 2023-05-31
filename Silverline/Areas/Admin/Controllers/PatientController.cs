@@ -58,7 +58,7 @@ public class PatientController : Controller
 						  UserId = user.Id,
 						  PatientId = patient.Id.ToString(),
 						  ProfileImage = user.ImageURL,
-						  Image = user.ProfileImage,
+						  Image = user.ImageURL,
 						  Name = user.FullName,
 						  PhoneNumber = user.PhoneNumber,
 						  Email = user.Email,
@@ -87,20 +87,18 @@ public class PatientController : Controller
 
     }
 
-    [HttpPost]
     public IActionResult Lock(string id)
     {
         var user = _appUserService.GetUser(id);
 
         _appUserService.LockUser(id);
 
-        TempData["Danger"] = $"{user.FullName} has been locked for 5 days.";
+        TempData["Delete"] = $"{user.FullName} has been locked for 5 days.";
 
         return RedirectToAction("Index");
 
     }
 
-    [HttpPost]
     public IActionResult Unlock(string id)
     {
         var user = _appUserService.GetUser(id);

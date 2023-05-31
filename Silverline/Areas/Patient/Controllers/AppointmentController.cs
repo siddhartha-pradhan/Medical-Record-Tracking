@@ -25,7 +25,7 @@ public class AppointmentController : Controller
     private readonly IMedicineService _medicineService;
     private readonly ITestService _testService;
     private readonly IMedicalRecordService _medicalRecordService;
-    private readonly UserManager<IdentityUser> _userManager;
+
 	public AppointmentController(IAppUserService appUserService, 
         IDoctorService doctorService, 
         ISpecialtyService specialtyService, 
@@ -70,7 +70,7 @@ public class AppointmentController : Controller
                           Name = appUser.FullName,
                           HighestMedicalDegree = doctor.HighestMedicalDegree,
                           Specialty = specialty.Name,
-                          ProfileImage = appUser.ProfileImage
+                          ProfileImage = appUser.ImageURL
                       }).OrderBy(x => x.Name).ToList();
 
         return View(result);
@@ -86,14 +86,16 @@ public class AppointmentController : Controller
 								 .Where(x => x.PatientId == patient.Id).ToList()
 								 .Select(x => new BookedAppointmentViewModel()
 								 {
+                                     AppointmentId = x.Id,
 									 DoctorId = x.DoctorId,
 									 DoctorName = GetUser(x.DoctorId).FullName,
-									 DoctorImage = GetUser(x.DoctorId).ProfileImage,
+									 DoctorImage = GetUser(x.DoctorId).ImageURL,
 									 Title = x.AppointmentRequest,
 									 Specialty = GetSpecialty(x.DoctorId).Name,
-									 DateOfAppointment = x.DateOfAppointment.ToString("dddd, dd MMMM yyyy HH:mm:ss"),
-									 BookedDate = x.BookedDate.ToString("dddd, dd MMMM yyyy HH:mm:ss"),
+									 DateOfAppointment = x.DateOfAppointment.ToString("dddd, dd MMMM yyyy HH:mm"),
+									 BookedDate = x.BookedDate.ToString("dddd, dd MMMM yyyy HH:mm"),
 									 HighestMedicalDegree = _doctorService.GetDoctor(x.DoctorId).HighestMedicalDegree,
+									 PaymentStatus = x.PaymentStatus
 								 }).ToList();
 
         return View(bookedAppointments);
@@ -111,7 +113,7 @@ public class AppointmentController : Controller
                                     {
                                         DoctorId = x.DoctorId,
                                         DoctorName = GetUser(x.DoctorId).FullName,
-                                        DoctorImage = GetUser(x.DoctorId).ProfileImage,
+                                        DoctorImage = GetUser(x.DoctorId).ImageURL,
                                         Specialty = GetSpecialty(x.DoctorId).Name,
                                         HighestMedicalDegree = _doctorService.GetDoctor(x.DoctorId).HighestMedicalDegree,
                                         FinalizedAppointments = GetFinalizedAppointments(x.DoctorId, x.PatientId)
@@ -142,8 +144,8 @@ public class AppointmentController : Controller
                 DiagnosticTitle = result.AppointmentTitle,
                 DiagnosticDescription = result.AppointmentDescription,
                 RequestTitle = appointment.AppointmentRequest,
-                BookedDate = appointment.BookedDate.ToString("dddd, dd MMMM yyyy HH:mm:ss"),
-                AppointedDate = appointment.FinalizedTime.ToString("dddd, dd MMMM yyyy HH:mm:ss"),
+                BookedDate = appointment.BookedDate.ToString("dddd, dd MMMM yyyy HH:mm"),
+                AppointedDate = appointment.FinalizedTime.ToString("dddd, dd MMMM yyyy HH:mm"),
             });
         }
         return details;
@@ -180,7 +182,7 @@ public class AppointmentController : Controller
             PatientName = patientUser.FullName,
             Age = DateTime.Today.Year - patient.DateOfBirth.Year,
             DoctorName = doctorUser.FullName,
-            DoctorProfileImage = doctorUser.ProfileImage,
+            DoctorProfileImage = doctorUser.ImageURL,
             DoctorSpecialty = department.Name,
             HighestMedicalDegree = doctor.HighestMedicalDegree
         };
@@ -236,13 +238,13 @@ public class AppointmentController : Controller
 		var result = new AppointmentDetailsViewModel()
         {
             AppointmentId = id,
-            DoctorImage = user.ProfileImage,
+            DoctorImage = user.ImageURL,
             DoctorName = user.FullName,
             HighestMedicalDegree = doctor.HighestMedicalDegree,
             Specialty = specialty.Name,
-			BookedDate = appointment.BookedDate.ToString("dddd, dd MMMM yyyy HH:mm:ss"),
-            AppointedDate = appointment.DateOfAppointment.ToString("dddd, dd MMMM yyyy HH:mm:ss"),
-            FinalizedDate = appointment.FinalizedTime.ToString("dddd, dd MMMM yyyy HH:mm:ss"),
+			BookedDate = appointment.BookedDate.ToString("dddd, dd MMMM yyyy HH:mm"),
+            AppointedDate = appointment.DateOfAppointment.ToString("dddd, dd MMMM yyyy HH:mm"),
+            FinalizedDate = appointment.FinalizedTime.ToString("dddd, dd MMMM yyyy HH:mm"),
             Request = appointment.AppointmentRequest,
             Title = appointmentDetails.AppointmentTitle,
             Description = appointmentDetails.AppointmentDescription,
@@ -278,15 +280,34 @@ public class AppointmentController : Controller
 	[HttpPost]
     public IActionResult Book(AppointmentViewModel appointmentViewModel)
     {
-        if (ModelState.IsValid)
+        
+        if(appointmentViewModel.PaymentStatus == "Yes")
         {
-            _appointmentService.BookAppointment(appointmentViewModel.Appointment);
-            TempData["Success"] = "Appointment Successfully Booked";
-            return RedirectToAction("Index");
-        }
+			var claimsIdentity = (ClaimsIdentity)User.Identity;
+			var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+			var patient = _patientService.GetAllPatients().Where(x => x.UserId == claim.Value).FirstOrDefault();
+            if(patient.CreditPoints < 50)
+            {
+				TempData["Delete"] = "You do not have enough credit points.";
+				return RedirectToAction("Index");
+			}
 
-        return View(appointmentViewModel);
+            patient.CreditPoints -= 50;
 
+			appointmentViewModel.Appointment.PaymentStatus = Constants.Completed;
+		}
+
+        _appointmentService.BookAppointment(appointmentViewModel.Appointment);
+        TempData["Success"] = "Appointment Successfully Booked";
+        return RedirectToAction("Index");
+
+    }
+
+    public IActionResult Cancel(Guid appointmentId)
+    {
+        _appointmentService.CancelAppointment(appointmentId);
+        TempData["Success"] = "Appointment Successfully Canceled";
+        return RedirectToAction("Booking");
     }
     #endregion
 }

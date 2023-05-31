@@ -11,4 +11,12 @@ public interface ITestCartService
     void AddTest(TestCart testCart);
 
     void Remove(TestCart testCart);
+
+    void Delete(Guid patientId, Guid testId);
+
+    void Update(TestCart cart);
+
+    void Finalize(TestCart cart);
+
+
 }

@@ -21,7 +21,7 @@ public class DiagnosisDetailViewModel
 
     public Guid PatientId { get; set; }
 
-    public byte[] PatientImage { get; set; }
+    public string PatientImage { get; set; }
 
     public string PatientName { get; set; }
 

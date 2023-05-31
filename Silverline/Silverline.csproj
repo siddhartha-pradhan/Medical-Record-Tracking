@@ -33,14 +33,20 @@
     <Compile Include="Areas\Doctor\Controllers\PatientController.cs" />
     <Compile Include="Areas\LabTechnician\Controllers\DiagnosisController.cs" />
     <Compile Include="Areas\LabTechnician\Controllers\HomeController.cs" />
+    <Compile Include="Areas\LabTechnician\Controllers\TestController.cs" />
+    <Compile Include="Areas\LabTechnician\Controllers\TestTypeController.cs" />
     <Compile Include="Areas\Patient\Controllers\AppointmentController.cs" />
     <Compile Include="Areas\Patient\Controllers\CartController.cs" />
+    <Compile Include="Areas\Patient\Controllers\DiagnosisController.cs" />
     <Compile Include="Areas\Patient\Controllers\HomeController.cs" />
     <Compile Include="Areas\Patient\Controllers\LabTestController.cs" />
     <Compile Include="Areas\Patient\Controllers\MedicalRecordController.cs" />
     <Compile Include="Areas\Patient\Controllers\TestController.cs" />
     <Compile Include="Areas\Patient\Controllers\TreatmentController.cs" />
+    <Compile Include="Areas\Pharmacist\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Pharmacist\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Pharmacist\Controllers\ManufacturerController.cs" />
+    <Compile Include="Areas\Pharmacist\Controllers\MedicineController.cs" />
     <Compile Include="Areas\Pharmacist\Controllers\PrescriptionController.cs" />
   </ItemGroup>
 
@@ -50,6 +56,30 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="Areas\Doctor\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\LabTechnician\Views\TestType\Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\LabTechnician\Views\TestType\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\LabTechnician\Views\TestType\Upsert.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\LabTechnician\Views\Test\Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\LabTechnician\Views\Test\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\LabTechnician\Views\Test\Upsert.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
@@ -69,6 +99,42 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Include="Areas\Pharmacist\Views\Category\Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Pharmacist\Views\Category\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Pharmacist\Views\Category\Upsert.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Pharmacist\Views\Manufacturer\Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Pharmacist\Views\Manufacturer\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Pharmacist\Views\Manufacturer\Upsert.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Pharmacist\Views\Medicine\Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Pharmacist\Views\Medicine\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Pharmacist\Views\Medicine\Upsert.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="Areas\Pharmacist\Views\_ViewImports.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -81,11 +147,19 @@
 
   <ItemGroup>
     <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
+    <PackageReference Include="ChartJSCore" Version="3.10.0" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.20.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.9.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
+    <PackageReference Include="ReportViewerCore.NETCore" Version="15.1.17" />
   </ItemGroup>
 
   <ItemGroup>
@@ -106,16 +180,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\Doctor\Views\Appointment\Emergency.cshtml" />
+    <None Include="Areas\Doctor\Views\Appointment\Tomorrow.cshtml" />
     <None Include="Areas\Doctor\Views\Appointment\Index.cshtml" />
+    <None Include="Areas\Doctor\Views\Appointment\LabDiagnosis.cshtml" />
+    <None Include="Areas\Doctor\Views\Appointment\MedicalRecords.cshtml" />
+    <None Include="Areas\Doctor\Views\Appointment\Medications.cshtml" />
     <None Include="Areas\Doctor\Views\Appointment\Start.cshtml" />
     <None Include="Areas\Doctor\Views\Home\Index.cshtml" />
     <None Include="Areas\Doctor\Views\LabTest\Index.cshtml" />
     <None Include="Areas\Doctor\Views\Medicine\Index.cshtml" />
+    <None Include="Areas\Doctor\Views\Patient\Add.cshtml" />
     <None Include="Areas\Doctor\Views\Patient\Index.cshtml" />
     <None Include="Areas\LabTechnician\Views\Diagnosis\Details.cshtml" />
     <None Include="Areas\LabTechnician\Views\Diagnosis\Diagnosis.cshtml" />
     <None Include="Areas\LabTechnician\Views\Diagnosis\History.cshtml" />
+    <None Include="Areas\LabTechnician\Views\Diagnosis\Records.cshtml" />
     <None Include="Areas\LabTechnician\Views\Diagnosis\Requested.cshtml" />
+    <None Include="Areas\LabTechnician\Views\Diagnosis\RequestedDetails.cshtml" />
     <None Include="Areas\LabTechnician\Views\Home\Index.cshtml" />
     <None Include="Areas\Patient\Views\Appointment\AppointmentDetails.cshtml" />
     <None Include="Areas\Patient\Views\Appointment\Book.cshtml" />
@@ -124,6 +206,9 @@
     <None Include="Areas\Patient\Views\Appointment\Index.cshtml" />
     <None Include="Areas\Patient\Views\Appointment\MedicalRecords.cshtml" />
     <None Include="Areas\Patient\Views\Cart\Index.cshtml" />
+    <None Include="Areas\Patient\Views\Cart\Summary.cshtml" />
+    <None Include="Areas\Patient\Views\Diagnosis\Record.cshtml" />
+    <None Include="Areas\Patient\Views\Diagnosis\Booked.cshtml" />
     <None Include="Areas\Patient\Views\Home\Index.cshtml" />
     <None Include="Areas\Patient\Views\LabTest\Index.cshtml" />
     <None Include="Areas\Patient\Views\MedicalRecord\Index.cshtml" />

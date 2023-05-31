@@ -7,4 +7,6 @@ public interface IMedicalTreatmentService
 	List<MedicationTreatment> GetMedicationTreatments();
 
 	void UpdatePrescriptions(MedicationTreatment treatment);
+
+	void CompleteCourse(Guid treatmentId);
 }

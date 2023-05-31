@@ -153,19 +153,19 @@ public class RegisterModel : PageModel
                 case "Doctor":
                     doctor.DepartmentId = Input.DepartmentId;
                     doctor.CertificationNumber = Input.CertificationNumber;
-                    doctor.HighestMedicalDegree = "Bachelor of Medicine, Bachelor of Surgery";
+                    doctor.HighestMedicalDegree = Input.HighestMedicalDegree;
                     folder = "doctors";
                     break;
                 
                 case "LabTechnician":
                     labTechnician.CertificateNumber = Input.CertificationNumber;
-                    labTechnician.HighestMedicalDegree = "B.Sc Medical Laboratory Technology";
+                    labTechnician.HighestMedicalDegree = Input.HighestMedicalDegree;
 					folder = "staffs";
                     break;
 
                 case "Pharmacist":
                     pharmacist.CertificateNumber = Input.CertificationNumber;
-                    pharmacist.HighestMedicalDegree = "Bachelor of Pharmacy";
+                    pharmacist.HighestMedicalDegree = Input.HighestMedicalDegree;
 					folder = "staffs";
                     break;
             }

@@ -4,7 +4,7 @@ public class FinalizedAppointmentViewModel
 {
     public Guid DoctorId { get; set; }
 
-    public byte[] DoctorImage { get; set; }
+    public string DoctorImage { get; set; }
 
     public string DoctorName { get; set; }
 

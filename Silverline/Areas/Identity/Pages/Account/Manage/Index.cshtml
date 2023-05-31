@@ -19,11 +19,11 @@
 				<label asp-for="Input.ProfileImage" class="mb-2" style="width: 100%;"></label>
 				@if (Model.Input.ProfileImage != null)
 				{
-					<img id="profilePicture" style="width:485px;height:400px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfileImage))">
+					<img id="profilePicture" style="width:485px;height:400px; object-fit:cover" src="@Model.Input.ProfileImage">
 				}
 				else
 				{
-					<img id="profilePicture" style="width:500px;height:350px; object-fit:cover" src="">
+					<img id="profilePicture" style="width:500px;height:350px; object-fit:cover">
 				}
 				<label class="form-label mt-3">Upload a new picture</label>
 				<input asp-for="Input.ProfileImage" name="UserImage" type="file" id="exampleInputFile" accept=".png,.jpg,.jpeg,.gif,.tif" onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />

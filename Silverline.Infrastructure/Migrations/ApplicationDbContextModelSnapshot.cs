@@ -907,11 +907,31 @@ namespace Silverline.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("ActionStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("BookedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FinalizedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("PatientId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("PaymentStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TechnicianRemarks")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("TestId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<float?>("Value")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 

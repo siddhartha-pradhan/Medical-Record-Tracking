@@ -58,7 +58,14 @@
             <div class="card-footer">
                 <div class="card-footer row">
                     <div class="col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6">
-                        <a asp-action="Summary" class="btn btn-success form-control">Summary</a>
+                        @if(Model.TestCartList.Count == 0)
+                        {
+                            
+                        }
+                        else
+                        {
+                            <a asp-action="Summary" class="btn btn-success form-control">Summary</a>
+                        }
                     </div>
                 </div>
             </div>

@@ -1,100 +1,145 @@
 ﻿@model Silverline.Core.ViewModels.AppointmentViewModel
 
 @{
-    ViewData["Title"] = "Appointment Booking";
+	ViewData["Title"] = "Appointment Booking";
 }
 
 <div class="pt-2 ml-4 pl-3 mb-4">
-    <h1>Book an Appointment</h1>
+	<h1>Book an Appointment</h1>
 </div>
 
-<div class="container-fluid" style="width: 95%">
-    <form method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
-        <div class="row">
-            <div class="col-md-8">
-                <div class="form-group row">
-                    <input asp-for="Appointment.DoctorId" class="form-control" hidden/>
-                    <input asp-for="Appointment.PatientId" class="form-control" hidden/>
-                    <div class="col-4">
-                        <label asp-for="PatientName"></label>
-                    </div>
-                    <div class="col-8 mb-4">
-                        <input asp-for="PatientName" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="Age"></label>
-                    </div>
-                    <div class="col-8 mb-4">
-                        <input asp-for="Age" class="form-control" disabled/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="Appointment.AppointmentRequest"></label>
-                    </div>
-                    <div class="col-8 mb-4">
-                        <textarea asp-for="Appointment.AppointmentRequest" class="form-control" id="editor"></textarea>
-                        <span asp-validation-for="Appointment.AppointmentRequest" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="Appointment.DateOfAppointment" class="form-label mt-4"></label>
-                    </div>
-                    <div class="col-8 mt-3 mb-4">
-                        <input asp-for="Appointment.DateOfAppointment" class="form-control mb-2" autocomplete="username" aria-required="true" value="2023-04-01T12:00:00.000"/>
-                        <span asp-validation-for="Appointment.DateOfAppointment" class="text-danger mt-3"></span>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                    </div>
-                    <div class="col-8 mb-4">
-                        <button class="btn btn-dark form-control">Book</button>
-                    </div>
-                </div>
+<div class="container-fluid" style="width: 95%" onload="startgame();">
+	<form method="post">
+	<div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+		<div class="row">
+			<div class="col-md-8">
+				<div class="form-group row">
+					<input asp-for="Appointment.DoctorId" class="form-control" hidden/>
+					<input asp-for="Appointment.PatientId" class="form-control" hidden/>
+					<div class="col-4">
+						<label asp-for="PatientName"></label>
+					</div>
+					<div class="col-8 mb-4">
+						<input asp-for="PatientName" class="form-control" disabled/>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-4">
+						<label asp-for="Age"></label>
+					</div>
+					<div class="col-8 mb-4">
+						<input asp-for="Age" class="form-control" disabled/>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-4">
+						<label asp-for="Appointment.AppointmentRequest"></label>
+					</div>
+					<div class="col-8 mb-4">
+						<textarea asp-for="Appointment.AppointmentRequest" class="form-control" id="editor"></textarea>
+						<span asp-validation-for="Appointment.AppointmentRequest" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-4">
+						<label asp-for="PaymentStatus" class="form-label mt-4"></label>
+					</div>
+					<div class="col-8 mt-3 mb-4">
+						<select asp-for="PaymentStatus" class="form-control">
+							<option disabled selected>Choose your option</option>
+							<option value="Yes">Yes</option>
+							<option value="No">No</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-4">
+						<label asp-for="Appointment.DateOfAppointment" class="form-label mt-4"></label>
+					</div>
+					<div class="col-8 mt-3 mb-4">
+						<input asp-for="Appointment.DateOfAppointment" class="form-control mb-2" type="datetime-local" id="myDateTime" aria-required="true" />
+						<span asp-validation-for="Appointment.DateOfAppointment" class="text-danger mt-3"></span>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-4">
+					</div>
+					<div class="col-8 mb-4">
+						<button class="btn btn-dark form-control" onclick="return ValidateInput()">Book</button>
+					</div>
+				</div>
 
-            </div>
-            <div class="col-md-4">
-                <div class="row">
-                    <img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="data:image/*;base64,@(Convert.ToBase64String(Model.DoctorProfileImage))">
-                </div>
-                <div class="row justify-content-center">
-                    <p class="text-center  h4 text-dark">@Model.DoctorName</p>
-                </div>
-                <div class="row justify-content-center">
-                    <p class="text-center justify-content-center h5 text-dark">@Model.DoctorSpecialty</p>
-                </div>
-                <div class="row justify-content-center">
-                    <p class="text-center justify-content-center h5 text-dark">@Model.HighestMedicalDegree</p>
-                </div>
-            </div>
-        </div>
-    </form>
+			</div>
+			<div class="col-md-4">
+				<div class="row">
+					<img id="profilePicture" style="width:350px;height:400px; object-fit:cover; margin:auto" src="@Model.DoctorProfileImage">
+				</div>
+				<div class="row justify-content-center">
+					<p class="text-center  h4 text-dark">@Model.DoctorName</p>
+				</div>
+				<div class="row justify-content-center">
+					<p class="text-center justify-content-center h5 text-dark">@Model.DoctorSpecialty</p>
+				</div>
+				<div class="row justify-content-center">
+					<p class="text-center justify-content-center h5 text-dark">@Model.HighestMedicalDegree</p>
+				</div>
+			</div>
+		</div>
+	</form>
 </div>
 
 @section Scripts{
-    <script>
-        ClassicEditor
-            .create( document.querySelector( '#editor' ) )
-            .then( editor => {
-                    console.log( editor );
-            } )
-            .catch( error => {
-                    console.error( error );
-            } );
+	<script>
+		ClassicEditor
+			.create( document.querySelector( '#editor' ) )
+			.then( editor => {
+				console.log( editor );
+			} )
+			.catch( error => {
+				console.error( error );
+			} );
 
-            function ValidateInput() {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Invalid Date',
-                    text: 'Please choose a date and time greater than today.'
-                });
-                return false;
-                   
-            }
-    </script>
+		function ValidateInput() {
+			//Swal.fire({
+			//	icon: 'error',
+			//	title: 'Invalid Date',
+			//	text: 'Please choose a date and time greater than today.'
+			//});
+			//return false;
+			//console.log($("#formattedDate").val());
+			//return false;
+
+			var now = new Date();
+			var year = now.getFullYear().toString().padStart(4, '0');
+			var month = (now.getMonth() + 1).toString().padStart(2, '0');
+			var day = now.getDate().toString().padStart(2, '0');
+			var hours = now.getHours().toString().padStart(2, '0');
+			var minutes = now.getMinutes().toString().padStart(2, '0');
+			var formattedDate = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
+			var appointedDate = $("#myDateTime").val();
+
+			if(appointedDate < formattedDate){
+				Swal.fire({
+					icon: 'error',
+					title: 'Invalid Appointment Date',
+					text: 'Please choose a date and time greater than today.'
+				});
+
+				return false;
+			}
+			return true;
+
+		}
+
+		$(document ).ready(function() {
+			var now = new Date();
+			var year = now.getFullYear().toString().padStart(4, '0');
+			var month = (now.getMonth() + 1).toString().padStart(2, '0');
+			var day = now.getDate().toString().padStart(2, '0');
+			var hours = now.getHours().toString().padStart(2, '0');
+			var minutes = now.getMinutes().toString().padStart(2, '0');
+			var formattedDate = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
+			document.getElementById("myDateTime").value = formattedDate;
+		});
+	</script>
 }

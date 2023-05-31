@@ -2,9 +2,11 @@
 
 public class BookedAppointmentViewModel
 {
+    public Guid AppointmentId { get; set; }
+
     public Guid DoctorId { get; set; }  
 
-    public byte[] DoctorImage { get; set; }
+    public string DoctorImage { get; set; }
 
     public string DoctorName { get; set; }  
 
@@ -17,5 +19,7 @@ public class BookedAppointmentViewModel
     public string DateOfAppointment { get; set; }
 
     public string BookedDate { get; set; }
+
+    public string PaymentStatus { get; set; }
 
 }

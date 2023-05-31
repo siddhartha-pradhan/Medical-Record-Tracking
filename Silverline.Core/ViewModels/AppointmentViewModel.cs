@@ -18,7 +18,10 @@ public class AppointmentViewModel
     [Display(Name = "Doctor Name")]
     public string? DoctorName { get; set; }
 
-    public byte[]? DoctorProfileImage { get; set; }
+    [Display(Name = "Pay via Credits (50 Credit Points)")]
+    public string PaymentStatus { get; set; }
+
+    public string? DoctorProfileImage { get; set; }
 
     public string? DoctorSpecialty { get; set; }
 

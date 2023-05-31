@@ -1,8 +1,13 @@
 ﻿@model List<DiagnosisTreatmentViewModel>
+@using Silverline.Core.Constants;
+@using Silverline.Core.ViewModels;
+
 
 @{
 	ViewData["Title"] = "Medication Treatment";
 }
+
+<partial name="_Notification" />
 
 <div class="pt-2 ml-4 pl-3 mb-4">
 	<h1>Medication Treatment</h1>
@@ -20,10 +25,10 @@
 								<div class="row">
 									<div class="col-4">
 										<h3 class="row ml-3">
-											Medicine Name
+											Medicine Name / Dose
 										</h3>
 										<div class="row mb-4 ml-3">
-												@item.MedicineName
+											@item.MedicineName @item.Dose
 										</div>
 									</div>
 									<div class="col-4">
@@ -36,20 +41,20 @@
 									</div>
 									<div class="col-4">
 										<h3 class="row ml-3">
-											Doctor Referral
+											Pharmacist Remarks
 										</h3>
 										<div class="row mb-4 ml-3">
-											@item.ReferredBy
+											@item.Remarks
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-4">
 										<h3 class="row ml-3">
-											Dose 
+											Doctor Referral
 										</h3>
 										<div class="row mb-4 ml-3">
-											@item.Dose
+											@item.ReferredBy
 										</div>
 									</div>
 									<div class="col-4">
@@ -62,11 +67,20 @@
 									</div>
 									<div class="col-4">
 										<h3 class="row ml-3">
-											Pharmacist Remarks
+											Medication Status
 										</h3>
-										<div class="row mb-4 ml-3">
-											@item.Remarks
-										</div>
+										@if (@item.Status == Constants.Ongoing)
+										{
+											<div class="row mb-4 ml-3">
+												<a class="btn btn-dark" asp-controller="Treatment" asp-action="Complete" asp-route-treatmentId="@item.TreatmentId"><i class="fas fa-check-double"></i> &nbsp; Complete Course</a>
+											</div>
+										} else
+										{
+											<div class="row mb-4 ml-3">
+												Completed
+											</div>
+										}
+
 									</div>
 								</div>
 							</div>

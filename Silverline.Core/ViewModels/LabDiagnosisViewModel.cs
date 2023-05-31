@@ -29,7 +29,7 @@ public class LabDiagnosisViewModel
 
     public Guid PatientId { get; set; }
 
-	public byte[] PatientImage { get; set; }
+	public string PatientImage { get; set; }
 
 	public string PatientName { get; set;}
 
@@ -39,4 +39,6 @@ public class LabDiagnosisViewModel
 	public DateTime? FinalizedDate { get; set; }
 
 	public DateTime AppointmentDate { get; set; }
+
+	public string? PaymentStatus { get; set; }	
 }

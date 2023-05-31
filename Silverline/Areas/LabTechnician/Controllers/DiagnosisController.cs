@@ -8,6 +8,8 @@ using Silverline.Application.Interfaces.Repositories;
 using Silverline.Infrastructure.Implementation.Services;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Hosting;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Wordprocessing;
 //using Microsoft.Reporting.WebForms;
 
 namespace Silverline.Areas.LabTechnician.Controllers;
@@ -81,7 +83,7 @@ public class DiagnosisController : Controller
 							FinalizedDate = x.FinalizedDate,
 							DoctorName = AppUser(_doctorService.GetDoctor(Appointment(x.ReferralId).DoctorId).UserId).FullName,
 							DoctorRemarks = x.DoctorRemarks,
-							PatientImage = AppUser(_patientService.GetPatient(Appointment(x.ReferralId).PatientId).UserId).ProfileImage,
+							PatientImage = AppUser(_patientService.GetPatient(Appointment(x.ReferralId).PatientId).UserId).ImageURL,
                             PatientId = _patientService.GetPatient(Appointment(x.ReferralId).PatientId).Id,
 							PatientName = AppUser(_patientService.GetPatient(Appointment(x.ReferralId).PatientId).UserId).FullName,
 							AppointmentDate = Appointment(x.ReferralId).FinalizedTime
@@ -117,7 +119,7 @@ public class DiagnosisController : Controller
             Unit = _testService.GetDiagnosticTest(x.TestId).Unit,
             DoctorId = (_doctorService.GetDoctor(Appointment(x.ReferralId).DoctorId)).Id,
             DoctorName = AppUser(_doctorService.GetDoctor(Appointment(x.ReferralId).DoctorId).UserId).FullName,
-            PatientImage = AppUser(_patientService.GetPatient(Appointment(x.ReferralId).PatientId).UserId).ProfileImage,
+            PatientImage = AppUser(_patientService.GetPatient(Appointment(x.ReferralId).PatientId).UserId).ImageURL,
             PatientId = _patientService.GetPatient(Appointment(x.ReferralId).PatientId).Id,
             PatientName = AppUser(_patientService.GetPatient(Appointment(x.ReferralId).PatientId).UserId).FullName,
             LaboratoryDiagnosis = new()
@@ -148,7 +150,7 @@ public class DiagnosisController : Controller
 							DoctorId = (_doctorService.GetDoctor(Appointment(x.ReferralId).DoctorId)).Id,
 							DoctorName = AppUser(_doctorService.GetDoctor(Appointment(x.ReferralId).DoctorId).UserId).FullName,
 							DoctorRemarks = x.DoctorRemarks,
-							PatientImage = AppUser(_patientService.GetPatient(Appointment(x.ReferralId).PatientId).UserId).ProfileImage,
+							PatientImage = AppUser(_patientService.GetPatient(Appointment(x.ReferralId).PatientId).UserId).ImageURL,
 							PatientId = _patientService.GetPatient(Appointment(x.ReferralId).PatientId).Id,
 							PatientName = AppUser(_patientService.GetPatient(Appointment(x.ReferralId).PatientId).UserId).FullName,
 							FinalizedDate = x.FinalizedDate
@@ -175,15 +177,17 @@ public class DiagnosisController : Controller
 
 	public IActionResult Requested()
 	{
-		var diagnosis = _testCartService.GetAllTestCarts().Select(x => new LabDiagnosisViewModel
+		var diagnosis = _testCartService.GetAllTestCarts().Where(x => x.ActionStatus == Constants.Ongoing).Select(x => new LabDiagnosisViewModel
 						{
 							Id = x.Id,
 							TestId = x.TestId,
 							PatientId = x.PatientId,
-							PatientImage = AppUser(_patientService.GetPatient(x.PatientId).UserId).ProfileImage,
+							PatientName = AppUser(_patientService.GetPatient(x.PatientId).UserId).FullName,
+							PatientImage = AppUser(_patientService.GetPatient(x.PatientId).UserId).ImageURL,
 							TestName = _testService.GetDiagnosticTest(x.TestId).Title,
 							TestRange = $"{_testService.GetDiagnosticTest(x.TestId).InitialRange} - {_testService.GetDiagnosticTest(x.TestId).FinalRange}",
 							Unit = _testService.GetDiagnosticTest(x.TestId).Unit,
+							PaymentStatus = x.PaymentStatus
 						}).OrderByDescending(x => x.FinalizedDate).ToList();
 
         var detail = (from record in diagnosis
@@ -191,20 +195,78 @@ public class DiagnosisController : Controller
                       {
                           record.PatientName,
                           record.PatientImage,
+						  record.PaymentStatus
                       } into patient
                       select new DiagnosisViewModel()
                       {
                           PatientName = patient.Key.PatientName,
                           PatientImage = patient.Key.PatientImage,
                           LaboratoryDiagnosis = patient.ToList(),
+						  PaymentStatus = patient.Key.PaymentStatus
                       }).ToList();
 
 		return View(detail);
     }
 
-    #region API Calls
+	public IActionResult RequestedDetails(Guid cartId)
+	{
+		var cart = _testCartService.GetTestCart(cartId);
 
-    [HttpPost]	
+		var diagnosis = _labDiagnosisService.GetAllLabDiagnosis().Where(x => x.Id == cart.TestId).FirstOrDefault();
+
+		var result = new CartTestViewModel()
+		{
+			CartId = cartId,
+			TestId = cart.TestId,
+			TestTitle = _testService.GetDiagnosticTest(cart.TestId).Title,
+			TestRange = $"{_testService.GetDiagnosticTest(cart.TestId).InitialRange} - {_testService.GetDiagnosticTest(cart.TestId).FinalRange} {_testService.GetDiagnosticTest(cart.TestId).Unit}",
+			PatientId = cart.PatientId,
+			PatientName = AppUser(_patientService.GetPatient(cart.PatientId).UserId).FullName,
+			PatientImage = AppUser(_patientService.GetPatient(cart.PatientId).UserId).ImageURL,
+		};
+
+        return View(result);
+	}
+
+	public IActionResult Records()
+	{
+		var diagnosis = _testCartService.GetAllTestCarts().Where(x => x.ActionStatus == Constants.Completed)
+						.Select(x => new LabDiagnosisViewModel
+						{
+							Id = x.Id,
+							TestId = x.TestId,
+							TestName = _testService.GetDiagnosticTest(x.TestId).Title,
+							TestRange = $"{_testService.GetDiagnosticTest(x.TestId).InitialRange} - {_testService.GetDiagnosticTest(x.TestId).FinalRange}",
+							Unit = _testService.GetDiagnosticTest(x.TestId).Unit,
+							Value = x.Value,
+							TechnicianRemarks = x.TechnicianRemarks,
+							PatientId = x.PatientId,
+							PatientImage = AppUser(_patientService.GetPatient(x.PatientId).UserId).ImageURL,
+							PatientName = AppUser(_patientService.GetPatient(x.PatientId).UserId).FullName,
+							FinalizedDate = x.FinalizedDate
+						}).OrderByDescending(x => x.FinalizedDate).ToList();
+
+		var detail = (from record in diagnosis
+					  group record by new
+					  {
+						  record.ReferralId,
+						  record.PatientName,
+						  record.PatientImage,
+					  } into patient
+					  select new DiagnosisViewModel()
+					  {
+						  Referral = patient.Key.ReferralId,
+						  PatientName = patient.Key.PatientName,
+						  PatientImage = patient.Key.PatientImage,
+						  LaboratoryDiagnosis = patient.ToList(),
+					  }).ToList();
+
+
+		return View(detail);
+	}
+	#region API Calls
+
+	[HttpPost]	
 	public IActionResult Details(DiagnosisDetailViewModel detailViewModel)
 	{
 		var result = detailViewModel.LaboratoryDiagnosis;
@@ -223,5 +285,24 @@ public class DiagnosisController : Controller
 
 		return RedirectToAction("Diagnosis");
 	}
-    #endregion
+
+	[HttpPost]
+	public IActionResult RequestedDetails(CartTestViewModel cartTestViewModel)
+	{
+		var cart = new TestCart()
+		{
+			Id = cartTestViewModel.CartId,
+			Value = cartTestViewModel.TestValue,
+			ActionStatus = Constants.Completed,
+			TechnicianRemarks = cartTestViewModel.TechnicianRemarks
+		};
+
+		_testCartService.Finalize(cart);
+
+		TempData["Success"] = "Successfully Finalized Test";
+		
+		return RedirectToAction("Requested");
+
+    }
+	#endregion
 }
