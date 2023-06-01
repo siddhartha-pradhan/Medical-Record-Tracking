@@ -18,5 +18,7 @@ public interface ITestCartService
 
     void Finalize(TestCart cart);
 
+    void Cancel(Guid cartId);
+
 
 }

@@ -32,6 +32,9 @@ public class LabDiagnosisViewModel
 	public string PatientImage { get; set; }
 
 	public string PatientName { get; set;}
+	
+	public string PatientEmail { get; set; }
+
 
 	[Display(Name = "Doctor Remarks")]
 	public string DoctorRemarks { get; set; }

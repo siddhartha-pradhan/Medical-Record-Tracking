@@ -205,7 +205,8 @@ namespace Silverline.Infrastructure.Migrations
                     HighestMedicalDegree = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ResumeURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CertificationURL = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CertificationURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsApproved = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -233,7 +234,8 @@ namespace Silverline.Infrastructure.Migrations
                     CertificateNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HighestMedicalDegree = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ResumeURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CertificationURL = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CertificationURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsApproved = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -297,7 +299,8 @@ namespace Silverline.Infrastructure.Migrations
                     CertificateNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HighestMedicalDegree = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ResumeURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CertificationURL = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CertificationURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsApproved = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -382,11 +385,14 @@ namespace Silverline.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DoctorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BookedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateOfAppointment = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AppointmentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PaymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FeeAmount = table.Column<float>(type: "real", nullable: false),
-                    DiagnosisDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    AppointmentRequest = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FinalizedTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -406,43 +412,32 @@ namespace Silverline.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MedicationTreatments",
+                name: "MedicalRecords",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Specialty = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MedicineId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Dose = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
-                    TimePeriod = table.Column<int>(type: "int", nullable: false),
-                    TimeFormat = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ApprovedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    DoctorName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateOfAppointment = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Medicines = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LaboratoryTests = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MedicationTreatments", x => x.Id);
+                    table.PrimaryKey("PK_MedicalRecords", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MedicationTreatments_Doctors_ApprovedBy",
-                        column: x => x.ApprovedBy,
-                        principalTable: "Doctors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MedicationTreatments_Medicines_MedicineId",
-                        column: x => x.MedicineId,
-                        principalTable: "Medicines",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_MedicationTreatments_Patients_PatientId",
+                        name: "FK_MedicalRecords_Patients_PatientId",
                         column: x => x.PatientId,
                         principalTable: "Patients",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "MedicineCarts",
+                name: "MedicineCart",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -453,21 +448,21 @@ namespace Silverline.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MedicineCarts", x => x.Id);
+                    table.PrimaryKey("PK_MedicineCart", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MedicineCarts_Doctors_ApprovedBy",
+                        name: "FK_MedicineCart_Doctors_ApprovedBy",
                         column: x => x.ApprovedBy,
                         principalTable: "Doctors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MedicineCarts_Medicines_MedicineId",
+                        name: "FK_MedicineCart_Medicines_MedicineId",
                         column: x => x.MedicineId,
                         principalTable: "Medicines",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_MedicineCarts_Patients_PatientId",
+                        name: "FK_MedicineCart_Patients_PatientId",
                         column: x => x.PatientId,
                         principalTable: "Patients",
                         principalColumn: "Id",
@@ -496,7 +491,7 @@ namespace Silverline.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RecordHeaders",
+                name: "RecordHeader",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -505,9 +500,9 @@ namespace Silverline.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RecordHeaders", x => x.Id);
+                    table.PrimaryKey("PK_RecordHeader", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RecordHeaders_Patients_PatientId",
+                        name: "FK_RecordHeader_Patients_PatientId",
                         column: x => x.PatientId,
                         principalTable: "Patients",
                         principalColumn: "Id",
@@ -520,7 +515,13 @@ namespace Silverline.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TestId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    TestId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PaymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ActionStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Value = table.Column<float>(type: "real", nullable: true),
+                    TechnicianRemarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BookedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FinalizedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -540,20 +541,21 @@ namespace Silverline.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TestHeaders",
+                name: "TestHeader",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OrderedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PaymentStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TotalAmount = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TestHeaders", x => x.Id);
+                    table.PrimaryKey("PK_TestHeader", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TestHeaders_Patients_PatientId",
+                        name: "FK_TestHeader_Patients_PatientId",
                         column: x => x.PatientId,
                         principalTable: "Patients",
                         principalColumn: "Id",
@@ -561,7 +563,27 @@ namespace Silverline.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderDetails",
+                name: "AppointmentDetails",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AppointmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AppointmentTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AppointmentDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppointmentDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppointmentDetails_Appointments_AppointmentId",
+                        column: x => x.AppointmentId,
+                        principalTable: "Appointments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderDetail",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -573,21 +595,21 @@ namespace Silverline.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderDetails", x => x.Id);
+                    table.PrimaryKey("PK_OrderDetail", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderDetails_Doctors_ApprovedBy",
+                        name: "FK_OrderDetail_Doctors_ApprovedBy",
                         column: x => x.ApprovedBy,
                         principalTable: "Doctors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderDetails_Medicines_MedicineId",
+                        name: "FK_OrderDetail_Medicines_MedicineId",
                         column: x => x.MedicineId,
                         principalTable: "Medicines",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OrderDetails_OrderHeader_OrderId",
+                        name: "FK_OrderDetail_OrderHeader_OrderId",
                         column: x => x.OrderId,
                         principalTable: "OrderHeader",
                         principalColumn: "Id",
@@ -595,27 +617,7 @@ namespace Silverline.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RecordDetails",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RecordId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DateOfAppointment = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RecordDetails", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RecordDetails_RecordHeaders_RecordId",
-                        column: x => x.RecordId,
-                        principalTable: "RecordHeaders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TestDetails",
+                name: "TestDetail",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -627,20 +629,108 @@ namespace Silverline.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TestDetails", x => x.Id);
+                    table.PrimaryKey("PK_TestDetail", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TestDetails_DiagnosticTests_TestId",
+                        name: "FK_TestDetail_DiagnosticTests_TestId",
                         column: x => x.TestId,
                         principalTable: "DiagnosticTests",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_TestDetails_TestHeaders_TestHeaderId",
+                        name: "FK_TestDetail_TestHeader_TestHeaderId",
                         column: x => x.TestHeaderId,
-                        principalTable: "TestHeaders",
+                        principalTable: "TestHeader",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "LaboratoryDiagnosis",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TestId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ReferralId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Value = table.Column<float>(type: "real", nullable: true),
+                    DoctorRemarks = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TechnicianRemarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ActionStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FinalizedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TechnicianId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LaboratoryDiagnosis", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LaboratoryDiagnosis_AppointmentDetails_ReferralId",
+                        column: x => x.ReferralId,
+                        principalTable: "AppointmentDetails",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_LaboratoryDiagnosis_DiagnosticTests_TestId",
+                        column: x => x.TestId,
+                        principalTable: "DiagnosticTests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_LaboratoryDiagnosis_LabTechnicians_TechnicianId",
+                        column: x => x.TechnicianId,
+                        principalTable: "LabTechnicians",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MedicationTreatments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MedicineId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ReferralId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Dose = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
+                    TimePeriod = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TimeFormat = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DoctorRemarks = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PharmacistRemarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ActionStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FinalizedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    PharmacistId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MedicationTreatments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MedicationTreatments_AppointmentDetails_ReferralId",
+                        column: x => x.ReferralId,
+                        principalTable: "AppointmentDetails",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MedicationTreatments_Medicines_MedicineId",
+                        column: x => x.MedicineId,
+                        principalTable: "Medicines",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MedicationTreatments_Patients_PatientId",
+                        column: x => x.PatientId,
+                        principalTable: "Patients",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MedicationTreatments_Pharmacists_PharmacistId",
+                        column: x => x.PharmacistId,
+                        principalTable: "Pharmacists",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppointmentDetails_AppointmentId",
+                table: "AppointmentDetails",
+                column: "AppointmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_DoctorId",
@@ -668,6 +758,21 @@ namespace Silverline.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_LaboratoryDiagnosis_ReferralId",
+                table: "LaboratoryDiagnosis",
+                column: "ReferralId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LaboratoryDiagnosis_TechnicianId",
+                table: "LaboratoryDiagnosis",
+                column: "TechnicianId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LaboratoryDiagnosis_TestId",
+                table: "LaboratoryDiagnosis",
+                column: "TestId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LabTechnicians_UserId",
                 table: "LabTechnicians",
                 column: "UserId");
@@ -678,9 +783,9 @@ namespace Silverline.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MedicationTreatments_ApprovedBy",
-                table: "MedicationTreatments",
-                column: "ApprovedBy");
+                name: "IX_MedicalRecords_PatientId",
+                table: "MedicalRecords",
+                column: "PatientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MedicationTreatments_MedicineId",
@@ -693,18 +798,28 @@ namespace Silverline.Infrastructure.Migrations
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MedicineCarts_ApprovedBy",
-                table: "MedicineCarts",
+                name: "IX_MedicationTreatments_PharmacistId",
+                table: "MedicationTreatments",
+                column: "PharmacistId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MedicationTreatments_ReferralId",
+                table: "MedicationTreatments",
+                column: "ReferralId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MedicineCart_ApprovedBy",
+                table: "MedicineCart",
                 column: "ApprovedBy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MedicineCarts_MedicineId",
-                table: "MedicineCarts",
+                name: "IX_MedicineCart_MedicineId",
+                table: "MedicineCart",
                 column: "MedicineId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MedicineCarts_PatientId",
-                table: "MedicineCarts",
+                name: "IX_MedicineCart_PatientId",
+                table: "MedicineCart",
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
@@ -718,18 +833,18 @@ namespace Silverline.Infrastructure.Migrations
                 column: "ManufacturerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderDetails_ApprovedBy",
-                table: "OrderDetails",
+                name: "IX_OrderDetail_ApprovedBy",
+                table: "OrderDetail",
                 column: "ApprovedBy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderDetails_MedicineId",
-                table: "OrderDetails",
+                name: "IX_OrderDetail_MedicineId",
+                table: "OrderDetail",
                 column: "MedicineId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderDetails_OrderId",
-                table: "OrderDetails",
+                name: "IX_OrderDetail_OrderId",
+                table: "OrderDetail",
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
@@ -748,13 +863,8 @@ namespace Silverline.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RecordDetails_RecordId",
-                table: "RecordDetails",
-                column: "RecordId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RecordHeaders_PatientId",
-                table: "RecordHeaders",
+                name: "IX_RecordHeader_PatientId",
+                table: "RecordHeader",
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
@@ -780,18 +890,18 @@ namespace Silverline.Infrastructure.Migrations
                 column: "TestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TestDetails_TestHeaderId",
-                table: "TestDetails",
+                name: "IX_TestDetail_TestHeaderId",
+                table: "TestDetail",
                 column: "TestHeaderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TestDetails_TestId",
-                table: "TestDetails",
+                name: "IX_TestDetail_TestId",
+                table: "TestDetail",
                 column: "TestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TestHeaders_PatientId",
-                table: "TestHeaders",
+                name: "IX_TestHeader_PatientId",
+                table: "TestHeader",
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
@@ -820,28 +930,25 @@ namespace Silverline.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Appointments");
-
-            migrationBuilder.DropTable(
-                name: "LabTechnicians");
+                name: "LaboratoryDiagnosis");
 
             migrationBuilder.DropTable(
                 name: "LoginAttempts");
 
             migrationBuilder.DropTable(
+                name: "MedicalRecords");
+
+            migrationBuilder.DropTable(
                 name: "MedicationTreatments");
 
             migrationBuilder.DropTable(
-                name: "MedicineCarts");
+                name: "MedicineCart");
 
             migrationBuilder.DropTable(
-                name: "OrderDetails");
+                name: "OrderDetail");
 
             migrationBuilder.DropTable(
-                name: "Pharmacists");
-
-            migrationBuilder.DropTable(
-                name: "RecordDetails");
+                name: "RecordHeader");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");
@@ -850,7 +957,7 @@ namespace Silverline.Infrastructure.Migrations
                 name: "TestCarts");
 
             migrationBuilder.DropTable(
-                name: "TestDetails");
+                name: "TestDetail");
 
             migrationBuilder.DropTable(
                 name: "Tokens");
@@ -862,7 +969,13 @@ namespace Silverline.Infrastructure.Migrations
                 name: "UserRoles");
 
             migrationBuilder.DropTable(
-                name: "Doctors");
+                name: "LabTechnicians");
+
+            migrationBuilder.DropTable(
+                name: "AppointmentDetails");
+
+            migrationBuilder.DropTable(
+                name: "Pharmacists");
 
             migrationBuilder.DropTable(
                 name: "Medicines");
@@ -871,19 +984,16 @@ namespace Silverline.Infrastructure.Migrations
                 name: "OrderHeader");
 
             migrationBuilder.DropTable(
-                name: "RecordHeaders");
-
-            migrationBuilder.DropTable(
                 name: "DiagnosticTests");
 
             migrationBuilder.DropTable(
-                name: "TestHeaders");
+                name: "TestHeader");
 
             migrationBuilder.DropTable(
                 name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "Specialties");
+                name: "Appointments");
 
             migrationBuilder.DropTable(
                 name: "Categories");
@@ -895,7 +1005,13 @@ namespace Silverline.Infrastructure.Migrations
                 name: "TestTypes");
 
             migrationBuilder.DropTable(
+                name: "Doctors");
+
+            migrationBuilder.DropTable(
                 name: "Patients");
+
+            migrationBuilder.DropTable(
+                name: "Specialties");
 
             migrationBuilder.DropTable(
                 name: "Users");

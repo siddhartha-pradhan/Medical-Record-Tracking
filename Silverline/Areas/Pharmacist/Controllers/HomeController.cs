@@ -70,9 +70,9 @@ public class HomeController : Controller
         var dashboard = new StaffDashboardViewModel()
         {
             CompletedDiagnosis = completedDiagnosis,
-            DiagnosisCount = diagnosis,
+            DiagnosisCount = diagnosisCount,
             RemainingDiagnosis = remainingDiagnosis,
-            TotalDiagnosis = diagnosisCount
+            TotalDiagnosis = diagnosis
         };
 
         return View(dashboard);

@@ -10,6 +10,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Hosting;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.Reporting.NETCore;
 //using Microsoft.Reporting.WebForms;
 
 namespace Silverline.Areas.LabTechnician.Controllers;
@@ -153,7 +154,8 @@ public class DiagnosisController : Controller
 							PatientImage = AppUser(_patientService.GetPatient(Appointment(x.ReferralId).PatientId).UserId).ImageURL,
 							PatientId = _patientService.GetPatient(Appointment(x.ReferralId).PatientId).Id,
 							PatientName = AppUser(_patientService.GetPatient(Appointment(x.ReferralId).PatientId).UserId).FullName,
-							FinalizedDate = x.FinalizedDate
+							FinalizedDate = x.FinalizedDate,
+							PatientEmail = AppUser(_patientService.GetPatient(Appointment(x.ReferralId).PatientId).UserId).Email,
 						}).OrderByDescending(x => x.FinalizedDate).ToList();
 
 		var detail = (from record in diagnosis
@@ -162,9 +164,13 @@ public class DiagnosisController : Controller
 						  record.ReferralId,
 						  record.PatientName,
 						  record.PatientImage,
+						  record.PatientId,
+						  record.PatientEmail,
 					  } into patient
 					  select new DiagnosisViewModel()
 					  {
+						  PatientId = patient.Key.PatientId,
+						  PatientEmail = patient.Key.PatientEmail,
 						  Referral = patient.Key.ReferralId,
 						  PatientName = patient.Key.PatientName,
 						  PatientImage = patient.Key.PatientImage,
@@ -243,7 +249,8 @@ public class DiagnosisController : Controller
 							PatientId = x.PatientId,
 							PatientImage = AppUser(_patientService.GetPatient(x.PatientId).UserId).ImageURL,
 							PatientName = AppUser(_patientService.GetPatient(x.PatientId).UserId).FullName,
-							FinalizedDate = x.FinalizedDate
+							FinalizedDate = x.FinalizedDate,
+							PatientEmail = AppUser(_patientService.GetPatient(x.PatientId).UserId).Email,
 						}).OrderByDescending(x => x.FinalizedDate).ToList();
 
 		var detail = (from record in diagnosis
@@ -252,13 +259,17 @@ public class DiagnosisController : Controller
 						  record.ReferralId,
 						  record.PatientName,
 						  record.PatientImage,
+						  record.PatientId,
+						  record.PatientEmail,
 					  } into patient
 					  select new DiagnosisViewModel()
 					  {
+						  PatientId = patient.Key.PatientId,
 						  Referral = patient.Key.ReferralId,
 						  PatientName = patient.Key.PatientName,
 						  PatientImage = patient.Key.PatientImage,
 						  LaboratoryDiagnosis = patient.ToList(),
+						  PatientEmail = patient.Key.PatientEmail,
 					  }).ToList();
 
 
@@ -324,12 +335,12 @@ public class DiagnosisController : Controller
 						on appointmentDetail.Id equals diagnosis.ReferralId
 					 select new ReportViewModel
 					 {
-						 Name = user.FullName,
+						 PatientName = user.FullName,
 						 DateOfBirth = patient.DateOfBirth.ToString("dd/MM/yyyy"),
-						 Test = _testService.GetDiagnosticTest(diagnosis.TestId).Title,
-						 Range = $"{_testService.GetDiagnosticTest(diagnosis.TestId).FinalRange} - {_testService.GetDiagnosticTest(diagnosis.TestId).InitialRange} {_testService.GetDiagnosticTest(diagnosis.TestId).Unit}"
-						 Result = $"{diagnosis.Value} {_testService.GetDiagnosticTest(diagnosis.TestId).Unit}",
-						 Remarks = diagnosis.TechnicianRemarks,
+						 TestName = _testService.GetDiagnosticTest(diagnosis.TestId).Title,
+						 TestRange = $"{_testService.GetDiagnosticTest(diagnosis.TestId).InitialRange} - {_testService.GetDiagnosticTest(diagnosis.TestId).FinalRange} {_testService.GetDiagnosticTest(diagnosis.TestId).Unit}",
+						 TestResult = $"{diagnosis.Value} {_testService.GetDiagnosticTest(diagnosis.TestId).Unit}",
+						 TestRemarks = diagnosis.TechnicianRemarks,
 						 FinalizedDate = diagnosis.FinalizedDate?.ToString("dd/MM/yyyy"),
 						 StaffName = _appUserService.GetAllUsers().Where(x => x.Id == technician.UserId).FirstOrDefault().FullName
                      }).ToList();
@@ -339,29 +350,106 @@ public class DiagnosisController : Controller
 
     public IActionResult Download(Guid patientId)
     {
+
+		var filePath = Path.Join(_webHostEnvironment.ContentRootPath, "Reports\\TestReport.rdl");
+
+		using(var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+		{
+			var report = new LocalReport();
+			report.LoadReportDefinition(fileStream);
+
+			var testReports = Reports(patientId);
+			var patientReports = Reports(patientId);
+            report.DataSources.Add(new ReportDataSource(name: "TestReports", testReports));
+            report.DataSources.Add(new ReportDataSource(name: "PatientData", patientReports));
+
+			byte[] pdf = report.Render(format: "PDF");
+
+			return File(pdf, contentType: "application/pdf");
+		}
+
+    }
+
+    public IActionResult Exporting(Guid patientId)
+    {
+
+        var filePath = Path.Join(_webHostEnvironment.ContentRootPath, "Reports\\TestReport.rdl");
+
+        using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+        {
+            var report = new LocalReport();
+            report.LoadReportDefinition(fileStream);
+
+            var testReports = Report(patientId);
+            var patientReports = Report(patientId);
+            report.DataSources.Add(new ReportDataSource(name: "TestReports", testReports));
+            report.DataSources.Add(new ReportDataSource(name: "PatientData", patientReports));
+
+            byte[] pdf = report.Render(format: "PDF");
+
+            return File(pdf, contentType: "application/pdf");
+        }
+
+    }
+
+    public List<ReportViewModel> Reports(Guid patientId)
+	{
         var tests = _testService.GetAllDiagnosticTests();
         var patient = _patientService.GetPatient(patientId);
         var user = _appUserService.GetAllUsers().Where(x => x.Id == patient.UserId).FirstOrDefault();
         var claimsIdentity = (ClaimsIdentity)User.Identity;
         var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
         var technician = _technicianService.GetAllLabTechnicians().Where(x => x.UserId == claim.Value).FirstOrDefault();
-		var carts = _testCartService.GetAllTestCarts().Where(x => x.ActionStatus == Constants.Completed);
-        
+        var appointments = _appointmentService.GetAllFinalizedAppointments().Where(x => x.PatientId == patientId).ToList();
+        var appointmentDetails = _appointmentDetailService.GetAllAppointments();
+        var labDiagnosis = _labDiagnosisService.GetAllLabDiagnosis().Where(x => x.TechnicianId == technician.Id);
+
+        var result = (from appointment in appointments
+                      join appointmentDetail in appointmentDetails
+                         on appointment.Id equals appointmentDetail.AppointmentId
+                      join diagnosis in labDiagnosis
+                         on appointmentDetail.Id equals diagnosis.ReferralId
+                      select new ReportViewModel
+                      {
+                          PatientName = user.FullName,
+                          DateOfBirth = patient.DateOfBirth.ToString("dd/MM/yyyy"),
+                          TestName = _testService.GetDiagnosticTest(diagnosis.TestId).Title,
+                          TestRange = $"{_testService.GetDiagnosticTest(diagnosis.TestId).InitialRange} - {_testService.GetDiagnosticTest(diagnosis.TestId).FinalRange} {_testService.GetDiagnosticTest(diagnosis.TestId).Unit}",
+                          TestResult = $"{diagnosis.Value} {_testService.GetDiagnosticTest(diagnosis.TestId).Unit}",
+                          TestRemarks = diagnosis.TechnicianRemarks,
+                          FinalizedDate = diagnosis.FinalizedDate?.ToString("dd/MM/yyyy"),
+                          StaffName = _appUserService.GetAllUsers().Where(x => x.Id == technician.UserId).FirstOrDefault().FullName
+                      }).ToList();
+
+        return result;
+    }
+
+    public List<ReportViewModel> Report(Guid patientId)
+	{
+        var tests = _testService.GetAllDiagnosticTests();
+        var patient = _patientService.GetPatient(patientId);
+        var user = _appUserService.GetAllUsers().Where(x => x.Id == patient.UserId).FirstOrDefault();
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+        var technician = _technicianService.GetAllLabTechnicians().Where(x => x.UserId == claim.Value).FirstOrDefault();
+        var carts = _testCartService.GetAllTestCarts().Where(x => x.ActionStatus == Constants.Completed);
+
         var result = (from cart in carts
                       join test in tests
                          on cart.TestId equals test.Id
                       select new ReportViewModel
                       {
-                          Name = user.FullName,
+                          PatientName = user.FullName,
                           DateOfBirth = patient.DateOfBirth.ToString("dd/MM/yyyy"),
-                          Test = _testService.GetDiagnosticTest(cart.TestId).Title,
-                          Range = $"{_testService.GetDiagnosticTest(cart.TestId).FinalRange} - {_testService.GetDiagnosticTest(cart.TestId).InitialRange} {_testService.GetDiagnosticTest(diagnosis.TestId).Unit}"
-                          Result = $"{cart.Value} {_testService.GetDiagnosticTest(cart.TestId).Unit}",
-                          Remarks = cart.TechnicianRemarks,
-                          FinalizedDate = cart.FinalizedDate.ToString("dd/MM/yyyy")
+                          TestName = _testService.GetDiagnosticTest(cart.TestId).Title,
+                          TestRange = $"{_testService.GetDiagnosticTest(cart.TestId).InitialRange} - {_testService.GetDiagnosticTest(cart.TestId).FinalRange} {_testService.GetDiagnosticTest(cart.TestId).Unit}",
+                          TestResult = $"{cart.Value} {_testService.GetDiagnosticTest(cart.TestId).Unit}",
+                          TestRemarks = cart.TechnicianRemarks,
+                          FinalizedDate = cart.FinalizedDate.ToString("dd/MM/yyyy"),
+						  StaffName = _appUserService.GetAllUsers().Where(x => x.Id == technician.UserId).FirstOrDefault().FullName
                       }).ToList();
 
-        return View();
+		return result;
     }
     #endregion
 }

@@ -166,7 +166,7 @@ namespace Silverline.Areas.Identity.Pages.Account
                         file.CopyTo(fileStreams);
                     }
 
-                    user.ImageURL = @$"images\users\patient\" + fileName + extension;
+                    user.ImageURL = @$"\images\users\patient\" + fileName + extension;
                 }
                 
                 

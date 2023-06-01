@@ -476,52 +476,7 @@ public class AppointmentController : Controller
 
 		TempData["Success"] = "Appointment Finalized Successfully";
 
-		var patients = _patientService.GetAllPatients();
-		var users = _userService.GetAllUsers();
-
-		var patientresult = (from user in users
-					  join patientUser in patients
-					  on user.Id equals patientUser.UserId
-					  select new
-					  {
-						  Id = patientUser.Id,
-						  Name = user.FullName
-					  }).ToList();
-
-		var patientResult = new SelectList(patientresult, "Id", "Name");
-
-		ViewData["PatientId"] = patientResult;
-
-		var medicinesList = _medicineService.GetAllMedicines()
-			.Select(x => new SelectListItem()
-			{
-				Text = x.Name,
-				Value = x.Id.ToString()
-			}).ToList();
-
-		var testsList = _testService.GetAllDiagnosticTests()
-			.Select(x => new SelectListItem()
-			{
-				Text = x.Title,
-				Value = x.Id.ToString()
-			}).ToList();
-
-		var appointmentVM = new EmergencyAppointmentViewModel()
-		{
-			MedicineList = medicinesList,
-			LaboratoryTestList = testsList,
-			Appointment = new Core.Entities.Appointment(),
-			AppointmentDetail = new Core.Entities.AppointmentDetail()
-			{
-				MedicalTreatments = new(),
-				LaboratoryDiagnosis = new()
-			}
-		};
-
-		appointmentVM.AppointmentDetail.MedicalTreatments.Add(new() { Id = Guid.NewGuid() });
-		appointmentVM.AppointmentDetail.LaboratoryDiagnosis.Add(new() { Id = Guid.NewGuid() });
-
-		return View(appointmentVM);
+		return RedirectToAction("Index", "Home");
     }
     #endregion
 }

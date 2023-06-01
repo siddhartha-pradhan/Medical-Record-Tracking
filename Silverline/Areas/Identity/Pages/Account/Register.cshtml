@@ -37,7 +37,7 @@
 					<div class="row">
 						<div class="col">
 							<div class="input-group mb-3">
-								<input asp-for="Input.FullName" type="text"  class="form-control" aria-required="true" placeholder="Full Name"/>
+								<input asp-for="Input.FullName" type="text"  class="form-control" aria-required="true" placeholder="Full Name" required/>
 								<div class="input-group-append">
 									<div class="input-group-text">
 										<span class="fas fa-user"></span>
@@ -45,7 +45,7 @@
 								</div>
 							</div>
 							<div class="input-group mb-3">
-								<select asp-for="Input.Role" class="form-control select2" style="width: 100%;">
+								<select asp-for="Input.Role" class="form-control select2" style="width: 100%;" required>
 									<option disabled selected="selected">User Role</option>
 									<option value="Doctor">I am a Doctor</option>
 									<option value="LabTechnician">I am a Lab Technician</option>
@@ -54,26 +54,26 @@
 							</div>
 							<div class="input-group mb-3">
 								<div class="custom-file">
-									<input asp-for="Input.ProfileImage" type="file"  placeholder="Profile Image" class="custom-file-input" id="exampleInputFile" accept=".png,.jpg,.jpeg,.gif,.tif">
+									<input asp-for="Input.ProfileImage" id="imageFile" type="file"  placeholder="Profile Image" class="custom-file-input" accept=".png,.jpg,.jpeg,.gif,.tif" required>
 									<label class="custom-file-label">Choose your Profile Image</label>
 								</div>
 							</div>
 							<div class="input-group mb-3">
 								<div class="custom-file">
-									<input asp-for="Input.ResumeURL" type="file"  name="resume" class="custom-file-input" id="exampleInputFile" onchange="readURL(this);" class="form-control" accept="application/pdf" />
+									<input asp-for="Input.ResumeURL" type="file"  name="resume" class="custom-file-input" id="resumeFile" onchange="readURL(this);" class="form-control" accept="application/pdf" required/>
 									<label class="custom-file-label">Choose your Resume</label>
 								</div>
 							</div>
 							<div class="input-group mb-3">
 								<div class="custom-file">
-									<input asp-for="Input.CertificationURL" type="file"  name="certification" class="custom-file-input" id="exampleInputFile" onchange="readURL(this);" class="form-control" accept="application/pdf" />
+									<input asp-for="Input.CertificationURL" type="file"  name="certification" class="custom-file-input" id="certificationFile" onchange="readURL(this);" class="form-control" accept="application/pdf" required/>
 									<label class="custom-file-label">Choose your Certification</label>
 								</div>
 							</div>
 						</div>
 						<div class="col">
 							<div class="input-group mb-3">
-								<input asp-for="Input.PhoneNumber" type="number" class="form-control" aria-required="true" placeholder="Phone Number"/>
+								<input asp-for="Input.PhoneNumber" type="number" class="form-control" aria-required="true" placeholder="Phone Number" required/>
 								<div class="input-group-append">
 									<div class="input-group-text">
 										<i class="fa-solid fa-phone"></i>
@@ -81,7 +81,7 @@
 								</div>
 							</div>
 							<div class="input-group mb-3">
-								<input asp-for="Input.Email" type="email" class="form-control" aria-required="true" placeholder="Email Address"/>
+								<input asp-for="Input.Email" type="email" class="form-control" aria-required="true" placeholder="Email Address" required/>
 								<div class="input-group-append">
 									<div class="input-group-text">
 										<span class="fas fa-envelope"></span>
@@ -89,7 +89,7 @@
 								</div>
 							</div>
 							<div class="input-group mb-3">
-								<input asp-for="Input.CertificationNumber" type="number" class="form-control" aria-required="true" placeholder="Certification Number"/>
+								<input asp-for="Input.CertificationNumber" type="number" class="form-control" aria-required="true" placeholder="Certification Number" required/>
 								<div class="input-group-append">
 									<div class="input-group-text">
 										<i class="fa-solid fa-certificate"></i>
@@ -97,7 +97,7 @@
 								</div>
 							</div>
 							<div class="input-group mb-3" id="Doctor">
-								<select asp-for="Input.HighestMedicalDegree" class="form-control" aria-required="true">
+								<select asp-for="Input.HighestMedicalDegree" class="form-control" aria-required="true" required>
 									<option disabled selected>Medical Course</option>
 									<option value="Bachelor of Medicine, Bachelor of Surgery">Bachelor of Medicine, Bachelor of Surgery</option>
 									<option value="Bachelor of Dental Surgery">Bachelor of Dental Surgery</option>
@@ -159,6 +159,7 @@
 	<script src="~/js/bs-custom-file-input.min.js"></script>
 	<script src="~/js/inputmask.min.js"></script>
 	<script src="~/js/jquery.inputmask.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://kit.fontawesome.com/1c1a57d0d0.js"></script>
 	<script>
 		$(document).ready(function () {
@@ -172,6 +173,20 @@
 				}
 			});
 		})
+		function ValidateInput() {
+			var image = $("#imageFile").val();
+			var resume = $("#resumeFile").val()
+			var certification = $("#certificationFile").val()
+			if (image == "" || resumt == "" || certification == "") {
+				Swal.fire({
+					icon: 'error',
+					title: 'Files not uploaded',
+					text: 'Please enter all the files of the staff before continuing.'
+				})
+				return false;
+			}
+			return true;
+		}
 	</script>
 </body>
 

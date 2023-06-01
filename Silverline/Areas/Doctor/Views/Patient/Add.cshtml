@@ -17,7 +17,7 @@
 						<label asp-for="Name"></label>
 					</div>
 					<div class="col-7">
-						<input asp-for="Name" class="form-control"/>
+						<input asp-for="Name" class="form-control" required/>
 						<span asp-validation-for="Name" class="text-danger"></span>
 					</div>
 				</div>
@@ -26,7 +26,7 @@
 						<label asp-for="PhoneNumber"></label>
 					</div>
 					<div class="col-7">
-						<input asp-for="PhoneNumber" class="form-control"/>
+						<input asp-for="PhoneNumber" class="form-control" required/>
 						<span asp-validation-for="PhoneNumber" class="text-danger"></span>
 					</div>
 				</div>
@@ -35,7 +35,7 @@
 						<label asp-for="EmailAddress"></label>
 					</div>
 					<div class="col-7">
-						<input asp-for="EmailAddress" class="form-control"/>
+						<input asp-for="EmailAddress" class="form-control" required/>
 						<span asp-validation-for="EmailAddress" class="text-danger"></span>
 					</div>
 				</div>
@@ -44,7 +44,7 @@
 						<label>Profile Image</label>
 					</div>
 					<div class="col-7">
-						<input type="file" name="image"  placeholder="Profile Image" class="custom-file-input" id="exampleInputFile" accept=".png,.jpg,.jpeg,.gif,.tif">
+						<input type="file" name="image"  placeholder="Profile Image" class="custom-file-input" id="exampleInputFile" accept=".png,.jpg,.jpeg,.gif,.tif required">
 						<label class="custom-file-label">Choose your Profile Image</label>
 					</div>
 				</div>
@@ -55,7 +55,7 @@
 						<label asp-for="DateBirth"></label>
 					</div>
 					<div class="col-7 p-0">
-						<input asp-for="DateBirth" type="date" value="2002-07-12" class="form-control">
+						<input asp-for="DateBirth" type="date" value="2002-07-12" class="form-control" required>
 						<span asp-validation-for="DateBirth" class="text-danger"></span>
 					</div>
 				</div>
@@ -64,7 +64,7 @@
 						<label asp-for="Address"></label>
 					</div>
 					<div class="col-7">
-						<input asp-for="Address" class="form-control"/>
+						<input asp-for="Address" class="form-control" required/>
 						<span asp-validation-for="Address" class="text-danger"></span>
 					</div>
 				</div>
@@ -73,7 +73,7 @@
 						<label asp-for="Street"></label>
 					</div>
 					<div class="col-7">
-						<input asp-for="Street" class="form-control"/>
+						<input asp-for="Street" class="form-control" required/>
 						<span asp-validation-for="Street" class="text-danger"></span>
 					</div>
 				</div>

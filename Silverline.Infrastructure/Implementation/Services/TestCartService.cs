@@ -76,4 +76,15 @@ public class TestCartService : ITestCartService
 
         _unitOfWork.Save();
     }
+
+    public void Cancel(Guid cartId)
+    {
+        var result = _unitOfWork.TestCart.Get(cartId);
+        if (result != null)
+        {
+            _unitOfWork.TestCart.Remove(result);
+			_unitOfWork.Save();
+		}
+	}
+
 }

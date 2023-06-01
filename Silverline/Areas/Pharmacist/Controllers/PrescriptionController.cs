@@ -210,14 +210,14 @@ public class PrescriptionController : Controller
                          on appointmentDetail.Id equals diagnosis.ReferralId
                       select new ReportViewModel
                       {
-                          Name = user.FullName,
+                          PatientName = user.FullName,
                           DateOfBirth = patient.DateOfBirth.ToString("dd/MM/yyyy"),
                           Medicine = _medicineService.GetAllMedicines().Where(x => x.Id == diagnosis.MedicineId).FirstOrDefault().Name,
                           TimeFormat = diagnosis.TimeFormat,
                           TimePeriod = diagnosis.TimePeriod,
-                          Remarks = diagnosis.PharmacistRemarks,
+                          TestRemarks = diagnosis.PharmacistRemarks,
                           FinalizedDate = diagnosis.FinalizedDate?.ToString("dd/MM/yyyy"),
-                          StaffName = _appUserService.GetAllUsers().Where(x => x.Id == pharmacist.UserId).FirstOrDefault()
+                          StaffName = _appUserService.GetAllUsers().Where(x => x.Id == pharmacist.UserId).FirstOrDefault().FullName
                       }).ToList();
 
         return View();

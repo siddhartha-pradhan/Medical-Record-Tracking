@@ -2,9 +2,13 @@
 
 public class DiagnosisViewModel
 {
+	public Guid PatientId { get; set; }
+
 	public Guid Referral { get; set; }
 
 	public string PatientName { get; set; }
+
+	public string PatientEmail { get; set; }
 
 	public string PatientImage { get; set; }
 

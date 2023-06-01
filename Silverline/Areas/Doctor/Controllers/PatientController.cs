@@ -101,7 +101,7 @@ public class PatientController : Controller
 						  DateOfBirth = patient.DateOfBirth.ToString("dd/MM/yyyy"),
 						  PatientName = user.FullName,
 						  PhoneNumber = user.PhoneNumber,
-					  }).ToList();
+					  }).DistinctBy(x => x.UserId).ToList();
 
 		return View(result);
 	}

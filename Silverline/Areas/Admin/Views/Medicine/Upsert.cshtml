@@ -27,17 +27,17 @@
                             <div class="col-4">
                                 <div class="mb-4 row">
                                     <label asp-for="Medicine.Name" class="mb-2"></label>
-                                    <input asp-for="Medicine.Name" class="form-control ms-2" />
+                                    <input asp-for="Medicine.Name" class="form-control ms-2" required/>
                                     <span asp-validation-for="Medicine.Name" class="text-danger"></span>
                                 </div>
                                 <div class="mb-4 row">
                                     <label asp-for="Medicine.Description" class="mb-2"></label>
-                                    <input asp-for="Medicine.Description" rows="3" class="form-control ms-2" />
+                                    <input asp-for="Medicine.Description" rows="3" class="form-control ms-2" required/>
                                     <span asp-validation-for="Medicine.Description" class="text-danger"></span>
                                 </div>
                                 <div class="mb-4 row">
                                     <label asp-for="Medicine.CategoryId" class="mb-2"></label>
-                                    <select asp-for="Medicine.CategoryId" asp-items="@Model.Categories" class="form-control">
+                                    <select asp-for="Medicine.CategoryId" asp-items="@Model.Categories" class="form-control" required>
                                         <option disabled selected>Select a Category</option>
                                     </select>
                                     <span asp-validation-for="Medicine.CategoryId" class="text-danger"></span>
@@ -46,7 +46,7 @@
                                     @if (Model.Medicine.Id != Guid.Empty)
                                     {
                                         <div class="col-6">
-                                                <button type="submit" onclick="return ValidateInput()" class="btn btn-dark form-control">Update</button>
+                                            <button type="submit" onclick="return ValidateInput()" class="btn btn-dark form-control">Update</button>
                                         </div>
                                         <div class="col-6">
                                             <a asp-action="Index" class="btn btn-dark form-control">Back to List</a>
@@ -67,12 +67,12 @@
                             <div class="col-5">
                                 <div class="mb-4 col-12">
                                     <label asp-for="Medicine.UnitPrice" class="mb-2"></label>
-                                    <input asp-for="Medicine.UnitPrice" class="form-control " />
+                                    <input asp-for="Medicine.UnitPrice" class="form-control " required/>
                                     <span asp-validation-for="Medicine.UnitPrice" class="text-danger"></span>
                                 </div>
                                 <div class="mb-4 col-12">
                                     <label asp-for="Medicine.Type" class="mb-2"></label>
-                                    <select asp-for="Medicine.Type" class="form-control">
+                                    <select asp-for="Medicine.Type" class="form-control" required>
                                         <option disabled selected>Medicine Type</option>
                                         <option value="Injectibles">Injectibles</option>
                                         <option value="Antibiotics">Antibiotics</option>
@@ -83,7 +83,7 @@
                                 </div>
                                 <div class="mb-4 col-12">
                                     <label asp-for="Medicine.ManufacturerId" class="mb-2"></label>
-                                    <select asp-for="Medicine.ManufacturerId" asp-items="@Model.Manufacturerers" class="form-control">
+                                    <select asp-for="Medicine.ManufacturerId" asp-items="@Model.Manufacturerers" class="form-control" required>
                                         <option disabled selected>Select a Category</option>
                                     </select>
                                     <span asp-validation-for="Medicine.ManufacturerId" class="text-danger"></span>

@@ -169,6 +169,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Reports\" />
     <Folder Include="wwwroot\images\certification\staffs\" />
     <Folder Include="wwwroot\images\medicines\" />
     <Folder Include="wwwroot\images\resume\staffs\" />

@@ -12,8 +12,8 @@ using Silverline.Infrastructure.Persistence;
 namespace Silverline.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230401102651_UpdatedDb")]
-    partial class UpdatedDb
+    [Migration("20230531235037_DbSetup")]
+    partial class DbSetup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -424,6 +424,9 @@ namespace Silverline.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("FinalizedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("ReferralId")
                         .HasColumnType("uniqueidentifier");
 
@@ -534,9 +537,6 @@ namespace Silverline.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("DoctorId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("DoctorName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -562,6 +562,8 @@ namespace Silverline.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PatientId");
+
                     b.ToTable("MedicalRecords");
                 });
 
@@ -581,6 +583,9 @@ namespace Silverline.Infrastructure.Migrations
                     b.Property<string>("Dose")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("FinalizedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
@@ -699,7 +704,7 @@ namespace Silverline.Infrastructure.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("MedicineCarts");
+                    b.ToTable("MedicineCart");
                 });
 
             modelBuilder.Entity("Silverline.Core.Entities.OrderDetail", b =>
@@ -731,7 +736,7 @@ namespace Silverline.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderDetails");
+                    b.ToTable("OrderDetail");
                 });
 
             modelBuilder.Entity("Silverline.Core.Entities.OrderHeader", b =>
@@ -827,33 +832,6 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("Pharmacists");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.RecordDetail", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DateOfAppointment")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("RecordId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RecordId");
-
-                    b.ToTable("RecordDetails");
-                });
-
             modelBuilder.Entity("Silverline.Core.Entities.RecordHeader", b =>
                 {
                     b.Property<Guid>("Id")
@@ -871,7 +849,7 @@ namespace Silverline.Infrastructure.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("RecordHeaders");
+                    b.ToTable("RecordHeader");
                 });
 
             modelBuilder.Entity("Silverline.Core.Entities.Specialty", b =>
@@ -904,11 +882,31 @@ namespace Silverline.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("ActionStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("BookedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FinalizedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("PatientId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("PaymentStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TechnicianRemarks")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("TestId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<float?>("Value")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
@@ -947,7 +945,7 @@ namespace Silverline.Infrastructure.Migrations
 
                     b.HasIndex("TestId");
 
-                    b.ToTable("TestDetails");
+                    b.ToTable("TestDetail");
                 });
 
             modelBuilder.Entity("Silverline.Core.Entities.TestHeader", b =>
@@ -977,7 +975,7 @@ namespace Silverline.Infrastructure.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("TestHeaders");
+                    b.ToTable("TestHeader");
                 });
 
             modelBuilder.Entity("Silverline.Core.Entities.TestType", b =>
@@ -1170,6 +1168,17 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("AppUser");
                 });
 
+            modelBuilder.Entity("Silverline.Core.Entities.MedicalRecord", b =>
+                {
+                    b.HasOne("Silverline.Core.Entities.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+                });
+
             modelBuilder.Entity("Silverline.Core.Entities.MedicationTreatment", b =>
                 {
                     b.HasOne("Silverline.Core.Entities.Medicine", "Medicine")
@@ -1303,17 +1312,6 @@ namespace Silverline.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("AppUser");
-                });
-
-            modelBuilder.Entity("Silverline.Core.Entities.RecordDetail", b =>
-                {
-                    b.HasOne("Silverline.Core.Entities.RecordHeader", "RecordHeader")
-                        .WithMany()
-                        .HasForeignKey("RecordId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RecordHeader");
                 });
 
             modelBuilder.Entity("Silverline.Core.Entities.RecordHeader", b =>

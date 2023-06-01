@@ -323,7 +323,7 @@ public class AppointmentController : Controller
 
         var appointments = _appointmentService.GetAllBookedAppointments()
             .Where(x => x.BookedDate.Date == date.Date && x.DoctorId == doctorId)
-            .Select(x => x.BookedDate)
+            .Select(x => x.DateOfAppointment)
             .ToList();
 
 		return Json(appointments);

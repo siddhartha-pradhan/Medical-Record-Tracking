@@ -19,13 +19,13 @@
 						</h3>
 						<div class="row mb-4 ml-4">
 							<input asp-for="Appointment.AppointmentId" class="form-control" hidden/>
-							<input asp-for="Appointment.AppointmentTitle" class="form-control mb-4" />
+							<input asp-for="Appointment.AppointmentTitle" class="form-control mb-4" required/>
 						</div>
 						<h3 class="row mb-3 mt-4 ml-4">
 							Descriptive Comments
 						</h3>
 						<div class="row mb-4 ml-4">
-							<textarea asp-for="Appointment.AppointmentDescription" class="form-control"></textarea>
+							<textarea asp-for="Appointment.AppointmentDescription" class="form-control" required></textarea>
 						</div>
 					</div>
 					<div class="col-4 mt-5">

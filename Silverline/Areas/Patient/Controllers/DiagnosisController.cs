@@ -48,6 +48,7 @@ public class DiagnosisController : Controller
 						 on test.Id equals cart.TestId
 					  select new DiagnosticTestCartViewModel()
 					  {
+						  Id = cart.Id,
 						  BookedDate = cart.BookedDate.ToString("dddd, dd MMMM yyyy HH:mm"),
 						  PaymentStatus = cart.PaymentStatus,
 						  Range = $"{test.FinalRange} - {test.InitialRange} {test.Unit}",
@@ -84,5 +85,12 @@ public class DiagnosisController : Controller
 					  }).ToList();
 
 		return View(result);
+	}
+
+	public IActionResult Cancel(Guid id)
+	{
+		_testCartService.Cancel(id);
+		TempData["Success"] = "Booked Test Successfully Canceled";
+		return RedirectToAction("Booked");
 	}
 }

@@ -1,4 +1,5 @@
 ﻿@using Silverline.Core.Constants;
+@using Silverline.Core.ViewModels;
 @model List<DiagnosticTestCartViewModel>
 
 @{
@@ -8,6 +9,8 @@
 <div class="pt-2 ml-4 pl-3 mb-4">
 	<h1>Booked Laboratory Diagnosis</h1>
 </div>
+
+<partial name="_Notification"/>
 
 <div class="container-fluid" style="width: 95%">
 	<div class="row">
@@ -72,7 +75,11 @@
 											}
 										</div>
 									</div>
-									
+									<div class="col-4">
+										<div class="col-auto">
+											<a class="btn btn-dark ml-1" asp-controller="Diagnosis" asp-action="Cancel" asp-route-id="@item.Id"><i class="fas fa-times-circle"></i> &nbsp; Cancel</a>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>

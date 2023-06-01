@@ -26,14 +26,14 @@
                         <label asp-for="Name"></label>
                     </div>
                     <div class="col-8 mb-4">
-                        <input asp-for="Name" class="form-control" />
+                        <input asp-for="Name" class="form-control" required/>
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     <div class="col-4">
                         <label asp-for="Location"></label>
                     </div>
                     <div class="col-8 mb-4">
-                        <input asp-for="Location" class="form-control" />
+                        <input asp-for="Location" class="form-control" required/>
                         <span asp-validation-for="Location" class="text-danger"></span>
                     </div>
                     <input asp-for="IsActive" class="form-control" type="hidden" />

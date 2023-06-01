@@ -702,7 +702,7 @@ namespace Silverline.Infrastructure.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("MedicineCarts");
+                    b.ToTable("MedicineCart");
                 });
 
             modelBuilder.Entity("Silverline.Core.Entities.OrderDetail", b =>
@@ -734,7 +734,7 @@ namespace Silverline.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderDetails");
+                    b.ToTable("OrderDetail");
                 });
 
             modelBuilder.Entity("Silverline.Core.Entities.OrderHeader", b =>
@@ -830,33 +830,6 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("Pharmacists");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.RecordDetail", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DateOfAppointment")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("RecordId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RecordId");
-
-                    b.ToTable("RecordDetails");
-                });
-
             modelBuilder.Entity("Silverline.Core.Entities.RecordHeader", b =>
                 {
                     b.Property<Guid>("Id")
@@ -874,7 +847,7 @@ namespace Silverline.Infrastructure.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("RecordHeaders");
+                    b.ToTable("RecordHeader");
                 });
 
             modelBuilder.Entity("Silverline.Core.Entities.Specialty", b =>
@@ -970,7 +943,7 @@ namespace Silverline.Infrastructure.Migrations
 
                     b.HasIndex("TestId");
 
-                    b.ToTable("TestDetails");
+                    b.ToTable("TestDetail");
                 });
 
             modelBuilder.Entity("Silverline.Core.Entities.TestHeader", b =>
@@ -1000,7 +973,7 @@ namespace Silverline.Infrastructure.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("TestHeaders");
+                    b.ToTable("TestHeader");
                 });
 
             modelBuilder.Entity("Silverline.Core.Entities.TestType", b =>
@@ -1337,17 +1310,6 @@ namespace Silverline.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("AppUser");
-                });
-
-            modelBuilder.Entity("Silverline.Core.Entities.RecordDetail", b =>
-                {
-                    b.HasOne("Silverline.Core.Entities.RecordHeader", "RecordHeader")
-                        .WithMany()
-                        .HasForeignKey("RecordId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RecordHeader");
                 });
 
             modelBuilder.Entity("Silverline.Core.Entities.RecordHeader", b =>
