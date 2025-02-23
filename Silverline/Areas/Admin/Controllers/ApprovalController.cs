@@ -134,7 +134,7 @@ public class ApprovalController : Controller
             return RedirectToAction("Doctor");
         }
 
-        return View(user);
+        return View();
     }
 
     [HttpPost, ActionName("LabTechnician")]
@@ -154,7 +154,7 @@ public class ApprovalController : Controller
 			return RedirectToAction("LabTechnician");
         }
 
-        return View(user);
+        return View();
     }
 
     [HttpPost, ActionName("Pharmacist")]
@@ -174,7 +174,7 @@ public class ApprovalController : Controller
 			return RedirectToAction("Pharmacist");
         }
 
-        return View(user);
+        return View();
     }
     #endregion
 }

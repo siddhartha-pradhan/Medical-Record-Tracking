@@ -1,7 +1,7 @@
 using AspNetCoreHero.ToastNotification;
-using AspNetCoreHero.ToastNotification.Extensions;
 using Silverline.Infrastructure.Dependency;
 using Silverline.Infrastructure.Persistence.Seed;
+using AspNetCoreHero.ToastNotification.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,9 +24,9 @@ services.AddRazorPages().AddRazorRuntimeCompilation();
 
 services.ConfigureApplicationCookie(options =>
 {
-	options.LogoutPath = $"/Identity/Account/Logout";
-	options.LoginPath = $"/Identity/Account/Login";
-	options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+	options.LogoutPath = "/Identity/Account/Logout";
+	options.LoginPath = "/Identity/Account/Login";
+	options.AccessDeniedPath = "/Identity/Account/AccessDenied";
 });
 
 var app = builder.Build();
@@ -45,7 +45,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();;
+app.UseAuthentication();
 
 app.UseAuthorization();
 
@@ -63,9 +63,9 @@ app.Run();
 
 void SeedDatabase()
 {
-	using (var scope = app.Services.CreateScope())
-	{
-		var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-		dbInitializer.Initialize();
-	}
+	using var scope = app.Services.CreateScope();
+	
+	var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+	
+	dbInitializer.Initialize();
 }

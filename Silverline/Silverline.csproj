@@ -1,267 +1,38 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
+        <PackageReference Include="ChartJSCore" Version="3.10.0" />
+        <PackageReference Include="DocumentFormat.OpenXml" Version="2.20.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.12" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.12">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.9.5">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
+        <PackageReference Include="ReportViewerCore.NETCore" Version="15.1.17" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Silverline.Application\Silverline.Application.csproj" />
+        <ProjectReference Include="..\Silverline.Core\Silverline.Core.csproj" />
+        <ProjectReference Include="..\Silverline.Infrastructure\Silverline.Infrastructure.csproj" />
+    </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Areas\Doctor\**" />
-    <Compile Remove="Areas\LabTechnician\**" />
-    <Compile Remove="Areas\Patient\**" />
-    <Compile Remove="Areas\Pharmacist\**" />
-    <Content Remove="Areas\Doctor\**" />
-    <Content Remove="Areas\LabTechnician\**" />
-    <Content Remove="Areas\Patient\**" />
-    <Content Remove="Areas\Pharmacist\**" />
-    <EmbeddedResource Remove="Areas\Doctor\**" />
-    <EmbeddedResource Remove="Areas\LabTechnician\**" />
-    <EmbeddedResource Remove="Areas\Patient\**" />
-    <EmbeddedResource Remove="Areas\Pharmacist\**" />
-    <None Remove="Areas\Doctor\**" />
-    <None Remove="Areas\LabTechnician\**" />
-    <None Remove="Areas\Patient\**" />
-    <None Remove="Areas\Pharmacist\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Areas\Doctor\Controllers\AppointmentController.cs" />
-    <Compile Include="Areas\Doctor\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Doctor\Controllers\LabTestController.cs" />
-    <Compile Include="Areas\Doctor\Controllers\MedicineController.cs" />
-    <Compile Include="Areas\Doctor\Controllers\PatientController.cs" />
-    <Compile Include="Areas\LabTechnician\Controllers\DiagnosisController.cs" />
-    <Compile Include="Areas\LabTechnician\Controllers\HomeController.cs" />
-    <Compile Include="Areas\LabTechnician\Controllers\TestController.cs" />
-    <Compile Include="Areas\LabTechnician\Controllers\TestTypeController.cs" />
-    <Compile Include="Areas\Patient\Controllers\AppointmentController.cs" />
-    <Compile Include="Areas\Patient\Controllers\CartController.cs" />
-    <Compile Include="Areas\Patient\Controllers\DiagnosisController.cs" />
-    <Compile Include="Areas\Patient\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Patient\Controllers\LabTestController.cs" />
-    <Compile Include="Areas\Patient\Controllers\MedicalRecordController.cs" />
-    <Compile Include="Areas\Patient\Controllers\TestController.cs" />
-    <Compile Include="Areas\Patient\Controllers\TreatmentController.cs" />
-    <Compile Include="Areas\Pharmacist\Controllers\CategoryController.cs" />
-    <Compile Include="Areas\Pharmacist\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Pharmacist\Controllers\ManufacturerController.cs" />
-    <Compile Include="Areas\Pharmacist\Controllers\MedicineController.cs" />
-    <Compile Include="Areas\Pharmacist\Controllers\PrescriptionController.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Areas\Doctor\Views\_ViewImports.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    <Content Update="appsettings.Development.json">
+      <DependentUpon>appsettings.json</DependentUpon>
     </Content>
-    <Content Include="Areas\Doctor\Views\_ViewStart.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\LabTechnician\Views\TestType\Delete.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\LabTechnician\Views\TestType\Index.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\LabTechnician\Views\TestType\Upsert.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\LabTechnician\Views\Test\Delete.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\LabTechnician\Views\Test\Index.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\LabTechnician\Views\Test\Upsert.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\LabTechnician\Views\_ViewImports.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\LabTechnician\Views\_ViewStart.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\Patient\Views\_ViewImports.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\Patient\Views\_ViewStart.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\Pharmacist\Views\Category\Delete.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\Pharmacist\Views\Category\Index.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\Pharmacist\Views\Category\Upsert.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\Pharmacist\Views\Manufacturer\Delete.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\Pharmacist\Views\Manufacturer\Index.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\Pharmacist\Views\Manufacturer\Upsert.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\Pharmacist\Views\Medicine\Delete.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\Pharmacist\Views\Medicine\Index.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\Pharmacist\Views\Medicine\Upsert.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\Pharmacist\Views\_ViewImports.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Areas\Pharmacist\Views\_ViewStart.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
-    <PackageReference Include="ChartJSCore" Version="3.10.0" />
-    <PackageReference Include="DocumentFormat.OpenXml" Version="2.20.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.12" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.12">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.9.5">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
-    <PackageReference Include="ReportViewerCore.NETCore" Version="15.1.17" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Silverline.Application\Silverline.Application.csproj" />
-    <ProjectReference Include="..\Silverline.Core\Silverline.Core.csproj" />
-    <ProjectReference Include="..\Silverline.Infrastructure\Silverline.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Reports\" />
-    <Folder Include="wwwroot\images\certification\staffs\" />
-    <Folder Include="wwwroot\images\medicines\" />
-    <Folder Include="wwwroot\images\resume\staffs\" />
-    <Folder Include="wwwroot\images\users\admin\" />
-    <Folder Include="wwwroot\images\users\doctors\" />
-    <Folder Include="wwwroot\images\users\staffs\" />
-    <Folder Include="wwwroot\images\users\patients\" />
-    <Folder Include="wwwroot\excel\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Areas\Doctor\Views\Appointment\Emergency.cshtml" />
-    <None Include="Areas\Doctor\Views\Appointment\Tomorrow.cshtml" />
-    <None Include="Areas\Doctor\Views\Appointment\Index.cshtml" />
-    <None Include="Areas\Doctor\Views\Appointment\LabDiagnosis.cshtml" />
-    <None Include="Areas\Doctor\Views\Appointment\MedicalRecords.cshtml" />
-    <None Include="Areas\Doctor\Views\Appointment\Medications.cshtml" />
-    <None Include="Areas\Doctor\Views\Appointment\Start.cshtml" />
-    <None Include="Areas\Doctor\Views\Home\Index.cshtml" />
-    <None Include="Areas\Doctor\Views\LabTest\Index.cshtml" />
-    <None Include="Areas\Doctor\Views\Medicine\Index.cshtml" />
-    <None Include="Areas\Doctor\Views\Patient\Add.cshtml" />
-    <None Include="Areas\Doctor\Views\Patient\Index.cshtml" />
-    <None Include="Areas\LabTechnician\Views\Diagnosis\Details.cshtml" />
-    <None Include="Areas\LabTechnician\Views\Diagnosis\Diagnosis.cshtml" />
-    <None Include="Areas\LabTechnician\Views\Diagnosis\History.cshtml" />
-    <None Include="Areas\LabTechnician\Views\Diagnosis\Records.cshtml" />
-    <None Include="Areas\LabTechnician\Views\Diagnosis\Requested.cshtml" />
-    <None Include="Areas\LabTechnician\Views\Diagnosis\RequestedDetails.cshtml" />
-    <None Include="Areas\LabTechnician\Views\Home\Index.cshtml" />
-    <None Include="Areas\Patient\Views\Appointment\AppointmentDetails.cshtml" />
-    <None Include="Areas\Patient\Views\Appointment\Book.cshtml" />
-    <None Include="Areas\Patient\Views\Appointment\Booking.cshtml" />
-    <None Include="Areas\Patient\Views\Appointment\History.cshtml" />
-    <None Include="Areas\Patient\Views\Appointment\Index.cshtml" />
-    <None Include="Areas\Patient\Views\Appointment\MedicalRecords.cshtml" />
-    <None Include="Areas\Patient\Views\Cart\Index.cshtml" />
-    <None Include="Areas\Patient\Views\Cart\Summary.cshtml" />
-    <None Include="Areas\Patient\Views\Diagnosis\Record.cshtml" />
-    <None Include="Areas\Patient\Views\Diagnosis\Booked.cshtml" />
-    <None Include="Areas\Patient\Views\Home\Index.cshtml" />
-    <None Include="Areas\Patient\Views\LabTest\Index.cshtml" />
-    <None Include="Areas\Patient\Views\MedicalRecord\Index.cshtml" />
-    <None Include="Areas\Patient\Views\Treatment\LabDiagnosis.cshtml" />
-    <None Include="Areas\Patient\Views\Treatment\Medications.cshtml" />
-    <None Include="Areas\Pharmacist\Views\Home\Index.cshtml" />
-    <None Include="Areas\Pharmacist\Views\Prescription\Details.cshtml" />
-    <None Include="Areas\Pharmacist\Views\Prescription\History.cshtml" />
-    <None Include="Areas\Pharmacist\Views\Prescription\Diagnosis.cshtml" />
-    <None Include="wwwroot\js\tinymce\CHANGELOG.md" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\icons\default\icons.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\langs\README.md" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\models\dom\model.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\advlist\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\anchor\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\autolink\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\autoresize\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\autosave\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\charmap\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\codesample\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\code\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\directionality\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\emoticons\js\emojiimages.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\emoticons\js\emojiimages.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\emoticons\js\emojis.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\emoticons\js\emojis.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\emoticons\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\fullscreen\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\help\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\image\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\importcss\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\insertdatetime\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\link\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\lists\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\media\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\nonbreaking\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\pagebreak\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\preview\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\quickbars\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\save\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\searchreplace\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\table\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\template\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\visualblocks\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\visualchars\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\plugins\wordcount\plugin.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\themes\silver\theme.min.js" />
-    <None Include="wwwroot\js\tinymce\js\tinymce\tinymce.min.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="wwwroot\js\tinymce\js\tinymce\tinymce.d.ts" />
   </ItemGroup>
 
 </Project>
