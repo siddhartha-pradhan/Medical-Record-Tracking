@@ -1,0 +1,79 @@
+﻿@model List<LabTreatmentViewModel>
+
+@{
+	ViewData["Title"] = "Laboratory Diagnosis Treatments";
+}
+
+<div class="pt-2 ml-4 pl-3 mb-4">
+	<h1>Laboratory Diagnosis Treatments</h1>
+</div>
+
+<div class="container-fluid" style="width: 95%">
+	<div class="row">
+		<div class="col-md-12">
+			@foreach (var item in Model)
+			{
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col">
+								<div class="row">
+									<div class="col-4">
+										<h3 class="row ml-3">
+											Test Name
+										</h3>
+										<div class="row mb-4 ml-3">
+											@item.TestName
+										</div>
+									</div>
+									<div class="col-4">
+										<h3 class="row ml-3">
+											Range
+										</h3>
+										<div class="row mb-4 ml-3">
+											@item.Range
+										</div>
+									</div>
+									<div class="col-4">
+										<h3 class="row ml-3">
+											Doctor Referral
+										</h3>
+										<div class="row mb-4 ml-3">
+											@item.ReferredBy
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-4">
+										<h3 class="row ml-3">
+											Date of Test 
+										</h3>
+										<div class="row mb-4 ml-3">
+											@item.DateOfTest
+										</div>
+									</div>
+									<div class="col-4">
+										<h3 class="row ml-3">
+											Result Value
+										</h3>
+										<div class="row mb-4 ml-3">
+											@item.Value
+										</div>
+									</div>
+									<div class="col-4">
+										<h3 class="row ml-3">
+											Technician Remarks
+										</h3>
+										<div class="row mb-4 ml-3">
+											@item.Remarks
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+		</div>			
+	</div>			
+</div>

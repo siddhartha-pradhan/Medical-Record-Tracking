@@ -1,0 +1,53 @@
+﻿@page
+@model ConfirmEmailModel
+@{
+    ViewData["Title"] = "Email Confirmation";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Email Confirmation</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+	<link rel="stylesheet" href="~/css/all.min.css">
+	<link rel="stylesheet" href="~/css/icheck-bootstrap.min.css">
+	<link rel="stylesheet" href="~/css/adminlte.min.css">
+	<link rel="stylesheet" href="~/css/daterangepicker.css">
+	<link rel="stylesheet" href="~/css//tempusdominus-bootstrap-4.min.css">
+	<link rel="shortcut icon" href="~/favicon.png" />
+</head>
+
+<partial name="_Notification" />
+
+<body class="hold-transition register-page">
+	<div class="register-box w-75">
+		<div class="card card-outline card-primary">
+			<div class="card-header text-center">
+				<a href="#" class="h1">@ViewData["Title"]</a>
+			</div>
+			<div class="card-body text-center">
+					Thank you for confirming your email.
+					<br />
+					You can now log in to our system as a patient.
+			</div>
+		</div>
+	</div>
+
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/adminlte.min.js"></script>
+	<script src="~/js/bs-custom-file-input.min.js"></script>
+	<script src="~/js/inputmask.min.js"></script>
+	<script src="~/js/jquery.inputmask.min.js"></script>
+	<script src="https://kit.fontawesome.com/1c1a57d0d0.js"></script>
+	<script>
+		$(function () {
+			$('[data-mask]').inputmask()
+		});
+	</script>
+</body>
+</html>

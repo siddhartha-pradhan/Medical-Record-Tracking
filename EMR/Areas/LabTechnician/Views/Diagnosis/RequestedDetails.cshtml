@@ -1,0 +1,75 @@
+﻿@model CartTestViewModel;
+@{
+    ViewData["Title"] = "Requested Diagnosis Details";
+}
+
+<div class="pt-2 ml-4 pl-3 mb-4">
+    <h1>Requested Diagnosis Details</h1>
+</div>
+
+<form method="post">
+    <div class="container-fluid" style="width: 95%">
+        <div class="row" >
+            <div class="card" style="width: 95%">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            @if (@Model.PatientImage != null)
+                            {
+                                <div class="row mb-2">
+                                    <img id="profilePicture" style="width:250px;height:300px; object-fit:cover; margin:auto" src="@Model.PatientImage">
+                                </div>
+                            }
+                            <div class="row justify-content-center">
+                                <p class="text-center h4 text-dark">@Model.PatientName</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group row">
+                                <input asp-for="CartId" class="form-control" hidden/>
+                                <input asp-for="PatientId" class="form-control" hidden/>
+                                <div class="col-4">
+                                    <label asp-for="TestTitle"></label>
+                                </div>
+                                <div class="col-8 mb-4">
+                                    <input asp-for="TestTitle" class="form-control" disabled/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+                                    <label asp-for="TestRange"></label>
+                                </div>
+                                <div class="col-8 mb-4">
+                                    <input asp-for="TestRange" class="form-control" disabled/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+                                    <label asp-for="TestValue"></label>
+                                </div>
+                                <div class="col-8 mb-4">
+                                    <input asp-for="TestValue" required class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+                                    <label asp-for="TechnicianRemarks"></label>
+                                </div>
+                                <div class="col-8 mb-4">
+                                    <input asp-for="TechnicianRemarks" class="form-control" required/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+                                </div>
+                                <div class="col-8 mb-4">
+                                    <button type="submit" class="btn btn-dark form-control">Finalize Diagnosis</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

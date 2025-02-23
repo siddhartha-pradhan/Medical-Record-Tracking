@@ -1,0 +1,75 @@
+﻿@model Silverline.Core.ViewModels.TestCartViewModel;
+
+@{
+    ViewData["Title"] = "Add to Cart";
+}
+
+<partial name="_Notification" />
+
+<form method="post">
+    <div class="container-fluid pt-5 pb-4" style="width: 85%">
+        <div class="card">
+            <div class="card-header bg-dark text-light ml-0">
+                <div class="row">
+                    <div class="col-6 pt-2">
+                        <i class="fa fa-shopping-cart"></i> &nbsp;
+                        Your Cart
+                    </div>
+                    <div class="col-6 text-right">
+                        <a asp-area="Patient" asp-controller="LabTest" asp-action="Index" class="btn btn-outline-info btn-sm">Add other test?</a>
+                    </div>
+                </div>
+            </div> 
+            <div class="card-body">
+                @foreach (var item in Model.TestCartList)
+                {
+                    <div class="row">
+                        <div class="col-6 pt-2">
+                            <h3>@item.DiagnosticTest.Title</h3>
+                            <p><strong>@item.DiagnosticTest.Description</strong></p>
+                            <p><small>Range: @item.DiagnosticTest.FinalRange @item.DiagnosticTest.Unit - @item.DiagnosticTest.InitialRange @item.DiagnosticTest.Unit</small></p>
+                        </div>
+                        <div class="col-6">
+                            <div class="row mt-4">
+                                <div class="col mt-2 text-right">
+                                    <strong>@item.DiagnosticTest.UnitPrice Credits</strong>
+                                </div>
+                                <div class="col-2 ml-4">
+                                    <a asp-action="Remove" asp-route-cartId="@item.Id" class="btn btn-danger">
+                                        <i class="fa-sharp fa-solid fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                }
+                <div class="row">
+                    <div class="col-12 col-md-6 offset-md-6 col-lg-4 offset-lg-8 pr-4">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <span class="text-info">Total Credits</span>
+                                <strong class="text-info">@Model.TestHeader.TotalAmount Credits</strong>
+                            </li>
+                        </ul>
+                    </div> 
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="card-footer row">
+                    <div class="col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6">
+                        @if(Model.TestCartList.Count == 0)
+                        {
+                            
+                        }
+                        else
+                        {
+                            <a asp-action="Summary" class="btn btn-success form-control">Summary</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

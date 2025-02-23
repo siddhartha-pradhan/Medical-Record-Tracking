@@ -1,0 +1,71 @@
+﻿@model List<Silverline.Core.ViewModels.ApprovalViewModel>;
+
+@{
+    ViewData["Title"] = "Lab Technician Approvals";
+}
+
+<div class="pt-2 ml-4 pl-3 mb-4">
+    <h1>Approval for Lab Technician Registrations</h1>
+</div>
+
+<partial name="_Notification" />
+
+<div class="container-fluid" style="width: 95%">
+    @foreach (var item in Model)
+    {
+        <form method="post">
+            <input asp-for="@item.UserId" class="form-control" type="hidden" />
+            <input asp-for="@item.StaffId" class="form-control" type="hidden" />
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <img id="profilePicture" style="width:285px;height:300px; object-fit:cover" src="@item.ProfileImage">
+                        </div>
+                        <div class="col-4 ml-4">
+                            <h3 class="row ml-2">
+                                Technician Name
+                            </h3>
+                            <div class="row mb-4 ml-2">
+                                @item.FullName
+                            </div>
+                            <h3 class="row ml-2">
+                                Email Address
+                            </h3>
+                            <div class="row mb-4 ml-2">
+                                @item.EmailAddress
+                            </div>
+                            <div class="row mb-2 ml-1">
+                                <div class="col-5">
+                                    <a class="btn btn-outline-dark mb-2 w-100" href="@item.CertificationURL" target="_blank">Certification</a>
+                                </div>
+                                <div class="col-6">
+                                        <a class="btn btn-outline-dark mb-2 w-100" href="@item.ResumeURL" target="_blank">Resume</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <h3 class="row mr-2 ml-3">
+                                Medical Degree
+                            </h3>
+                            <div class="row mr-2 mb-4 ml-3">
+                                @item.HighestMedicalDegree
+                            </div>
+                            <h3 class="row mr-2 ml-3">
+                                Certification Number
+                            </h3>
+                            <div class="row mb-4 mr-2 ml-3">
+                                @item.CertificationNumber
+                            </div>
+                            <div class="row mb-2 ml-2">
+                                <div class="col-10">
+                                    <button class="btn btn-dark mb-2 w-50" asp-route-id="@item.UserId" asp-route-staffId="@item.StaffId">Approve</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    }
+</div>

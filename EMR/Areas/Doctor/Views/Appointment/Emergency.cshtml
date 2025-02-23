@@ -1,0 +1,239 @@
+﻿@model Silverline.Core.ViewModels.EmergencyAppointmentViewModel
+
+@{
+	ViewData["Title"] = "Emergency Appointments";
+}
+
+<div class="pt-2 ml-4 pl-3 mb-4">
+	<h1>Start an Emergency Appointment</h1>
+</div>
+
+<partial name="_Notification" />
+
+<form method="post">
+	<div class="container-fluid" style="width: 95%">
+		<div class="row-12">
+			<div class="card">
+				<div class="row mb-5">
+					<div class="col-6">
+						<h3 class="mb-3 mt-4 ml-4">
+							Patient Name
+						</h3>
+						<div class="ml-4" style="width: 90%">
+							@Html.DropDownList("PatientId", (IEnumerable<SelectListItem>)ViewData["PatientId"], "Select a patient", htmlAttributes: new { @class = "form-control dropdown", @onchange = "this.options[0].disabled = true;" })
+						</div>
+						<h3 class="row mb-3 mt-4 ml-4">
+							Diagnostic Title
+						</h3>
+						<div class="ml-4" style="width: 90%">
+							<input asp-for="AppointmentDetail.AppointmentTitle" class="form-control"/>
+						</div>
+						<h3 class="row mb-3 mt-4 ml-4">
+							Appointment Request Title
+						</h3>
+						<div class="ml-4" style="width: 90%">
+							<input asp-for="Appointment.AppointmentRequest" class="form-control" id="editor" />
+						</div>
+					</div>
+					<div class="col-6">
+						<h3 class="row mb-3 mt-4 ml-4">
+							Diagnostic Comments
+						</h3>
+						<div class="ml-4" style="width: 90%">
+							<textarea asp-for="AppointmentDetail.AppointmentDescription" class="form-control"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card" style="width: 100%">
+				<div class="row">
+					<h3 class="row mb-3 mt-4 ml-4">
+						Medicinal Prescriptions
+					</h3>
+				</div>
+				<div class="row ml-3" style="width: 98%">
+					<input type="hidden" id="hiddenLastMedicineIndex" value="0" />
+					<table id="medicationTable" class="table table-striped">
+						<thead>
+							<tr>
+								<th width="25%">Medicine</th>
+								<th width="15%">Dose</th>
+								<th width="15%">Time Period</th>
+								<th width="15%">Time Format</th>
+								<th width="20%">Remarks</th>
+								<th width="20%">Options</th>
+							</tr>
+						</thead>
+						<tbody>
+							@for (int i = 0; i < Model.AppointmentDetail.MedicalTreatments.Count; i++)
+							{
+								<tr>
+									<td>
+										@Html.DropDownListFor(x => x.AppointmentDetail.MedicalTreatments[i].MedicineId, Model.MedicineList, "Select a medicine", new { @class = "form-control", @onchange = "this.options[0].disabled = true;" })
+									</td>
+									<td>
+										@Html.TextBoxFor(x => x.AppointmentDetail.MedicalTreatments[i].Dose, new { @class = "form-control" } )
+									</td>
+									<td>
+										@Html.TextBoxFor(x => x.AppointmentDetail.MedicalTreatments[i].TimePeriod, new { @class = "form-control" } )
+									</td>
+									<td>
+										@Html.TextBoxFor(x => x.AppointmentDetail.MedicalTreatments[i].TimeFormat, new { @class = "form-control" } )
+									</td>
+									<td>
+										@Html.TextBoxFor(x => x.AppointmentDetail.MedicalTreatments[i].DoctorRemarks, new { @class = "form-control" } )
+									</td>
+									<td>
+										<button id="btnadd-@i" type="button" class="btn btn-dark visible" onclick="addMedicine(this)" style="position: absolute;">
+											Add
+										</button>
+										<button id="btnremove-@i" type="button" class="btn btn-outline-dark invisible" onclick="deleteMedicine(this)" style="position: absolute;">
+											Delete
+										</button>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+			<div class="card" style="width: 100%">
+				<div class="row">
+					<h3 class="row mb-3 mt-4 ml-4">
+						Preliminary Investigations
+					</h3>
+				</div>
+				<div class="row ml-3" style="width: 98%">
+					<input type="hidden" id="hiddenLastTestIndex" value="0" />
+					<table id="testTable" class="table table-striped">
+						<thead>
+							<tr>
+								<th width="40%">Test Type</th>
+								<th width="45%">Remarks</th>
+								<th width="9%">Options</th>
+							</tr>
+						</thead>
+						<tbody>
+							@for (int i = 0; i < Model.AppointmentDetail.LaboratoryDiagnosis.Count; i++)
+							{
+								<tr>
+									<td>
+										@Html.DropDownListFor(x => x.AppointmentDetail.LaboratoryDiagnosis[i].TestId, Model.LaboratoryTestList, "Select a test", new { @class = "form-control", @id = "test_" + @i, @onchange = "this.options[0].disabled = true;" })
+									</td>
+									<td>
+										@Html.TextBoxFor(x => x.AppointmentDetail.LaboratoryDiagnosis[i].DoctorRemarks, new { @class = "form-control", @id = "testRemarks_" + @i } )
+									</td>
+									<td>
+										<button id="btnaddTest-@i" type="button" class="btn btn-dark visible" onclick="addTest(this)" style="position: absolute;">
+											Add
+										</button>
+										<button id="btnremoveTest-@i" type="button" class="btn btn-outline-dark invisible" onclick="deleteTest(this)" style="position: absolute;">
+											Delete
+										</button>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="col-12 btn-group">
+				<div class="col-6 form-group text-left p-2">
+					<input type="submit" value="Finalize Appointment" class="btn btn-dark" />
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+@section Scripts {
+	<script>
+			function addMedicine(btn) {
+				var table = document.getElementById('medicationTable');
+				var rows = table.getElementsByTagName('tr');
+
+				var rowOuterHTML = rows[rows.length - 1].outerHTML;
+
+				var lastrowIndex = document.getElementById('hiddenLastMedicineIndex').value;
+				var nextrowIndex = eval(lastrowIndex) + 1;
+				document.getElementById('hiddenLastMedicineIndex').value = nextrowIndex;
+
+				rowOuterHTML = rowOuterHTML.replaceAll('_' + lastrowIndex, '_' + nextrowIndex);
+				rowOuterHTML = rowOuterHTML.replaceAll('[' + lastrowIndex + ']', '[' + nextrowIndex + ']');
+				rowOuterHTML = rowOuterHTML.replaceAll('-' + lastrowIndex, '-' + nextrowIndex);
+
+				console.log(rowOuterHTML);
+				console.log(lastrowIndex);
+				console.log(nextrowIndex);
+
+
+				var newRow = table.insertRow();
+				newRow.innerHTML = rowOuterHTML;
+
+				var btnAddID = btn.id;
+				var btnDeleteID = btnAddID.replaceAll('btnadd', 'btnremove');
+
+				var delbtn = document.getElementById(btnDeleteID);
+				delbtn.classList.add("visible");
+				delbtn.classList.remove("invisible");
+
+				var addbtn = document.getElementById(btnAddID);
+				addbtn.classList.remove("visible");
+				addbtn.classList.add("invisible");
+			}
+
+			function deleteMedicine(btn) {
+				$(btn).closest('tr').remove();
+			}
+
+			function addTest(btn) {
+				var table = document.getElementById('testTable');
+				var rows = table.getElementsByTagName('tr');
+
+				var rowOuterHTML = rows[rows.length - 1].outerHTML;
+
+				var lastrowIndex = document.getElementById('hiddenLastTestIndex').value;
+				var nextrowIndex = eval(lastrowIndex) + 1;
+				document.getElementById('hiddenLastTestIndex').value = nextrowIndex;
+
+				rowOuterHTML = rowOuterHTML.replaceAll('_' + lastrowIndex, '_' + nextrowIndex);
+				rowOuterHTML = rowOuterHTML.replaceAll('[' + lastrowIndex + ']', '[' + nextrowIndex + ']');
+				rowOuterHTML = rowOuterHTML.replaceAll('-' + lastrowIndex, '-' + nextrowIndex);
+
+				var newRow = table.insertRow();
+				newRow.innerHTML = rowOuterHTML;
+
+				var btnAddID = btn.id;
+				console.log(btnAddID);
+				var btnDeleteID = btnAddID.replaceAll('btnadd', 'btnremove');
+
+				var delbtn = document.getElementById(btnDeleteID);
+				delbtn.classList.add("visible");
+				delbtn.classList.remove("invisible");
+
+				var addbtn = document.getElementById(btnAddID);
+				addbtn.classList.remove("visible");
+				addbtn.classList.add("invisible");
+			}
+
+			function deleteTest(btn) {
+				$(btn).closest('tr').remove();
+			}
+
+		tinymce.init({
+			selector: 'textarea',
+			min_width: 50000
+		});
+
+		ClassicEditor
+			.create( document.querySelector( '#editor'))
+			.then( editor => {
+				console.log( editor );
+			} )
+			.catch( error => {
+				console.error( error );
+			} );
+	</script>
+}
