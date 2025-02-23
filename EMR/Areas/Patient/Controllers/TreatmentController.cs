@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis;
 using Silverline.Application.Interfaces.Services;
 using Silverline.Core.Constants;
-using Silverline.Core.Entities;
 using Silverline.Core.ViewModels;
 using System.Security.Claims;
 

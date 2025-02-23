@@ -1,6 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
-
-namespace Silverline.Core.ViewModels;
+﻿namespace Silverline.Core.ViewModels;
 
 public class ReportViewModel
 {

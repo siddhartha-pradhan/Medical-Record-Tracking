@@ -3,11 +3,8 @@ using Silverline.Core.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Silverline.Application.Interfaces.Services;
 using Silverline.Core.Entities;
-using Silverline.Infrastructure.Implementation.Services;
 using Silverline.Core.ViewModels;
-using Microsoft.CodeAnalysis;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Silverline.Areas.Pharmacist.Controllers;
 
