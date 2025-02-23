@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>Silverline.Infrastructure</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Silverline.Application\Silverline.Application.csproj" />
+    <ProjectReference Include="..\EMR.Application\EMR.Application.csproj" />
   </ItemGroup>
 
 </Project>

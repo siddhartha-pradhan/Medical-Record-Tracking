@@ -4,10 +4,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>Silverline.Application</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Silverline.Core\Silverline.Core.csproj" />
+    <ProjectReference Include="..\EMR.Core\EMR.Core.csproj" />
   </ItemGroup>
 
 </Project>

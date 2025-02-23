@@ -25,9 +25,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Silverline.Application\Silverline.Application.csproj" />
-        <ProjectReference Include="..\Silverline.Core\Silverline.Core.csproj" />
-        <ProjectReference Include="..\Silverline.Infrastructure\Silverline.Infrastructure.csproj" />
+        <ProjectReference Include="..\EMR.Application\EMR.Application.csproj" />
+        <ProjectReference Include="..\EMR.Core\EMR.Core.csproj" />
+        <ProjectReference Include="..\EMR.Infrastructure\EMR.Infrastructure.csproj" />
     </ItemGroup>
 
   <ItemGroup>
