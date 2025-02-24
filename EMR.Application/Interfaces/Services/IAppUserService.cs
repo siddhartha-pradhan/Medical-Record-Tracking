@@ -8,9 +8,9 @@ public interface IAppUserService
 
 	string GetImage (string email);
 
-	AppUser GetUser(string Id);
+	User GetUser(string Id);
 
-	List<AppUser> GetAllUsers();
+	List<User> GetAllUsers();
 
 	void LockUser(string Id);
 

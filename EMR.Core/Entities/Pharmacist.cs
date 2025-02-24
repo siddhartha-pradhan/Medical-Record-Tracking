@@ -19,5 +19,5 @@ public class Pharmacist
     public bool IsApproved { get; set; } = false;
 
     [ForeignKey("UserId")]
-    public virtual AppUser? AppUser { get; set; }
+    public virtual User? AppUser { get; set; }
 }

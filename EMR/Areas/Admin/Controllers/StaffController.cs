@@ -71,7 +71,7 @@ public class StaffController : Controller
 	public async Task<IActionResult> Index(UserViewModel userModel, IFormFile resume, IFormFile certification, IFormFile image)
 	{
 		var folder = "staffs";
-		var user = new AppUser();
+		var user = new User();
 		var role = userModel.Role;
 		var password = "EMR@123";
 		var wwwRootPath = _webHostEnvironment.WebRootPath;

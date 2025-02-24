@@ -19,5 +19,5 @@ public class LabTechnician
     public bool IsApproved { get; set; } = false;
 
     [ForeignKey("UserId")]
-    public virtual AppUser AppUser { get; set; }
+    public virtual User User { get; set; }
 }

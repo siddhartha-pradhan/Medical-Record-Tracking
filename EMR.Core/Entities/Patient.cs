@@ -19,7 +19,7 @@ public class Patient
     public int CreditPoints { get; set; }
 
     [ForeignKey("UserId")]
-    public virtual AppUser? AppUser { get; set; }
+    public virtual User? AppUser { get; set; }
 
     public virtual ICollection<MedicationTreatment>? MedicationTreatments { get; set; }
 

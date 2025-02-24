@@ -124,7 +124,7 @@ public class AppointmentController : Controller
         return View(finalizedAppointments);
     }
 
-    private AppUser GetUser(Guid doctorId)
+    private User GetUser(Guid doctorId)
     {
         var doctor = _doctorService.GetDoctor(doctorId);
 

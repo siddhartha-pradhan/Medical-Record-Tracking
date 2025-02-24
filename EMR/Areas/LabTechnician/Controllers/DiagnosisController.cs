@@ -62,7 +62,7 @@ public class DiagnosisController : Controller
 		return appointment;
 	}
 
-    private AppUser AppUser(string Id)
+    private User AppUser(string Id)
 	{
 		var user = _appUserService.GetUser(Id);
 

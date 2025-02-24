@@ -44,7 +44,7 @@ public class DbInitializer : IDbInitializer
 			_roleManager.CreateAsync(new IdentityRole(Constants.Pharmacist)).GetAwaiter().GetResult();
 		}
 
-        var user = new AppUser
+        var user = new User
         {
             FullName = "Siddhartha Pradhan",
             Email = "siddhartha.pradhan.ix+admin@gmail.com",

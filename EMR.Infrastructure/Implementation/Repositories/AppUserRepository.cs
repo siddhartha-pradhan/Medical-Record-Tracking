@@ -4,7 +4,7 @@ using Silverline.Application.Interfaces.Repositories;
 
 namespace Silverline.Infrastructure.Implementation.Repositories;
 
-public class AppUserRepository : Repository<AppUser>, IAppUserRepository
+public class AppUserRepository : Repository<User>, IAppUserRepository
 {
     private readonly ApplicationDbContext _dbContext;
 

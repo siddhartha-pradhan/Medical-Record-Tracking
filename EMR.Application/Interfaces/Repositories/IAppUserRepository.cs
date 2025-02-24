@@ -2,6 +2,6 @@
 
 namespace Silverline.Application.Interfaces.Repositories;
 
-public interface IAppUserRepository : IRepository<AppUser>
+public interface IAppUserRepository : IRepository<User>
 {
 }

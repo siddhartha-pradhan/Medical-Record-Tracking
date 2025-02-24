@@ -13,12 +13,12 @@ public class AppUserService : IAppUserService
         _unitOfWork = unitOfWork;
     }
 
-    public AppUser GetUser(string Id)
+    public User GetUser(string Id)
     {
         return _unitOfWork.AppUser.Retrieve(Id);
     }
 
-    public List<AppUser> GetAllUsers()
+    public List<User> GetAllUsers()
     {
         return _unitOfWork.AppUser.GetAll();
     }

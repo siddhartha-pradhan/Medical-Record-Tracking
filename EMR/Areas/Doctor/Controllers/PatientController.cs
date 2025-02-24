@@ -116,7 +116,7 @@ public class PatientController : Controller
 	[HttpPost]
     public async Task<IActionResult> Add(AddPatientViewModel patient, IFormFile image)
     {
-        var user = new AppUser();
+        var user = new User();
         var wwwRootPath = _webHostEnvironment.WebRootPath;
         var fileCount = Request.Form.Files.Count;
 
