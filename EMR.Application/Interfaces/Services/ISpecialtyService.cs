@@ -1,6 +1,6 @@
-﻿using Silverline.Core.Entities;
+﻿using EMR.Core.Entities;
 
-namespace Silverline.Application.Interfaces.Services;
+namespace EMR.Application.Interfaces.Services;
 
 public interface ISpecialtyService
 {

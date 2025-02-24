@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Silverline.Infrastructure.Persistence;
+using EMR.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace Silverline.Infrastructure.Migrations
+namespace EMR.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -229,7 +229,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("Tokens", (string)null);
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Appointment", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Appointment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -277,7 +277,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("Appointments");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.AppointmentDetail", b =>
+            modelBuilder.Entity("EMR.Core.Entities.AppointmentDetail", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -301,7 +301,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("AppointmentDetails");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Category", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -325,7 +325,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.DiagnosticTest", b =>
+            modelBuilder.Entity("EMR.Core.Entities.DiagnosticTest", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -371,7 +371,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("DiagnosticTests");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Doctor", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Doctor", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -412,7 +412,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("Doctors");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.LabTechnician", b =>
+            modelBuilder.Entity("EMR.Core.Entities.LabTechnician", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -448,7 +448,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("LabTechnicians");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.LaboratoryDiagnosis", b =>
+            modelBuilder.Entity("EMR.Core.Entities.LaboratoryDiagnosis", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -493,7 +493,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("LaboratoryDiagnosis");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Manufacturer", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Manufacturer", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -524,7 +524,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("Manufacturers");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.MedicalRecord", b =>
+            modelBuilder.Entity("EMR.Core.Entities.MedicalRecord", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -568,7 +568,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("MedicalRecords");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.MedicationTreatment", b =>
+            modelBuilder.Entity("EMR.Core.Entities.MedicationTreatment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -631,7 +631,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("MedicationTreatments");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Medicine", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Medicine", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -679,7 +679,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("Medicines");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.MedicineCart", b =>
+            modelBuilder.Entity("EMR.Core.Entities.MedicineCart", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -708,7 +708,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("MedicineCart");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.OrderDetail", b =>
+            modelBuilder.Entity("EMR.Core.Entities.OrderDetail", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -740,7 +740,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("OrderDetail");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.OrderHeader", b =>
+            modelBuilder.Entity("EMR.Core.Entities.OrderHeader", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -766,7 +766,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("OrderHeader");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Patient", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Patient", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -797,7 +797,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("Patients");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Pharmacist", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Pharmacist", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -833,7 +833,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("Pharmacists");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.RecordHeader", b =>
+            modelBuilder.Entity("EMR.Core.Entities.RecordHeader", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -853,7 +853,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("RecordHeader");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Specialty", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Specialty", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -877,7 +877,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("Specialties");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.TestCart", b =>
+            modelBuilder.Entity("EMR.Core.Entities.TestCart", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -918,7 +918,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("TestCarts");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.TestDetail", b =>
+            modelBuilder.Entity("EMR.Core.Entities.TestDetail", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -949,7 +949,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("TestDetail");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.TestHeader", b =>
+            modelBuilder.Entity("EMR.Core.Entities.TestHeader", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -979,7 +979,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("TestHeader");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.TestType", b =>
+            modelBuilder.Entity("EMR.Core.Entities.TestType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -1003,7 +1003,7 @@ namespace Silverline.Infrastructure.Migrations
                     b.ToTable("TestTypes");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.AppUser", b =>
+            modelBuilder.Entity("EMR.Core.Entities.AppUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
@@ -1073,15 +1073,15 @@ namespace Silverline.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Appointment", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Appointment", b =>
                 {
-                    b.HasOne("Silverline.Core.Entities.Doctor", "Doctor")
+                    b.HasOne("EMR.Core.Entities.Doctor", "Doctor")
                         .WithMany("Appointments")
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Silverline.Core.Entities.Patient", "Patient")
+                    b.HasOne("EMR.Core.Entities.Patient", "Patient")
                         .WithMany("Appointments")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1092,9 +1092,9 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.AppointmentDetail", b =>
+            modelBuilder.Entity("EMR.Core.Entities.AppointmentDetail", b =>
                 {
-                    b.HasOne("Silverline.Core.Entities.Appointment", "Appointment")
+                    b.HasOne("EMR.Core.Entities.Appointment", "Appointment")
                         .WithMany()
                         .HasForeignKey("AppointmentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1103,9 +1103,9 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("Appointment");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.DiagnosticTest", b =>
+            modelBuilder.Entity("EMR.Core.Entities.DiagnosticTest", b =>
                 {
-                    b.HasOne("Silverline.Core.Entities.TestType", "TestType")
+                    b.HasOne("EMR.Core.Entities.TestType", "TestType")
                         .WithMany()
                         .HasForeignKey("ClassId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1114,15 +1114,15 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("TestType");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Doctor", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Doctor", b =>
                 {
-                    b.HasOne("Silverline.Core.Entities.Specialty", "Specialty")
+                    b.HasOne("EMR.Core.Entities.Specialty", "Specialty")
                         .WithMany("Doctors")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Silverline.Core.Entities.AppUser", "AppUser")
+                    b.HasOne("EMR.Core.Entities.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1133,9 +1133,9 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("Specialty");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.LabTechnician", b =>
+            modelBuilder.Entity("EMR.Core.Entities.LabTechnician", b =>
                 {
-                    b.HasOne("Silverline.Core.Entities.AppUser", "AppUser")
+                    b.HasOne("EMR.Core.Entities.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1144,19 +1144,19 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.LaboratoryDiagnosis", b =>
+            modelBuilder.Entity("EMR.Core.Entities.LaboratoryDiagnosis", b =>
                 {
-                    b.HasOne("Silverline.Core.Entities.AppointmentDetail", "AppointmentDetail")
+                    b.HasOne("EMR.Core.Entities.AppointmentDetail", "AppointmentDetail")
                         .WithMany("LaboratoryDiagnosis")
                         .HasForeignKey("ReferralId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Silverline.Core.Entities.LabTechnician", "LabTechnician")
+                    b.HasOne("EMR.Core.Entities.LabTechnician", "LabTechnician")
                         .WithMany()
                         .HasForeignKey("TechnicianId");
 
-                    b.HasOne("Silverline.Core.Entities.DiagnosticTest", "DiagnosticTest")
+                    b.HasOne("EMR.Core.Entities.DiagnosticTest", "DiagnosticTest")
                         .WithMany()
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1169,9 +1169,9 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("LabTechnician");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.MedicalRecord", b =>
+            modelBuilder.Entity("EMR.Core.Entities.MedicalRecord", b =>
                 {
-                    b.HasOne("Silverline.Core.Entities.Patient", "Patient")
+                    b.HasOne("EMR.Core.Entities.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1180,23 +1180,23 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.MedicationTreatment", b =>
+            modelBuilder.Entity("EMR.Core.Entities.MedicationTreatment", b =>
                 {
-                    b.HasOne("Silverline.Core.Entities.Medicine", "Medicine")
+                    b.HasOne("EMR.Core.Entities.Medicine", "Medicine")
                         .WithMany("MedicationTreatments")
                         .HasForeignKey("MedicineId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Silverline.Core.Entities.Patient", null)
+                    b.HasOne("EMR.Core.Entities.Patient", null)
                         .WithMany("MedicationTreatments")
                         .HasForeignKey("PatientId");
 
-                    b.HasOne("Silverline.Core.Entities.Pharmacist", "Pharmacist")
+                    b.HasOne("EMR.Core.Entities.Pharmacist", "Pharmacist")
                         .WithMany()
                         .HasForeignKey("PharmacistId");
 
-                    b.HasOne("Silverline.Core.Entities.AppointmentDetail", "AppointmentDetail")
+                    b.HasOne("EMR.Core.Entities.AppointmentDetail", "AppointmentDetail")
                         .WithMany("MedicalTreatments")
                         .HasForeignKey("ReferralId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1209,15 +1209,15 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("Pharmacist");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Medicine", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Medicine", b =>
                 {
-                    b.HasOne("Silverline.Core.Entities.Category", "Category")
+                    b.HasOne("EMR.Core.Entities.Category", "Category")
                         .WithMany("Medicines")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Silverline.Core.Entities.Manufacturer", "Manufacturer")
+                    b.HasOne("EMR.Core.Entities.Manufacturer", "Manufacturer")
                         .WithMany("Medicines")
                         .HasForeignKey("ManufacturerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1228,21 +1228,21 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("Manufacturer");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.MedicineCart", b =>
+            modelBuilder.Entity("EMR.Core.Entities.MedicineCart", b =>
                 {
-                    b.HasOne("Silverline.Core.Entities.Doctor", "Doctor")
+                    b.HasOne("EMR.Core.Entities.Doctor", "Doctor")
                         .WithMany()
                         .HasForeignKey("ApprovedBy")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Silverline.Core.Entities.Medicine", "Medicine")
+                    b.HasOne("EMR.Core.Entities.Medicine", "Medicine")
                         .WithMany("MedicineCarts")
                         .HasForeignKey("MedicineId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Silverline.Core.Entities.Patient", "Patient")
+                    b.HasOne("EMR.Core.Entities.Patient", "Patient")
                         .WithMany("MedicineCarts")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1255,21 +1255,21 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.OrderDetail", b =>
+            modelBuilder.Entity("EMR.Core.Entities.OrderDetail", b =>
                 {
-                    b.HasOne("Silverline.Core.Entities.Doctor", "Doctor")
+                    b.HasOne("EMR.Core.Entities.Doctor", "Doctor")
                         .WithMany()
                         .HasForeignKey("ApprovedBy")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Silverline.Core.Entities.Medicine", "Medicine")
+                    b.HasOne("EMR.Core.Entities.Medicine", "Medicine")
                         .WithMany("OrderDetails")
                         .HasForeignKey("MedicineId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Silverline.Core.Entities.OrderHeader", "OrderHeader")
+                    b.HasOne("EMR.Core.Entities.OrderHeader", "OrderHeader")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1282,9 +1282,9 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("OrderHeader");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.OrderHeader", b =>
+            modelBuilder.Entity("EMR.Core.Entities.OrderHeader", b =>
                 {
-                    b.HasOne("Silverline.Core.Entities.Patient", "Patient")
+                    b.HasOne("EMR.Core.Entities.Patient", "Patient")
                         .WithMany("OrderHeaders")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1293,9 +1293,9 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Patient", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Patient", b =>
                 {
-                    b.HasOne("Silverline.Core.Entities.AppUser", "AppUser")
+                    b.HasOne("EMR.Core.Entities.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1304,9 +1304,9 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Pharmacist", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Pharmacist", b =>
                 {
-                    b.HasOne("Silverline.Core.Entities.AppUser", "AppUser")
+                    b.HasOne("EMR.Core.Entities.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1315,9 +1315,9 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.RecordHeader", b =>
+            modelBuilder.Entity("EMR.Core.Entities.RecordHeader", b =>
                 {
-                    b.HasOne("Silverline.Core.Entities.Patient", "Patient")
+                    b.HasOne("EMR.Core.Entities.Patient", "Patient")
                         .WithMany("RecordHeaders")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1326,15 +1326,15 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.TestCart", b =>
+            modelBuilder.Entity("EMR.Core.Entities.TestCart", b =>
                 {
-                    b.HasOne("Silverline.Core.Entities.Patient", "Patient")
+                    b.HasOne("EMR.Core.Entities.Patient", "Patient")
                         .WithMany("TestCarts")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Silverline.Core.Entities.DiagnosticTest", "DiagnosticTest")
+                    b.HasOne("EMR.Core.Entities.DiagnosticTest", "DiagnosticTest")
                         .WithMany("TestCarts")
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1345,15 +1345,15 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.TestDetail", b =>
+            modelBuilder.Entity("EMR.Core.Entities.TestDetail", b =>
                 {
-                    b.HasOne("Silverline.Core.Entities.TestHeader", "TestHeader")
+                    b.HasOne("EMR.Core.Entities.TestHeader", "TestHeader")
                         .WithMany("TestDetails")
                         .HasForeignKey("TestHeaderId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Silverline.Core.Entities.DiagnosticTest", "DiagnosticTest")
+                    b.HasOne("EMR.Core.Entities.DiagnosticTest", "DiagnosticTest")
                         .WithMany("TestDetails")
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1364,9 +1364,9 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("TestHeader");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.TestHeader", b =>
+            modelBuilder.Entity("EMR.Core.Entities.TestHeader", b =>
                 {
-                    b.HasOne("Silverline.Core.Entities.Patient", "Patient")
+                    b.HasOne("EMR.Core.Entities.Patient", "Patient")
                         .WithMany("TestHeaders")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1375,36 +1375,36 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.AppointmentDetail", b =>
+            modelBuilder.Entity("EMR.Core.Entities.AppointmentDetail", b =>
                 {
                     b.Navigation("LaboratoryDiagnosis");
 
                     b.Navigation("MedicalTreatments");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Category", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Category", b =>
                 {
                     b.Navigation("Medicines");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.DiagnosticTest", b =>
+            modelBuilder.Entity("EMR.Core.Entities.DiagnosticTest", b =>
                 {
                     b.Navigation("TestCarts");
 
                     b.Navigation("TestDetails");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Doctor", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Doctor", b =>
                 {
                     b.Navigation("Appointments");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Manufacturer", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Manufacturer", b =>
                 {
                     b.Navigation("Medicines");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Medicine", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Medicine", b =>
                 {
                     b.Navigation("MedicationTreatments");
 
@@ -1413,12 +1413,12 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("OrderDetails");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.OrderHeader", b =>
+            modelBuilder.Entity("EMR.Core.Entities.OrderHeader", b =>
                 {
                     b.Navigation("OrderDetails");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Patient", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Patient", b =>
                 {
                     b.Navigation("Appointments");
 
@@ -1435,12 +1435,12 @@ namespace Silverline.Infrastructure.Migrations
                     b.Navigation("TestHeaders");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.Specialty", b =>
+            modelBuilder.Entity("EMR.Core.Entities.Specialty", b =>
                 {
                     b.Navigation("Doctors");
                 });
 
-            modelBuilder.Entity("Silverline.Core.Entities.TestHeader", b =>
+            modelBuilder.Entity("EMR.Core.Entities.TestHeader", b =>
                 {
                     b.Navigation("TestDetails");
                 });

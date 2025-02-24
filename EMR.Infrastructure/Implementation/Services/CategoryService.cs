@@ -1,13 +1,13 @@
-﻿using Silverline.Application.Interfaces.Repositories;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Core.Entities;
+﻿using EMR.Application.Interfaces.Repositories;
+using EMR.Application.Interfaces.Services;
+using EMR.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Silverline.Infrastructure.Implementation.Services
+namespace EMR.Infrastructure.Implementation.Services
 {
     public class CategoryService : ICategoryService
     {

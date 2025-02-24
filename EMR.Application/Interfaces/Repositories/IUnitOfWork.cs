@@ -1,4 +1,4 @@
-﻿namespace Silverline.Application.Interfaces.Repositories;
+﻿namespace EMR.Application.Interfaces.Repositories;
 
 public interface IUnitOfWork
 {

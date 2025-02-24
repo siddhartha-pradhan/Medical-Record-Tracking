@@ -19,11 +19,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Core.Constants;
-using Silverline.Core.Entities;
+using EMR.Application.Interfaces.Services;
+using EMR.Core.Constants;
+using EMR.Core.Entities;
 
-namespace Silverline.Areas.Identity.Pages.Account
+namespace EMR.Areas.Identity.Pages.Account
 {
     public class SignInModel : PageModel
     {

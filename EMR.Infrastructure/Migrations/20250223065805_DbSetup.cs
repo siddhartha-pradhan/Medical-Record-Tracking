@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Silverline.Infrastructure.Migrations
+namespace EMR.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class DbSetup : Migration

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Silverline.Core.ViewModels
+namespace EMR.Core.ViewModels
 {
 	public class DoctorPatientViewModel
 	{

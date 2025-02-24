@@ -1,10 +1,10 @@
-﻿using Silverline.Core.Entities;
-using Silverline.Core.Constants;
+﻿using EMR.Core.Entities;
+using EMR.Core.Constants;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Silverline.Infrastructure.Persistence.Seed;
+namespace EMR.Infrastructure.Persistence.Seed;
 
 public class DbInitializer : IDbInitializer
 {

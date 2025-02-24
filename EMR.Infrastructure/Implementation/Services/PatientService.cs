@@ -1,9 +1,9 @@
-﻿using Silverline.Core.Entities;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Application.Interfaces.Repositories;
-using Silverline.Infrastructure.Persistence;
+﻿using EMR.Core.Entities;
+using EMR.Application.Interfaces.Services;
+using EMR.Application.Interfaces.Repositories;
+using EMR.Infrastructure.Persistence;
 
-namespace Silverline.Infrastructure.Implementation.Services;
+namespace EMR.Infrastructure.Implementation.Services;
 
 public class PatientService : IPatientService
 {

@@ -1,4 +1,4 @@
-﻿namespace Silverline.Core.Entities.Shared;
+﻿namespace EMR.Core.Entities.Shared;
 
 public class BaseEntity
 {

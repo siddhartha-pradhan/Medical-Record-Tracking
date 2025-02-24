@@ -1,4 +1,4 @@
-﻿namespace Silverline.Core.Constants;
+﻿namespace EMR.Core.Constants;
 
 public class Constants
 {

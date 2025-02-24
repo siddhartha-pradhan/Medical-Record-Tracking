@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Silverline.Core.Constants;
-using Silverline.Core.ViewModels;
+using EMR.Core.Constants;
+using EMR.Core.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Application.Interfaces.Repositories;
+using EMR.Application.Interfaces.Services;
+using EMR.Application.Interfaces.Repositories;
 
-namespace Silverline.Areas.Admin.Controllers;
+namespace EMR.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [Authorize(Roles = Constants.Admin)]

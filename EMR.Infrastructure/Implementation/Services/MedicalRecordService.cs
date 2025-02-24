@@ -1,8 +1,8 @@
-﻿using Silverline.Application.Interfaces.Repositories;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Core.Entities;
+﻿using EMR.Application.Interfaces.Repositories;
+using EMR.Application.Interfaces.Services;
+using EMR.Core.Entities;
 
-namespace Silverline.Infrastructure.Implementation.Services;
+namespace EMR.Infrastructure.Implementation.Services;
 
 public class MedicalRecordService : IMedicalRecordService
 {

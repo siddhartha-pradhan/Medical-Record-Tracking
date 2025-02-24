@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Silverline.Core.Constants;
+using EMR.Core.Constants;
 using Microsoft.AspNetCore.Authorization;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Core.ViewModels;
+using EMR.Application.Interfaces.Services;
+using EMR.Core.ViewModels;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 
-namespace Silverline.Areas.LabTechnician.Controllers;
+namespace EMR.Areas.LabTechnician.Controllers;
 
 [Area("LabTechnician")]
 [Authorize(Roles = Constants.LabTechnician)]

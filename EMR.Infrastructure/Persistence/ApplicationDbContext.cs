@@ -1,9 +1,9 @@
-﻿using Silverline.Core.Entities;
+﻿using EMR.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace Silverline.Infrastructure.Persistence;
+namespace EMR.Infrastructure.Persistence;
 
 public class ApplicationDbContext : IdentityDbContext
 {

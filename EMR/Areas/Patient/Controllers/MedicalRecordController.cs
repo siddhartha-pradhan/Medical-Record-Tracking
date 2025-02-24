@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Core.Entities;
-using Silverline.Infrastructure.Implementation.Services;
+using EMR.Application.Interfaces.Services;
+using EMR.Core.Entities;
+using EMR.Infrastructure.Implementation.Services;
 using System.Configuration;
 using System.Security.Claims;
 
-namespace Silverline.Areas.Patient.Controllers;
+namespace EMR.Areas.Patient.Controllers;
 
 [Area("Patient")]
 public class MedicalRecordController : Controller

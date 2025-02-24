@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using Silverline.Core.Entities;
+using EMR.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Identity;
@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Core.Constants;
+using EMR.Application.Interfaces.Services;
+using EMR.Core.Constants;
 
-namespace Silverline.Areas.Identity.Pages.Account;
+namespace EMR.Areas.Identity.Pages.Account;
 
 public class RegisterModel : PageModel
 {

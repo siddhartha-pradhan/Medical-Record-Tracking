@@ -1,11 +1,11 @@
-﻿using Silverline.Core.Entities;
+﻿using EMR.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Silverline.Core.ViewModels
+namespace EMR.Core.ViewModels
 {
 	public class AppointmentDetailsViewModel
 	{

@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Silverline.Infrastructure.Persistence;
-using Silverline.Application.Interfaces.Repositories;
+using EMR.Infrastructure.Persistence;
+using EMR.Application.Interfaces.Repositories;
 using System.Linq.Expressions;
 
-namespace Silverline.Infrastructure.Implementation.Repositories;
+namespace EMR.Infrastructure.Implementation.Repositories;
 
 public class Repository<T> : IRepository<T> where T : class
 {

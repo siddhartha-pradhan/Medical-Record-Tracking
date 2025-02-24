@@ -1,9 +1,9 @@
-﻿using Silverline.Application.Interfaces.Repositories;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Core.Constants;
-using Silverline.Core.Entities;
+﻿using EMR.Application.Interfaces.Repositories;
+using EMR.Application.Interfaces.Services;
+using EMR.Core.Constants;
+using EMR.Core.Entities;
 
-namespace Silverline.Infrastructure.Implementation.Services;
+namespace EMR.Infrastructure.Implementation.Services;
 
 public class LabDiagnosisService : ILabDiagnosisService
 {

@@ -1,6 +1,6 @@
-﻿using Silverline.Core.Entities;
+﻿using EMR.Core.Entities;
 
-namespace Silverline.Application.Interfaces.Repositories;
+namespace EMR.Application.Interfaces.Repositories;
 
 public interface IAppointmentDetailRepository : IRepository<AppointmentDetail>
 {

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace Silverline.Areas.Identity.Pages.Account.Manage
+namespace EMR.Areas.Identity.Pages.Account.Manage
 {
     public class ChangePasswordModel : PageModel
     {

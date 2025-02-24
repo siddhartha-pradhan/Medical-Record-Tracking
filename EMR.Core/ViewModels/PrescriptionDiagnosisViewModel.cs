@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
-namespace Silverline.Core.ViewModels;
+namespace EMR.Core.ViewModels;
 
 public class PrescriptionDiagnosisViewModel
 {

@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Silverline.Core.Constants;
+using EMR.Core.Constants;
 using Microsoft.AspNetCore.Authorization;
-using Silverline.Application.Interfaces.Services;
+using EMR.Application.Interfaces.Services;
 using System.Security.Claims;
-using Silverline.Core.Entities;
-using Silverline.Core.ViewModels;
-using Silverline.Infrastructure.Implementation.Services;
+using EMR.Core.Entities;
+using EMR.Core.ViewModels;
+using EMR.Infrastructure.Implementation.Services;
 
-namespace Silverline.Areas.Patient.Controllers;
+namespace EMR.Areas.Patient.Controllers;
 
 [Area("Patient")]
 [Authorize(Roles = Constants.Patient)]

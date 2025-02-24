@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Silverline.Core.Constants;
+using EMR.Core.Constants;
 using Microsoft.AspNetCore.Authorization;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Infrastructure.Implementation.Services;
-using Silverline.Core.ViewModels;
+using EMR.Application.Interfaces.Services;
+using EMR.Infrastructure.Implementation.Services;
+using EMR.Core.ViewModels;
 using ChartJSCore.Models;
 using ChartJSCore.Helpers;
 using ChartJSCore.Plugins.Zoom;
 
-namespace Silverline.Areas.Admin.Controllers;
+namespace EMR.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [Authorize(Roles = Constants.Admin)]

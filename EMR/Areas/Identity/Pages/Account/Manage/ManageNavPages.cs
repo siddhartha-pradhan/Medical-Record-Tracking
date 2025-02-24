@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace  Silverline.Areas.Identity.Pages.Account.Manage
+namespace  EMR.Areas.Identity.Pages.Account.Manage
 {
     public static class ManageNavPages
     {

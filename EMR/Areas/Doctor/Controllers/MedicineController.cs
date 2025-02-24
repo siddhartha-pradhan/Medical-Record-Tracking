@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Silverline.Core.Constants;
+using EMR.Core.Constants;
 using Microsoft.AspNetCore.Authorization;
-using Silverline.Application.Interfaces.Services;
+using EMR.Application.Interfaces.Services;
 
-namespace Silverline.Areas.Doctor.Controllers;
+namespace EMR.Areas.Doctor.Controllers;
 
 [Area("Doctor")]
 [Authorize(Roles = Constants.Doctor)]

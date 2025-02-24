@@ -1,7 +1,7 @@
-﻿using Silverline.Core.Entities.Shared;
+﻿using EMR.Core.Entities.Shared;
 using System.ComponentModel.DataAnnotations;
 
-namespace Silverline.Core.Entities;
+namespace EMR.Core.Entities;
 
 public class Specialty : BaseEntity
 {

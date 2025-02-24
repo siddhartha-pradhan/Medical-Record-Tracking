@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Silverline.Core.Entities;
+namespace EMR.Core.Entities;
 
 public class User : IdentityUser
 {

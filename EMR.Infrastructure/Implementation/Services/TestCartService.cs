@@ -1,10 +1,10 @@
-﻿using Silverline.Core.Entities;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Infrastructure.Implementation.Repositories;
-using Silverline.Application.Interfaces.Repositories;
-using Silverline.Core.Constants;
+﻿using EMR.Core.Entities;
+using EMR.Application.Interfaces.Services;
+using EMR.Infrastructure.Implementation.Repositories;
+using EMR.Application.Interfaces.Repositories;
+using EMR.Core.Constants;
 
-namespace Silverline.Infrastructure.Implementation.Services;
+namespace EMR.Infrastructure.Implementation.Services;
 
 public class TestCartService : ITestCartService
 {

@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Silverline.Core.Constants;
+using EMR.Core.Constants;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authentication;
 using System.ComponentModel.DataAnnotations;
 using AspNetCoreHero.ToastNotification.Abstractions;
-using Silverline.Application.Interfaces.Services;
+using EMR.Application.Interfaces.Services;
 
-namespace Silverline.Areas.Identity.Pages.Account
+namespace EMR.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {

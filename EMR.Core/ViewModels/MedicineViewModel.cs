@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Silverline.Core.Entities;
+using EMR.Core.Entities;
 
-namespace Silverline.Core.ViewModels
+namespace EMR.Core.ViewModels
 {
     public class MedicineViewModel
     {

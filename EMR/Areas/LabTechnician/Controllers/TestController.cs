@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Silverline.Core.Entities;
-using Silverline.Core.Constants;
+using EMR.Core.Entities;
+using EMR.Core.Constants;
 using Microsoft.AspNetCore.Authorization;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Application.Interfaces.Repositories;
+using EMR.Application.Interfaces.Services;
+using EMR.Application.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace Silverline.Areas.LabTechnician.Controllers;
+namespace EMR.Areas.LabTechnician.Controllers;
 
 [Area("LabTechnician")]
 [Authorize(Roles = Constants.LabTechnician)]

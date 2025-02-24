@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Silverline.Application.Interfaces.Repositories;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Infrastructure.Implementation.Services;
+using EMR.Application.Interfaces.Repositories;
+using EMR.Application.Interfaces.Services;
+using EMR.Infrastructure.Implementation.Services;
 
-namespace Silverline.Areas.Identity.Pages.Account.Manage
+namespace EMR.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
     {

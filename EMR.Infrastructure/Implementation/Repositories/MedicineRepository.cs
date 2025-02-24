@@ -1,9 +1,9 @@
-﻿using Silverline.Core.Entities;
-using Silverline.Infrastructure.Persistence;
-using Silverline.Application.Interfaces.Repositories;
+﻿using EMR.Core.Entities;
+using EMR.Infrastructure.Persistence;
+using EMR.Application.Interfaces.Repositories;
 
 
-namespace Silverline.Infrastructure.Implementation.Repositories;
+namespace EMR.Infrastructure.Implementation.Repositories;
 
 public class MedicineRepository : Repository<Medicine>, IMedicineRepository
 {

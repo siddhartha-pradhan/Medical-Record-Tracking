@@ -1,7 +1,7 @@
-﻿using Silverline.Core.Entities;
+﻿using EMR.Core.Entities;
 using System.ComponentModel.DataAnnotations;
 
-namespace Silverline.Core.ViewModels;
+namespace EMR.Core.ViewModels;
 
 public class TestCartViewModel
 {

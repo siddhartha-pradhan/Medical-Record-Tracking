@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Core.Constants;
-using Silverline.Core.ViewModels;
+using EMR.Application.Interfaces.Services;
+using EMR.Core.Constants;
+using EMR.Core.ViewModels;
 using System.Security.Claims;
 
-namespace Silverline.Areas.Patient.Controllers;
+namespace EMR.Areas.Patient.Controllers;
 
 [Area("Patient")]
 public class TreatmentController : Controller

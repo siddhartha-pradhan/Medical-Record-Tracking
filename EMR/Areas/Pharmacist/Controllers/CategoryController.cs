@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Silverline.Core.Entities;
-using Silverline.Core.Constants;
+using EMR.Core.Entities;
+using EMR.Core.Constants;
 using Microsoft.AspNetCore.Authorization;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Application.Interfaces.Repositories;
+using EMR.Application.Interfaces.Services;
+using EMR.Application.Interfaces.Repositories;
 
-namespace Silverline.Areas.Pharmacist.Controllers;
+namespace EMR.Areas.Pharmacist.Controllers;
 
 [Area("Pharmacist")]
 [Authorize(Roles = Constants.Pharmacist)]

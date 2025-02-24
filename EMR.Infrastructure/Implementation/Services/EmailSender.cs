@@ -2,7 +2,7 @@
 using System.Net.Mail;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
-namespace Silverline.Infrastructure.Implementation.Services
+namespace EMR.Infrastructure.Implementation.Services
 {
     public class EmailSender : IEmailSender
     {

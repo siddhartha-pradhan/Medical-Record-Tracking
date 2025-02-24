@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Silverline.Core.Entities;
+namespace EMR.Core.Entities;
 
 public class RecordDetail
 {

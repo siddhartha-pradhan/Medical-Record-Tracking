@@ -1,6 +1,6 @@
 using AspNetCoreHero.ToastNotification;
-using Silverline.Infrastructure.Dependency;
-using Silverline.Infrastructure.Persistence.Seed;
+using EMR.Infrastructure.Dependency;
+using EMR.Infrastructure.Persistence.Seed;
 using AspNetCoreHero.ToastNotification.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);

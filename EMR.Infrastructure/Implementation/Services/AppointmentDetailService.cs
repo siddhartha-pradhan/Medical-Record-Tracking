@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Silverline.Application.Interfaces.Repositories;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Core.Constants;
-using Silverline.Core.Entities;
-using Silverline.Infrastructure.Persistence;
+using EMR.Application.Interfaces.Repositories;
+using EMR.Application.Interfaces.Services;
+using EMR.Core.Constants;
+using EMR.Core.Entities;
+using EMR.Infrastructure.Persistence;
 
-namespace Silverline.Infrastructure.Implementation.Services;
+namespace EMR.Infrastructure.Implementation.Services;
 
 public class AppointmentDetailService : IAppointmentDetailService
 {

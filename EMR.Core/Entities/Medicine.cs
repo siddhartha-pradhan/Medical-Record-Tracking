@@ -1,8 +1,8 @@
-﻿using Silverline.Core.Entities.Shared;
+﻿using EMR.Core.Entities.Shared;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Silverline.Core.Entities;
+namespace EMR.Core.Entities;
 
 public class Medicine : BaseEntity
 {

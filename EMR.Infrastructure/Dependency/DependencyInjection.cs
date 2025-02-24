@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Silverline.Infrastructure.Persistence;
+using EMR.Infrastructure.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Application.Interfaces.Repositories;
-using Silverline.Infrastructure.Implementation.Services;
-using Silverline.Infrastructure.Implementation.Repositories;
-using Silverline.Core.Entities;
-using Silverline.Infrastructure.Persistence.Seed;
+using EMR.Application.Interfaces.Services;
+using EMR.Application.Interfaces.Repositories;
+using EMR.Infrastructure.Implementation.Services;
+using EMR.Infrastructure.Implementation.Repositories;
+using EMR.Core.Entities;
+using EMR.Infrastructure.Persistence.Seed;
 
-namespace Silverline.Infrastructure.Dependency;
+namespace EMR.Infrastructure.Dependency;
 
 public static class DependencyInjection
 {

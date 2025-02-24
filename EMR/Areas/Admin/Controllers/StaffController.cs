@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Silverline.Application.Interfaces.Services;
+using EMR.Application.Interfaces.Services;
 using Microsoft.AspNetCore.WebUtilities;
-using Silverline.Core.Entities;
-using Silverline.Core.ViewModels;
+using EMR.Core.Entities;
+using EMR.Core.ViewModels;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
-using Silverline.Core.Constants;
+using EMR.Core.Constants;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using DocumentFormat.OpenXml.Office2010.Excel;
-using Silverline.Infrastructure.Implementation.Services;
+using EMR.Infrastructure.Implementation.Services;
 
-namespace Silverline.Areas.Admin.Controllers;
+namespace EMR.Areas.Admin.Controllers;
 
 [Area("Admin")]
 [Authorize(Roles = Constants.Admin)]

@@ -1,8 +1,8 @@
-﻿using Silverline.Core.Entities;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Application.Interfaces.Repositories;
+﻿using EMR.Core.Entities;
+using EMR.Application.Interfaces.Services;
+using EMR.Application.Interfaces.Repositories;
 
-namespace Silverline.Infrastructure.Implementation.Services;
+namespace EMR.Infrastructure.Implementation.Services;
 
 public class DoctorService : IDoctorService
 {

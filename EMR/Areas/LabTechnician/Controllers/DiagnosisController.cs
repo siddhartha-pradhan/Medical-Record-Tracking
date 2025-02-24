@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Silverline.Core.Constants;
+using EMR.Core.Constants;
 using Microsoft.AspNetCore.Authorization;
-using Silverline.Application.Interfaces.Services;
-using Silverline.Core.ViewModels;
-using Silverline.Core.Entities;
-using Silverline.Application.Interfaces.Repositories;
-using Silverline.Infrastructure.Implementation.Services;
+using EMR.Application.Interfaces.Services;
+using EMR.Core.ViewModels;
+using EMR.Core.Entities;
+using EMR.Application.Interfaces.Repositories;
+using EMR.Infrastructure.Implementation.Services;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Hosting;
 using DocumentFormat.OpenXml.Office2010.Excel;
@@ -13,7 +13,7 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.Reporting.NETCore;
 //using Microsoft.Reporting.WebForms;
 
-namespace Silverline.Areas.LabTechnician.Controllers;
+namespace EMR.Areas.LabTechnician.Controllers;
 
 [Area("LabTechnician")]
 [Authorize(Roles = Constants.LabTechnician)]
