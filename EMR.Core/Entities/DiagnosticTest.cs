@@ -9,9 +9,9 @@ public class DiagnosticTest : BaseEntity
     [Key]
     public Guid Id { get; set; }
 
-    public string Title { get; set; }
+    public string Title { get; set; } = string.Empty;
 
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
     [Display(Name = "Initial Range")]
     public float InitialRange { get; set; }
@@ -19,7 +19,7 @@ public class DiagnosticTest : BaseEntity
     [Display(Name = "Final Range")]
     public float FinalRange { get; set; }
 
-    public string Unit { get; set; }
+    public string Unit { get; set; } = string.Empty;
 
     [Display(Name = "Unit Price")]
     public float UnitPrice { get; set; }

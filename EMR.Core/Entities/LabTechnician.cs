@@ -6,18 +6,18 @@ public class LabTechnician
 {
     public Guid Id { get; set; }
 
-    public string UserId { get; set; }
+    public string UserId { get; set; } = string.Empty;
 
-    public string CertificateNumber { get; set; }
+    public string CertificateNumber { get; set; } = string.Empty;
 
-    public string HighestMedicalDegree { get; set; }
+    public string HighestMedicalDegree { get; set; } = string.Empty;
 
-    public string ResumeURL { get; set; }
+    public string ResumeURL { get; set; } = string.Empty;
 
-    public string CertificationURL { get; set; }
+    public string CertificationURL { get; set; } = string.Empty;
 
     public bool IsApproved { get; set; } = false;
 
     [ForeignKey("UserId")]
-    public virtual User User { get; set; }
+    public virtual User? User { get; set; }
 }

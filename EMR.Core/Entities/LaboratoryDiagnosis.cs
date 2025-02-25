@@ -15,7 +15,7 @@ public class LaboratoryDiagnosis
     public float? Value { get; set; }
 
     [Display(Name = "Doctor Remarks")]
-	public string DoctorRemarks { get; set; }
+	public string DoctorRemarks { get; set; } = string.Empty;
 
     [Display(Name = "Technician Remarks")]
 	public string? TechnicianRemarks { get; set; }

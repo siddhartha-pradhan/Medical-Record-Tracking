@@ -10,10 +10,10 @@ public class AppointmentDetail
     public Guid AppointmentId { get; set; }
 
     [Display(Name = "Diagnostic Title")]
-    public string AppointmentTitle { get; set;}
+    public string AppointmentTitle { get; set;} = string.Empty;
 
     [Display(Name = "Diagnostic Description")]
-    public string AppointmentDescription { get; set; }
+    public string AppointmentDescription { get; set; } = string.Empty;
 
     [ForeignKey("AppointmentId")]
     public Appointment? Appointment { get; set; }
