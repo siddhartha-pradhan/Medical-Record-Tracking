@@ -1,19 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using EMR.Core.Entities.Shared;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EMR.Core.Entities;
 
-public class RecordDetail
+public class RecordDetail() : BaseEntity<Guid>(Guid.NewGuid())
 {
-    public Guid Id { get; set; }
-
+    [ForeignKey(nameof(RecordHeader))]
     public Guid RecordId { get; set; }
 
-    public string Title { get; set; }
+    public string Title { get; set; } = string.Empty;
 
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
     public DateTime DateOfAppointment { get; set; }
 
-    [ForeignKey("RecordId")]
-    public virtual RecordHeader RecordHeader { get; set; }
+    public virtual RecordHeader? RecordHeader { get; set; }
 }

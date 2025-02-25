@@ -1,12 +1,8 @@
 ﻿using EMR.Core.Entities.Shared;
-using System.ComponentModel.DataAnnotations;
 
 namespace EMR.Core.Entities;
 
-public class TestType : BaseEntity
+public class TestType() : BaseEntity<Guid>(Guid.NewGuid())
 {
-    [Key]
-    public Guid Id { get; set; }
-
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 }

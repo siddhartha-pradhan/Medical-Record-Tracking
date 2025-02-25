@@ -1,14 +1,10 @@
 ﻿using EMR.Core.Entities.Shared;
-using System.ComponentModel.DataAnnotations;
 
 namespace EMR.Core.Entities;
 
-public class Specialty : BaseEntity
+public class Specialty() : BaseEntity<Guid>(Guid.NewGuid())
 {
-    [Key]
-    public Guid Id { get; set; }
+    public string Name { get; set; } = string.Empty;
 
-    public string Name { get; set; }
-
-    public virtual ICollection<Doctor>? Doctors { get; set; }
+    public virtual ICollection<MedicalOfficer>? Doctors { get; set; }
 }

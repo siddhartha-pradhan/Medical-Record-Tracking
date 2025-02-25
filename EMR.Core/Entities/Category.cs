@@ -1,13 +1,9 @@
 ﻿using EMR.Core.Entities.Shared;
-using System.ComponentModel.DataAnnotations;
 
 namespace EMR.Core.Entities;
 
-public class Category : BaseEntity
+public class Category() : BaseEntity<Guid>(Guid.Empty)
 {
-    [Key]
-    public Guid Id { get; set; }
-
     public string Name { get; set; } = string.Empty;
 
     public virtual ICollection<Medicine>? Medicines { get; set; }

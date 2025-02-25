@@ -4,13 +4,13 @@ namespace EMR.Application.Interfaces.Services;
 
 public interface IDoctorService
 {
-    Doctor GetDoctor(Guid Id);
+    MedicalOfficer GetDoctor(Guid Id);
 
-    Doctor GetUserDoctor(string Id);
+    MedicalOfficer GetUserDoctor(string Id);
 
-    List<Doctor> GetAllDoctors();
+    List<MedicalOfficer> GetAllDoctors();
 
-    void AddDoctor(Doctor doctor);
+    void AddDoctor(MedicalOfficer medicalOfficer);
 
-    void ApproveDoctor(Doctor doctor);
+    void ApproveDoctor(MedicalOfficer medicalOfficer);
 }

@@ -1,15 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EMR.Core.Entities.Shared;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EMR.Core.Entities;
 
-public class TestCart
+public class TestCart() : BaseEntity<Guid>(Guid.NewGuid())
 {
-    [Key]
-    public Guid Id { get; set; }
-
+    [ForeignKey(nameof(Patient))]
     public Guid PatientId { get; set; }
 
+    [ForeignKey(nameof(DiagnosticTest))]
     public Guid TestId { get; set; }
 
     public string PaymentStatus { get; set; } = Constants.Constants.Pending;
@@ -24,11 +23,7 @@ public class TestCart
 
     public DateTime FinalizedDate { get; set; }
 
+    public virtual Patient? Patient { get; set; }
 
-    [ForeignKey("PatientId")]
-    public virtual Patient Patient { get; set; }
-
-    [ForeignKey("TestId")]
-    public virtual DiagnosticTest DiagnosticTest { get; set; }
-
+    public virtual DiagnosticTest? DiagnosticTest { get; set; }
 }

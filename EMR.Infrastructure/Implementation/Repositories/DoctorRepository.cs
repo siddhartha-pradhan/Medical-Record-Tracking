@@ -4,7 +4,7 @@ using EMR.Infrastructure.Persistence;
 
 namespace EMR.Infrastructure.Implementation.Repositories;
 
-public class DoctorRepository : Repository<Doctor>, IDoctorRepository
+public class DoctorRepository : Repository<MedicalOfficer>, IDoctorRepository
 {
     private readonly ApplicationDbContext _dbContext;
 

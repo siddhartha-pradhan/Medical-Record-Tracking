@@ -1,20 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EMR.Core.Entities.Shared;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EMR.Core.Entities;
 
-public class Appointment
+public class Appointment() : BaseEntity<Guid>(Guid.NewGuid())
 {
-    [Key]
-    public Guid Id { get; set; }
-
+    [ForeignKey(nameof(Patient))]
     public Guid PatientId { get; set; } 
 
+    [ForeignKey(nameof(Doctor))]
     public Guid DoctorId { get; set; }
 
     public DateTime BookedDate { get; set; } = DateTime.Now;
 
-    [Display(Name = "Date of Appointment")]
     public DateTime DateOfAppointment { get; set; }
 
     public string AppointmentStatus { get; set; } = Constants.Constants.Booked;
@@ -23,16 +21,13 @@ public class Appointment
 
     public float FeeAmount { get; set; } = 0;
 
-    [Display(Name = "Appointment Request")]
     public string AppointmentRequest { get; set; } = string.Empty;
 
     public DateTime StartTime { get; set; }
 
     public DateTime FinalizedTime { get; set; }
 
-    [ForeignKey("PatientId")]
     public virtual Patient? Patient { get; set; }
 
-    [ForeignKey("DoctorId")]
-    public virtual Doctor? Doctor { get; set; }
+    public virtual MedicalOfficer? Doctor { get; set; }
 }

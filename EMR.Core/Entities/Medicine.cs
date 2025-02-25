@@ -1,47 +1,33 @@
 ﻿using EMR.Core.Entities.Shared;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EMR.Core.Entities;
 
-public class Medicine : BaseEntity
+public class Medicine() : BaseEntity<Guid>(Guid.NewGuid())
 {
-    [Key]
-    public Guid Id { get; set; }
+    public string Name { get; set; } = string.Empty;
 
-    [Required]
-    public string Name { get; set; }
+    public string Description { get; set; } = string.Empty;
 
-    [Required]
-    public string Description { get; set; }
-
-    [Required]
-    [Display(Name = "Unit Price")]
     public float UnitPrice { get; set; }
 
-    [Required]
-    public string Type { get; set; }
+    public string Type { get; set; } = string.Empty;
 
-    [Display(Name = "Image")]
-    public string? ImageURL { get; set; }
+    public string? Image { get; set; } = string.Empty;
 
-    [Required]
-    [Display(Name = "Manufacturer")]
+    [ForeignKey(nameof(Manufacturer))]
     public Guid ManufacturerId { get; set; }    
 
-    [Required]
-    [Display(Name = "Category")]
+    [ForeignKey(nameof(Category))]
     public Guid CategoryId { get; set; }
 
-    [ForeignKey("ManufacturerId")]
+    public virtual Category? Category { get; set; }
+
     public virtual Manufacturer? Manufacturer { get; set; }
 
-    [ForeignKey("CategoryId")]
-    public virtual Category? Category { get; set; }
+    public virtual ICollection<OrderDetail>? OrderDetails { get; set; }
 
     public virtual ICollection<MedicineCart>? MedicineCarts { get; set; }
 
     public virtual ICollection<MedicationTreatment>? MedicationTreatments { get; set; }
-
-    public virtual ICollection<OrderDetail>? OrderDetails { get; set; }
 }

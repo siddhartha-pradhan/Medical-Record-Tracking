@@ -21,7 +21,7 @@ public class ApplicationDbContext : IdentityDbContext
 
     public DbSet<DiagnosticTest> DiagnosticTests { get; set; }
 
-    public DbSet<Doctor> Doctors { get; set; }
+    public DbSet<MedicalOfficer> Doctors { get; set; }
     
     public DbSet<LaboratoryDiagnosis> LaboratoryDiagnosis { get; set; }
 

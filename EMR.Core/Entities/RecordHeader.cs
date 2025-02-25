@@ -1,17 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EMR.Core.Entities.Shared;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EMR.Core.Entities;
 
-public class RecordHeader
+public class RecordHeader() : BaseEntity<Guid>(Guid.NewGuid())
 {
-    [Key]
-    public Guid Id { get ; set; }   
-
+    [ForeignKey(nameof(Patient))]
     public Guid PatientId { get; set; }
 
-    public string Title { get; set; }
+    public string Title { get; set; } = string.Empty;
 
-    [ForeignKey("PatientId")]
-    public virtual Patient Patient { get; set; }
+    public virtual Patient? Patient { get; set; }
 }

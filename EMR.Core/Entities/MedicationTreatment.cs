@@ -1,47 +1,49 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EMR.Core.Entities.Shared;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EMR.Core.Entities;
 
-public class MedicationTreatment
+public class MedicationTreatment(): BaseEntity<Guid>(Guid.NewGuid())
 {
-    [Key]
-    public Guid Id { get; set; }
+	[ForeignKey(nameof(Pharmacist))]
+	public Guid? PharmacistId { get; set; }
 
+	[ForeignKey(nameof(Medicine))]
     public Guid MedicineId { get; set; }
 
+	[ForeignKey(nameof(AppointmentDetail))]
     public Guid ReferralId { get; set; }
 
-    public string Status { get; set; } = Constants.Constants.Ongoing; // refers to the medication being under going
+    /// <summary>
+    /// The following property refers to the medication being undergoing.
+    /// </summary>
+    public string Status { get; set; } = Constants.Constants.Ongoing;
 
-    public string Dose { get; set; }
+    public string Dose { get; set; } = string.Empty;
 
-    public bool IsCompleted { get; set; } = false;
+    public bool IsCompleted { get; set; }
 
-    [Display(Name = "Time Period")]
-    public string TimePeriod { get; set; }  // Period refering for how long the medication is to be taken or intervals
+    /// <summary>
+    /// The following property defines the period referring for how long the medication is to be taken or intervals.
+    /// </summary>
+    public string TimePeriod { get; set; } = string.Empty;
     
-    [Display(Name = "Time Format")]
-    public string TimeFormat { get; set; }  // Format refering for when the medication is to be taken
+    /// <summary>
+    /// The following property defines the format referring for when the medication is to be taken.
+    /// </summary>
+    public string TimeFormat { get; set; } = string.Empty;
 
-    [Display(Name = "Doctor Remarks")]
-	public string DoctorRemarks { get; set; }
+	public string DoctorRemarks { get; set; } = string.Empty;
 
-    [Display(Name = "Pharmacist Remarks")]
 	public string? PharmacistRemarks { get; set; }
 
 	public string? ActionStatus { get; set; } = Constants.Constants.Pending;
 
 	public DateTime? FinalizedDate { get; set; }
 
-	public Guid? PharmacistId { get; set; }
+    public virtual MedicalOfficer? Pharmacist { get; set; }
 
-    [ForeignKey("PharmacistId")]
-    public virtual Pharmacist? Pharmacist { get; set; }
-
-    [ForeignKey("MedicineId")]
     public virtual Medicine? Medicine { get; set; }
 
-    [ForeignKey("ReferralId")]
     public virtual AppointmentDetail? AppointmentDetail { get; set; }
 }

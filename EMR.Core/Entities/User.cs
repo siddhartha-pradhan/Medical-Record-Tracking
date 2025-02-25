@@ -2,11 +2,9 @@
 
 namespace EMR.Core.Entities;
 
-public class User : IdentityUser
+public class User : IdentityUser<Guid>
 {
-    public string FullName { get; set; }
+    public string Name { get; set; } = string.Empty;
 
-    public string ImageURL { get; set; }
-
-    public byte[] ProfileImage { get; set; }
+    public string Image { get; set; } = string.Empty;
 }

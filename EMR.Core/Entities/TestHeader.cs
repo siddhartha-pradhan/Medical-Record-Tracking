@@ -1,24 +1,22 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using EMR.Core.Entities.Shared;
 
 namespace EMR.Core.Entities;
 
-public class TestHeader
+public class TestHeader() : BaseEntity<Guid>(Guid.NewGuid())
 {
-    [Key]
-    public Guid Id { get; set; }
-
+    [ForeignKey(nameof(Patient))]
     public Guid PatientId { get; set; }
-
-    public string Status { get; set; } = Constants.Constants.Booked;
+    
+    public float TotalAmount { get; set; }
 
     public DateTime OrderedDate { get; set; } = DateTime.Now;
 
+    public string Status { get; set; } = Constants.Constants.Booked;
+
     public string PaymentStatus { get; set; } = Constants.Constants.Pending;
 
-    public float TotalAmount { get; set; }
-
-    [ForeignKey("PatientId")]
     public virtual Patient? Patient { get; set; }
 
     public virtual ICollection<TestDetail>? TestDetails { get; set; }

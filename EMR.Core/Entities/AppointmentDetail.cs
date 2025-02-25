@@ -1,21 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EMR.Core.Entities.Shared;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EMR.Core.Entities;
 
-public class AppointmentDetail
+public class AppointmentDetail() : BaseEntity<Guid>(Guid.NewGuid())
 {
-    public Guid Id { get; set; }    
-
+    [ForeignKey(nameof(Appointment))]
     public Guid AppointmentId { get; set; }
 
-    [Display(Name = "Diagnostic Title")]
     public string AppointmentTitle { get; set;} = string.Empty;
 
-    [Display(Name = "Diagnostic Description")]
     public string AppointmentDescription { get; set; } = string.Empty;
 
-    [ForeignKey("AppointmentId")]
     public Appointment? Appointment { get; set; }
 
     public virtual List<MedicationTreatment>? MedicalTreatments { get; set; }

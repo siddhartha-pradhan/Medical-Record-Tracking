@@ -1,23 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EMR.Core.Entities.Shared;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EMR.Core.Entities;
 
-public class OrderHeader
+public class OrderHeader() : BaseEntity<Guid>(Guid.NewGuid())
 {
-    [Key]
-    public Guid Id { get; set; }
-
+    [ForeignKey(nameof(Patient))]
     public Guid PatientId { get; set; }
 
     public DateTime OrderedDate { get; set; }
 
-    public string PaymentStatus { get; set; }
+    public string PaymentStatus { get; set; } = string.Empty;
 
     public float TotalAmount { get; set; }
 
-    [ForeignKey("PatientId")]
-    public virtual Patient Patient { get; set; }
+    public virtual Patient? Patient { get; set; }
 
-    public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+    public virtual ICollection<OrderDetail>? OrderDetails { get; set; }
 }

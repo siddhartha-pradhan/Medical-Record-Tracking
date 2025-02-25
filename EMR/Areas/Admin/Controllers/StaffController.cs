@@ -76,7 +76,7 @@ public class StaffController : Controller
 		var password = "EMR@123";
 		var wwwRootPath = _webHostEnvironment.WebRootPath;
 		var fileCount = Request.Form.Files.Count;
-		var doctor = new Core.Entities.Doctor();
+		var doctor = new Core.Entities.MedicalOfficer();
 		var labTechnician = new Core.Entities.LabTechnician();
 		var pharmacist = new Core.Entities.Pharmacist();
 

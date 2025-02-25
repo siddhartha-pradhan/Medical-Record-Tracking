@@ -1,23 +1,23 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EMR.Core.Entities.Shared;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EMR.Core.Entities;
 
-public class LaboratoryDiagnosis
+public class LaboratoryDiagnosis() : BaseEntity<Guid>(Guid.NewGuid())
 {
-    [Key]
-    public Guid Id { get; set; }
-
+	[ForeignKey(nameof(DiagnosticTest))]
     public Guid TestId { get; set; }
 
+    [ForeignKey(nameof(AppointmentDetail))]
     public Guid ReferralId { get; set; }
 
+    [ForeignKey(nameof(LabTechnician))]
+    public Guid? TechnicianId { get; set; }
+    
     public float? Value { get; set; }
 
-    [Display(Name = "Doctor Remarks")]
 	public string DoctorRemarks { get; set; } = string.Empty;
 
-    [Display(Name = "Technician Remarks")]
 	public string? TechnicianRemarks { get; set; }
 
     public string? Status { get; set; } = Constants.Constants.Ongoing;
@@ -26,10 +26,7 @@ public class LaboratoryDiagnosis
 
     public DateTime? FinalizedDate { get; set; }
 
-	public Guid? TechnicianId { get; set; }
-
-    [ForeignKey("TechnicianId")]
-    public virtual LabTechnician? LabTechnician { get; set; }
+    public virtual MedicalOfficer? LabTechnician { get; set; }
 
     [ForeignKey("TestId")]
     public virtual DiagnosticTest? DiagnosticTest { get; set; }

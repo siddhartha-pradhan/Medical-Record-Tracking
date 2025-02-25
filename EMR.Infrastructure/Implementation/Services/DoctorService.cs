@@ -13,33 +13,33 @@ public class DoctorService : IDoctorService
         _unitOfWork = unitOfWork;
     }
 
-    public void AddDoctor(Doctor doctor)
+    public void AddDoctor(MedicalOfficer medicalOfficer)
     {
-        _unitOfWork.Doctor.Add(doctor);
+        _unitOfWork.Doctor.Add(medicalOfficer);
         _unitOfWork.Save();
     }
 
-    public void ApproveDoctor(Doctor doctor)
+    public void ApproveDoctor(MedicalOfficer medicalOfficer)
     {
-        var appUser = _unitOfWork.AppUser.GetFirstOrDefault(x => x.Id == doctor.UserId);
+        var appUser = _unitOfWork.AppUser.GetFirstOrDefault(x => x.Id == medicalOfficer.UserId);
 
-        doctor.IsApproved = true;
+        medicalOfficer.IsApproved = true;
         appUser.EmailConfirmed = true;
 
         _unitOfWork.Save();
     }
 
-    public List<Doctor> GetAllDoctors()
+    public List<MedicalOfficer> GetAllDoctors()
     {
         return _unitOfWork.Doctor.GetAll();
     }
 
-    public Doctor GetDoctor(Guid Id)
+    public MedicalOfficer GetDoctor(Guid Id)
     {
         return _unitOfWork.Doctor.Get(Id);
     }
 
-    public Doctor GetUserDoctor(string Id)
+    public MedicalOfficer GetUserDoctor(string Id)
     {
         return _unitOfWork.Doctor.Retrieve(Id);
     }
