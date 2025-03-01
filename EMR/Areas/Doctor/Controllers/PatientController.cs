@@ -33,8 +33,8 @@ public class PatientController : Controller
 	private readonly ILabDiagnosisService _labDiagnosisService;
 	private readonly IMedicalTreatmentService _medicalTreatmentService;
     private readonly IWebHostEnvironment _webHostEnvironment;
-    private readonly UserManager<IdentityUser> _userManager;
-    private readonly IUserStore<IdentityUser> _userStore;
+    private readonly UserManager<User> _userManager;
+    private readonly IUserStore<User> _userStore;
     private readonly IEmailSender _emailSender;
 
 
@@ -51,8 +51,8 @@ public class PatientController : Controller
 		ILabDiagnosisService labDiagnosisService,
 		IMedicalTreatmentService medicalTreatmentService,
         IWebHostEnvironment webHostEnvironment,
-        UserManager<IdentityUser> userManager,
-        IUserStore<IdentityUser> userStore,
+        UserManager<User> userManager,
+        IUserStore<User> userStore,
         IEmailSender emailSender)
 	{
 		_appointmentService = appointmentService;

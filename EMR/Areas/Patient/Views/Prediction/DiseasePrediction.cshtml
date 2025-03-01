@@ -1,0 +1,103 @@
+﻿@model EMR.Core.ViewModels.MLModel.SymptomDataWithLabel;
+
+@{
+    ViewData["Title"] = "Disease Prediction";
+}
+
+<div class="pt-4 ml-4 pl-3 mb-4">
+    <h1>Disease Prediction</h1>
+</div>
+
+<div class="container row">
+    <div class="col-10">
+        <form asp-controller="Prediction" asp-action="DiseasePrediction" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="Fever" class="control-label"></label>
+                            <input asp-for="Fever" class="form-control" />
+                            <span asp-validation-for="Fever" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Cough" class="control-label"></label>
+                            <input asp-for="Cough" class="form-control" />
+                            <span asp-validation-for="Cough" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Fatigue" class="control-label"></label>
+                            <input asp-for="Fatigue" class="form-control" />
+                            <span asp-validation-for="Fatigue" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="ShortnessOfBreath" class="control-label"></label>
+                            <input asp-for="ShortnessOfBreath" class="form-control" />
+                            <span asp-validation-for="ShortnessOfBreath" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="HeadAche" class="control-label"></label>
+                            <input asp-for="HeadAche" class="form-control" />
+                            <span asp-validation-for="HeadAche" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="SoreThroat" class="control-label"></label>
+                            <input asp-for="SoreThroat" class="form-control" />
+                            <span asp-validation-for="SoreThroat" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="ChestPain" class="control-label"></label>
+                            <input asp-for="ChestPain" class="form-control" />
+                            <span asp-validation-for="ChestPain" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Nausea" class="control-label"></label>
+                            <input asp-for="Nausea" class="form-control" />
+                            <span asp-validation-for="Nausea" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="BodyAches" class="control-label"></label>
+                            <input asp-for="BodyAches" class="form-control" />
+                            <span asp-validation-for="BodyAches" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Diarrhea" class="control-label"></label>
+                            <input asp-for="Diarrhea" class="form-control" />
+                            <span asp-validation-for="Diarrhea" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Rash" class="control-label"></label>
+                            <input asp-for="Rash" class="form-control" />
+                            <span asp-validation-for="Rash" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="JointPain" class="control-label"></label>
+                            <input asp-for="JointPain" class="form-control" />
+                            <span asp-validation-for="JointPain" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Predict" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-2">
+        @if (ViewBag.HeartPrediction != null)
+        {
+            <div class="col-md-4">
+                <h4>Prediction: @ViewBag.DiseasePrediction.Disease</h4>
+                <h4>Probability: @ViewBag.DiseasePrediction.Score</h4>
+            </div>
+        }
+    </div>
+</div>

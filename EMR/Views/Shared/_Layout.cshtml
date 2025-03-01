@@ -1,11 +1,12 @@
 ﻿@using EMR.Core.Constants;
 @using Microsoft.AspNetCore.Identity;
 @using EMR.Application.Interfaces.Services;
+@using EMR.Core.Entities
 
 @inject IAppUserService UserService
 @inject IPatientService PatientService
-@inject UserManager<IdentityUser> UserManager
-@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<User> UserManager
+@inject SignInManager<User> SignInManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -301,6 +302,36 @@
 								</ul>
 							</li>
 
+							<li class="nav-item menu-close">
+								<a href="#" class="nav-link">
+									&nbsp; <i class="fas fa-calendar-check"></i>
+									<p>
+										&nbsp; &nbsp; Prediction
+										<i class="right fas fa-angle-left"></i>
+									</p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a asp-area="Patient" asp-controller="Prediction" asp-action="HeartDiseasePredict" class="nav-link">
+											<p>
+												<i class="far fa-circle nav-icon"></i>
+												&nbsp; Heart Disease Predictions 
+											</p>
+										</a>
+									</li>
+								</ul>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a asp-area="Patient" asp-controller="Prediction" asp-action="DiseasePrediction" class="nav-link">
+											<p>
+												<i class="far fa-circle nav-icon"></i>
+												&nbsp; Disease Predictions
+											</p>
+										</a>
+									</li>
+								</ul>
+							</li>
+							
 							<li class="nav-item">
 								<a asp-area="Patient" asp-controller="Appointment" asp-action="MedicalRecords" class="nav-link">
 									&nbsp; <i class="fas fa-file-medical"></i>

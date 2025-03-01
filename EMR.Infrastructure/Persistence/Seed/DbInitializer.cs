@@ -9,11 +9,11 @@ namespace EMR.Infrastructure.Persistence.Seed;
 public class DbInitializer : IDbInitializer
 {
     private readonly ApplicationDbContext _dbContext;
-	private readonly UserManager<IdentityUser> _userManager;
+	private readonly UserManager<User> _userManager;
 	private readonly RoleManager<IdentityRole> _roleManager;
 
 	public DbInitializer(ApplicationDbContext dbContext, 
-        UserManager<IdentityUser> userManager, 
+        UserManager<User> userManager, 
         RoleManager<IdentityRole> roleManager)
     {
 		_dbContext = dbContext;

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using System.ComponentModel.DataAnnotations;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using EMR.Application.Interfaces.Services;
+using EMR.Core.Entities;
 
 namespace EMR.Areas.Identity.Pages.Account
 {
@@ -13,13 +14,13 @@ namespace EMR.Areas.Identity.Pages.Account
     {
 		private readonly INotyfService _notyf;
         private readonly ILogger<LoginModel> _logger;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
-		public LoginModel(SignInManager<IdentityUser> signInManager,
+		public LoginModel(SignInManager<User> signInManager,
             IPatientService patientService,
             ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager,
+            UserManager<User> userManager,
 			INotyfService notyf)
         {
             _notyf = notyf;

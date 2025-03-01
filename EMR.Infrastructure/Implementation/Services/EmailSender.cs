@@ -13,8 +13,8 @@ namespace EMR.Infrastructure.Implementation.Services
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            string fromMail = "siddhartha.pradhan.ix@gmail.com";
-            string fromPassword = "pdmbzacgnxdifhya";
+            string fromMail = "siddhartha.affinity@gmail.com";
+            string fromPassword = "ymoecizqvhdcfsnu";
 
             MailMessage message = new MailMessage();
 

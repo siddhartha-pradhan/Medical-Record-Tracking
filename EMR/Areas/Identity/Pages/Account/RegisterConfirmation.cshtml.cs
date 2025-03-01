@@ -12,15 +12,16 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using EMR.Core.Entities;
 
 namespace EMR.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterConfirmationModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<User> _userManager;
 
-		public RegisterConfirmationModel(UserManager<IdentityUser> userManager)
+		public RegisterConfirmationModel(UserManager<User> userManager)
         {
             _userManager = userManager;
 		}

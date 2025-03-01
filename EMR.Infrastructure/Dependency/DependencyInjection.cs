@@ -22,7 +22,7 @@ public static class DependencyInjection
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(connectionString));
 
-        services.AddIdentity<IdentityUser, IdentityRole>(options => 
+        services.AddIdentity<User, IdentityRole>(options => 
             options.SignIn.RequireConfirmedAccount = true)
             .AddDefaultTokenProviders()
             .AddEntityFrameworkStores<ApplicationDbContext>();

@@ -18,9 +18,9 @@ namespace EMR.Areas.Admin.Controllers;
 [Authorize(Roles = Constants.Admin)]
 public class StaffController : Controller
 {
-	private readonly SignInManager<IdentityUser> _signInManager;
-	private readonly UserManager<IdentityUser> _userManager;
-	private readonly IUserStore<IdentityUser> _userStore;
+	private readonly SignInManager<User> _signInManager;
+	private readonly UserManager<User> _userManager;
+	private readonly IUserStore<User> _userStore;
 	private readonly IEmailSender _emailSender;
 	private readonly RoleManager<IdentityRole> _roleManager;
 	private readonly IWebHostEnvironment _webHostEnvironment;
@@ -31,9 +31,9 @@ public class StaffController : Controller
 	private readonly IAppUserService _appUserService;
 
 	public StaffController(
-		UserManager<IdentityUser> userManager,
-		IUserStore<IdentityUser> userStore,
-		SignInManager<IdentityUser> signInManager,
+		UserManager<User> userManager,
+		IUserStore<User> userStore,
+		SignInManager<User> signInManager,
 		IEmailSender emailSender,
 		RoleManager<IdentityRole> roleManager,
 		IWebHostEnvironment webHostEnvironment,
@@ -73,7 +73,7 @@ public class StaffController : Controller
 		var folder = "staffs";
 		var user = new User();
 		var role = userModel.Role;
-		var password = "EMR@123";
+		var password = "Emr@123";
 		var wwwRootPath = _webHostEnvironment.WebRootPath;
 		var fileCount = Request.Form.Files.Count;
 		var doctor = new Core.Entities.Doctor();
@@ -245,6 +245,9 @@ public class StaffController : Controller
 					return RedirectToAction("Index", "Pharmacist");
 			}
 		}
+
+		Index();
+		
 		return View();
 	}
 }

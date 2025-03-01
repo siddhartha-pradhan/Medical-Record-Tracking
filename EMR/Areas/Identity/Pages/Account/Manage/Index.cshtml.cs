@@ -13,19 +13,20 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using EMR.Application.Interfaces.Repositories;
 using EMR.Application.Interfaces.Services;
 using EMR.Infrastructure.Implementation.Services;
+using EMR.Core.Entities;
 
 namespace EMR.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly IAppUserService _appUserService;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
         public IndexModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
             IAppUserService appUserService,
             IWebHostEnvironment webHostEnvironment)
         {
@@ -53,7 +54,7 @@ namespace EMR.Areas.Identity.Pages.Account.Manage
             public string ProfileImage { get; set; }
         }
 
-        private async Task LoadAsync(IdentityUser user)
+        private async Task LoadAsync(User user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
